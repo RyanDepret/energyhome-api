@@ -1,11 +1,11 @@
-from rag import mistral_chat, model_embedding, embeddings, documents
+from rag import mistral_chat, get_embedding, embeddings, documents
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 
 def get_context(query, top_k=2):
-    q_emb = model_embedding.encode([query])
-    sims = cosine_similarity(q_emb, embeddings)[0]
+    q_emb = get_embedding(query)
+    sims = cosine_similarity([q_emb], embeddings)[0]
     indices = np.argsort(sims)[::-1][:top_k]
     return "\n\n".join([documents[idx] for idx in indices])
 
