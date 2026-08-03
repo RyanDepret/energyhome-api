@@ -1,9 +1,10 @@
-from rag import mistral_chat, get_embedding, embeddings, documents
+from rag import mistral_chat, get_embedding, get_embeddings, documents
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 
 def get_context(query, top_k=2):
+    embeddings = get_embeddings()
     q_emb = get_embedding(query)
     sims = cosine_similarity([q_emb], embeddings)[0]
     indices = np.argsort(sims)[::-1][:top_k]
