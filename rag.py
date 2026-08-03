@@ -1,11 +1,10 @@
 import os
 import requests
 import numpy as np
-from dotenv import load_dotenv
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Chargement de la clé API depuis .env
-load_dotenv()
+
+# Lecture directe de la variable d'environnement Railway
 API_KEY = os.getenv("MISTRAL_API_KEY")
 print(f"API_KEY chargée : {API_KEY[:5] if API_KEY else 'VIDE'}")
 
