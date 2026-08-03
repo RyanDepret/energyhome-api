@@ -58,13 +58,12 @@ CONTEXTE :
     reponse = mistral_chat(prompt)
 
     try:
-        # Nettoyage si le LLM a entouré sa réponse de backticks markdown
-        reponse_clean = reponse.strip()
-        if reponse_clean.startswith("```"):
-            reponse_clean = reponse_clean.split("```")[1]
-            if reponse_clean.startswith("json"):
-                reponse_clean = reponse_clean[4:]
-        data = json.loads(reponse_clean)
+        # Extraction du JSON, quelle que soit la forme de l'enrobage
+        debut = reponse.find("{")
+        fin = reponse.rfind("}")
+        if debut == -1 or fin == -1:
+            raise ValueError("Aucun JSON trouvé dans la réponse")
+        data = json.loads(reponse[debut:fin + 1])
     except Exception:
         # Fallback si le JSON est invalide ou tronqué
         indisponible = "Analysis unavailable" if locale == "en" else "Analyse indisponible"
