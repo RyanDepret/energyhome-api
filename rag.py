@@ -7,6 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 # Chargement de la clé API depuis .env
 load_dotenv()
 API_KEY = os.getenv("MISTRAL_API_KEY")
+print(f"API_KEY chargée : {API_KEY[:5] if API_KEY else 'VIDE'}")
 
 # Base de connaissances sur la rénovation énergétique
 documents = [
