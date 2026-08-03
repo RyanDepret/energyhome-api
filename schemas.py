@@ -33,6 +33,7 @@ class PredictionInput(BaseModel):
 
 class ChatInput(BaseModel):
     question: str
+    locale: str = "fr"
 
 class AgentInput(BaseModel):
     classe_dpe: str
@@ -40,6 +41,7 @@ class AgentInput(BaseModel):
     annee_construction: int
     consommation_kwh: float
     nb_pieces: int
+    locale: str = "fr"
 
 class ContactInput(BaseModel):
     nom: str

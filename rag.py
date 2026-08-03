@@ -144,7 +144,7 @@ def mistral_chat(prompt):
     payload = {
         "model": "mistral-small-latest",
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 400
+        "max_tokens": 1000
     }
     response = requests.post(url, headers=headers, json=payload)
     result = response.json()
@@ -172,10 +172,9 @@ def get_embeddings():
 
 # ── RAG ───────────────────────────────────────────────────────────────────────
 
-def rag_query(question, top_k=3):
+def rag_query(question, top_k=3, locale="fr"):
     embeddings = get_embeddings()
 
-    # RETRIEVAL — recherche des documents les plus proches
     question_embedding = get_embedding(question)
     similarites = cosine_similarity([question_embedding], embeddings)[0]
     indices_top = np.argsort(similarites)[::-1][:top_k]
@@ -186,12 +185,13 @@ def rag_query(question, top_k=3):
         for idx in indices_top
     ]
 
-    # AUGMENTATION — construction du prompt avec le contexte récupéré
+    langue = "anglais" if locale == "en" else "français"
+
     prompt = f"""Tu es un assistant expert en rénovation énergétique pour EnergyHome AI.
 
 Réponds à la question en te basant UNIQUEMENT sur le contexte fourni ci-dessous.
 Si l'information n'est pas dans le contexte, dis-le clairement.
-Réponds en français, de manière claire et concise.
+Réponds en {langue}, de manière claire et concise.
 
 CONTEXTE :
 {contexte}
@@ -200,11 +200,6 @@ QUESTION : {question}
 
 RÉPONSE :"""
 
-    # GENERATION — réponse du LLM
     reponse = mistral_chat(prompt)
 
-    return {
-        "question": question,
-        "reponse": reponse,
-        "sources": sources
-    }
+    return {"question": question, "reponse": reponse, "sources": sources}

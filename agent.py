@@ -3,19 +3,27 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 
+
 def get_context(query, top_k=2):
+    # Récupère les documents les plus pertinents pour une requête donnée
     embeddings = get_embeddings()
     q_emb = get_embedding(query)
     sims = cosine_similarity([q_emb], embeddings)[0]
     indices = np.argsort(sims)[::-1][:top_k]
     return "\n\n".join([documents[idx] for idx in indices])
 
-def agent_recommandations(classe_dpe, surface, annee_construction, consommation_kwh, nb_pieces):
+
+def agent_recommandations(classe_dpe, surface, annee_construction,
+                          consommation_kwh, nb_pieces, locale="fr"):
+    # L'agent rassemble son contexte sur trois axes avant de générer le rapport
     contexte_travaux = get_context("isolation pompe chaleur rénovation travaux prioritaires")
     contexte_aides = get_context("MaPrimeRénov CEE éco-prêt aides financement")
     contexte_reglementaire = get_context(f"loi interdiction location classe {classe_dpe}")
 
+    langue = "anglais" if locale == "en" else "français"
+
     prompt = f"""Tu es un assistant expert en rénovation énergétique.
+Rédige TOUS les textes du JSON (titre, resume, detail, items) en {langue}.
 
 Logement : Classe {classe_dpe}, {surface}m², construit en {annee_construction}, {consommation_kwh} kWh/an, {nb_pieces} pièces.
 
@@ -50,19 +58,28 @@ CONTEXTE :
     reponse = mistral_chat(prompt)
 
     try:
-        # Nettoyer la réponse si elle contient des backticks
+        # Nettoyage si le LLM a entouré sa réponse de backticks markdown
         reponse_clean = reponse.strip()
         if reponse_clean.startswith("```"):
             reponse_clean = reponse_clean.split("```")[1]
             if reponse_clean.startswith("json"):
                 reponse_clean = reponse_clean[4:]
         data = json.loads(reponse_clean)
-    except:
-        # Fallback si le JSON est invalide
+    except Exception:
+        # Fallback si le JSON est invalide ou tronqué
+        indisponible = "Analysis unavailable" if locale == "en" else "Analyse indisponible"
+        message = ("Recommendations could not be generated. Please try again."
+                   if locale == "en"
+                   else "Les recommandations n'ont pas pu être générées. Veuillez réessayer.")
         data = {
-            "situation": {"titre": "Situation", "icone": "🏠", "resume": f"Logement classé {classe_dpe}", "detail": reponse},
-            "travaux": {"titre": "Travaux", "icone": "🔨", "resume": "Travaux recommandés", "items": []},
-            "aides": {"titre": "Aides", "icone": "💶", "resume": "Aides disponibles", "items": []}
+            "situation": {
+                "titre": "Situation",
+                "icone": "🏠",
+                "resume": f"Classe {classe_dpe}",
+                "detail": message
+            },
+            "travaux": {"titre": "Travaux", "icone": "🔨", "resume": indisponible, "items": []},
+            "aides": {"titre": "Aides", "icone": "💶", "resume": indisponible, "items": []}
         }
 
     return {

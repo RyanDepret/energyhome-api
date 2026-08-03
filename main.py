@@ -112,18 +112,17 @@ def predict_dpe(data: schemas.PredictionInput):
 
 @app.post("/chat")
 def chat_assistant(data: schemas.ChatInput):
-    # Réponse via le système RAG connecté à Mistral
-    return rag_query(data.question)
+    return rag_query(data.question, locale=data.locale)
 
 @app.post("/agent")
 def agent_dpe(data: schemas.AgentInput):
-    # Génération de recommandations personnalisées par l'agent IA
     return agent_recommandations(
         classe_dpe=data.classe_dpe,
         surface=data.surface,
         annee_construction=data.annee_construction,
         consommation_kwh=data.consommation_kwh,
-        nb_pieces=data.nb_pieces
+        nb_pieces=data.nb_pieces,
+        locale=data.locale
     )
 
 
