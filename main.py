@@ -22,7 +22,10 @@ app = FastAPI(title="EnergyHome AI API")
 # Autorisation des requêtes depuis le front Next.js
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://energyhome-nextjs.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
