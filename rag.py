@@ -15,7 +15,6 @@ documents = [
 ]
 
 def get_embedding(text):
-    # Génère un embedding via l'API Mistral
     url = "https://api.mistral.ai/v1/embeddings"
     headers = {
         "Authorization": f"Bearer {API_KEY}",
@@ -26,7 +25,9 @@ def get_embedding(text):
         "input": [text]
     }
     response = requests.post(url, headers=headers, json=data)
-    return np.array(response.json()["data"][0]["embedding"])
+    result = response.json()
+    print(f"Mistral embedding response: {result}")  # Debug
+    return np.array(result["data"][0]["embedding"])
 
 # Calcul des embeddings de la base de connaissances au démarrage
 print("Chargement des embeddings...")
