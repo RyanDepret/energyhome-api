@@ -2,6 +2,9 @@ import os
 import requests
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 # ── BASE DE CONNAISSANCES ─────────────────────────────────────────────────────

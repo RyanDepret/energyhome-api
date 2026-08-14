@@ -1,2 +1,5 @@
 .env
 __pycache__/
+github-key.json
+test_env/
+energyhome.db
