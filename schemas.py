@@ -26,10 +26,11 @@ class SimulateurInput(BaseModel):
     annee_construction: int
 
 class PredictionInput(BaseModel):
-    surface: float
+    surface_habitable: float
     annee_construction: int
-    consommation_kwh: float
-    nb_pieces: int
+    type_batiment: str          # "maison" ou "appartement"
+    type_chauffage: str          # une des 10 valeurs ADEME (Gaz naturel, Électricité, etc.)
+    code_postal: str
 
 class ChatInput(BaseModel):
     question: str
@@ -39,8 +40,9 @@ class AgentInput(BaseModel):
     classe_dpe: str
     surface: float
     annee_construction: int
-    consommation_kwh: float
-    nb_pieces: int
+    type_batiment: str
+    type_chauffage: str
+    code_postal: str
     locale: str = "fr"
 
 class ContactInput(BaseModel):

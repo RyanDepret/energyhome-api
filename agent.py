@@ -14,7 +14,7 @@ def get_context(query, top_k=2):
 
 
 def agent_recommandations(classe_dpe, surface, annee_construction,
-                          consommation_kwh, nb_pieces, locale="fr"):
+                          type_batiment, type_chauffage, code_postal, locale="fr"):
     # L'agent rassemble son contexte sur trois axes avant de générer le rapport
     contexte_travaux = get_context("isolation pompe chaleur rénovation travaux prioritaires")
     contexte_aides = get_context("MaPrimeRénov CEE éco-prêt aides financement")
@@ -22,10 +22,29 @@ def agent_recommandations(classe_dpe, surface, annee_construction,
 
     langue = "anglais" if locale == "en" else "français"
 
+    # Nuance selon le type de bâtiment : certains travaux nécessitent l'accord
+    # de copropriété en appartement, alors qu'ils sont libres en maison
+    contrainte_batiment = (
+        "Ce logement est un appartement : les travaux touchant l'extérieur "
+        "(isolation des murs, pompe à chaleur avec unité extérieure, panneaux solaires) "
+        "nécessitent généralement l'accord de la copropriété. Mentionne cette nuance "
+        "quand elle s'applique."
+        if type_batiment == "appartement"
+        else "Ce logement est une maison individuelle : le propriétaire peut engager "
+        "librement les travaux extérieurs (isolation, pompe à chaleur, panneaux solaires) "
+        "sans accord de copropriété."
+    )
+
     prompt = f"""Tu es un assistant expert en rénovation énergétique.
 Rédige TOUS les textes du JSON (titre, resume, detail, items) en {langue}.
 
-Logement : Classe {classe_dpe}, {surface}m², construit en {annee_construction}, {consommation_kwh} kWh/an, {nb_pieces} pièces.
+Logement : Classe {classe_dpe}, {surface}m², {type_batiment}, construit en {annee_construction},
+chauffage principal : {type_chauffage}, code postal {code_postal}.
+
+{contrainte_batiment}
+
+Utilise le code postal pour évaluer l'ensoleillement de la région et sa pertinence
+pour l'installation de panneaux solaires si applicable.
 
 Réponds UNIQUEMENT avec un objet JSON valide, sans texte avant ou après, avec exactement cette structure :
 
