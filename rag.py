@@ -1,4 +1,6 @@
 import os
+import time
+import pickle
 import requests
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -158,18 +160,37 @@ def mistral_chat(prompt):
     return result["choices"][0]["message"]["content"]
 
 
-# ── INDEX DES EMBEDDINGS (calculé à la première utilisation) ──────────────────
+# ── INDEX DES EMBEDDINGS (calculé une fois, mis en cache sur disque) ──────────
 
 _embeddings = None
+CHEMIN_CACHE = "embeddings_documents.pkl"
 
 
 def get_embeddings():
-    # Construit l'index une seule fois, au premier appel plutôt qu'au démarrage
+    # Réutilise le cache mémoire si déjà chargé dans ce process
     global _embeddings
-    if _embeddings is None:
-        print("Calcul des embeddings de la base de connaissances...")
-        _embeddings = np.array([get_embedding(doc) for doc in documents])
-        print(f"{len(documents)} documents indexés.")
+    if _embeddings is not None:
+        return _embeddings
+
+    # Réutilise le cache disque s'il existe déjà (pas d'appel API)
+    if os.path.exists(CHEMIN_CACHE):
+        with open(CHEMIN_CACHE, "rb") as f:
+            _embeddings = pickle.load(f)
+        print(f"{len(documents)} documents chargés depuis le cache.")
+        return _embeddings
+
+    # Première fois seulement : calcul avec pause pour respecter le rate limit
+    print("Calcul des embeddings de la base de connaissances...")
+    resultats = []
+    for doc in documents:
+        resultats.append(get_embedding(doc))
+        time.sleep(1.1)
+    _embeddings = np.array(resultats)
+
+    with open(CHEMIN_CACHE, "wb") as f:
+        pickle.dump(_embeddings, f)
+
+    print(f"{len(documents)} documents indexés et sauvegardés dans le cache.")
     return _embeddings
 
 

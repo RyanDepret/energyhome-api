@@ -1,3 +1,4 @@
+import time
 from rag import mistral_chat, get_embedding, get_embeddings, documents
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -15,10 +16,13 @@ def get_context(query, top_k=2):
 
 def agent_recommandations(classe_dpe, surface, annee_construction,
                           type_batiment, type_chauffage, code_postal, locale="fr"):
-    # L'agent rassemble son contexte sur trois axes avant de générer le rapport
-    contexte_travaux = get_context("isolation pompe chaleur rénovation travaux prioritaires")
-    contexte_aides = get_context("MaPrimeRénov CEE éco-prêt aides financement")
-    contexte_reglementaire = get_context(f"loi interdiction location classe {classe_dpe}")
+    # Une seule requête large couvrant travaux, aides et réglementation
+    # pour respecter la limite de 1 requête/seconde de l'API Mistral
+    requete = ("loi climat résilience interdiction location classe G F E "
+               "isolation pompe à chaleur MaPrimeRénov CEE aides financières travaux")
+    contexte = get_context(requete, top_k=6)
+
+    time.sleep(2)  # sécurité contre le rate limit d'1 req/s de Mistral
 
     langue = "anglais" if locale == "en" else "français"
 
@@ -70,9 +74,7 @@ Réponds UNIQUEMENT avec un objet JSON valide, sans texte avant ou après, avec 
 }}
 
 CONTEXTE :
-{contexte_reglementaire}
-{contexte_travaux}
-{contexte_aides}"""
+{contexte}"""
 
     reponse = mistral_chat(prompt)
 
