@@ -3,6 +3,7 @@ import time
 import pickle
 import requests
 import numpy as np
+import anthropic
 from sklearn.metrics.pairwise import cosine_similarity
 from dotenv import load_dotenv
 
@@ -112,15 +113,13 @@ documents = [
 ]
 
 
-# ── APPELS API MISTRAL ────────────────────────────────────────────────────────
+# ── EMBEDDINGS VIA MISTRAL (fonctionnait sans souci) ───────────────────────────
 
 def get_api_key():
-    # Lecture de la clé à chaque appel pour garantir sa disponibilité
     return os.getenv("MISTRAL_API_KEY")
 
 
 def get_embedding(text):
-    # Génère un vecteur d'embedding via l'API Mistral
     url = "https://api.mistral.ai/v1/embeddings"
     headers = {
         "Authorization": f"Bearer {get_api_key()}",
@@ -139,25 +138,22 @@ def get_embedding(text):
     return np.array(result["data"][0]["embedding"])
 
 
+# ── GÉNÉRATION DE TEXTE VIA CLAUDE (remplace Mistral chat, en rate limit) ─────
+
+def get_claude_client():
+    return anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+
+
 def mistral_chat(prompt):
-    # Envoie un prompt au LLM Mistral et retourne la réponse
-    url = "https://api.mistral.ai/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {get_api_key()}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "model": "mistral-small-latest",
-        "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 1000
-    }
-    response = requests.post(url, headers=headers, json=payload)
-    result = response.json()
-
-    if "choices" not in result:
-        raise RuntimeError(f"Erreur API Mistral (chat) : {result}")
-
-    return result["choices"][0]["message"]["content"]
+    # Le nom de fonction est conservé pour ne pas casser les appels
+    # dans agent.py et rag_query, mais la génération passe désormais par Claude
+    client = get_claude_client()
+    message = client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=1000,
+        messages=[{"role": "user", "content": prompt}]
+    )
+    return message.content[0].text
 
 
 # ── INDEX DES EMBEDDINGS (calculé une fois, mis en cache sur disque) ──────────
@@ -167,19 +163,16 @@ CHEMIN_CACHE = "embeddings_documents.pkl"
 
 
 def get_embeddings():
-    # Réutilise le cache mémoire si déjà chargé dans ce process
     global _embeddings
     if _embeddings is not None:
         return _embeddings
 
-    # Réutilise le cache disque s'il existe déjà (pas d'appel API)
     if os.path.exists(CHEMIN_CACHE):
         with open(CHEMIN_CACHE, "rb") as f:
             _embeddings = pickle.load(f)
         print(f"{len(documents)} documents chargés depuis le cache.")
         return _embeddings
 
-    # Première fois seulement : calcul avec pause pour respecter le rate limit
     print("Calcul des embeddings de la base de connaissances...")
     resultats = []
     for doc in documents:
