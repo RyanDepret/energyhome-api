@@ -76,7 +76,7 @@ for vraie_classe, ligne in zip(labels, matrice):
     print(f"Vrai {vraie_classe}   : " + "  ".join(f"{v:3d}" for v in ligne))
 
 # ── EXPORT DU MODÈLE ─────────────────────────────────────────────────────────
-joblib.dump(modele, 'modele_dpe_v2.pkl')
-joblib.dump(colonnes_modele, 'colonnes_modele_v2.pkl')  # on sauvegarde aussi la structure des colonnes
+joblib.dump(modele, 'artifacts/modele_dpe_v2.pkl')
+joblib.dump(colonnes_modele, 'artifacts/colonnes_modele_v2.pkl')  # on sauvegarde aussi la structure des colonnes
 
-print("\nModèle exporté : modele_dpe_v2.pkl")
+print("\nModèle exporté : artifacts/modele_dpe_v2.pkl")

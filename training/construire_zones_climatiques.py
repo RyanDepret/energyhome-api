@@ -17,5 +17,5 @@ dict_zones = zones_par_departement.to_dict()
 print(dict_zones)
 
 import joblib
-joblib.dump(dict_zones, 'zones_climatiques.pkl')
-print("Table sauvegardée : zones_climatiques.pkl")
+joblib.dump(dict_zones, 'artifacts/zones_climatiques.pkl')
+print("Table sauvegardée : artifacts/zones_climatiques.pkl")
