@@ -14,3 +14,4 @@ training/
 *.csv
 requirements-dev.txt
 README.md
+pytest.ini
