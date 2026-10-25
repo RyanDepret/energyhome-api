@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-import os
+from sqlalchemy.orm import declarative_base, sessionmaker
+
+from app.core.config import settings
 
 # SQLite en local, PostgreSQL en production via variable d'environnement
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./energyhome.db")
+DATABASE_URL = settings.database_url
 
 # Fix nécessaire pour SQLite
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
