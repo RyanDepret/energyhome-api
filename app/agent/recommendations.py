@@ -1,15 +1,17 @@
 import time
-from rag import mistral_chat, get_embedding, get_embeddings, documents
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 
+from app.rag import embeddings, generation
+from app.rag.documents import documents
+
 
 def get_context(query, top_k=2):
     # Récupère les documents les plus pertinents pour une requête donnée
-    embeddings = get_embeddings()
-    q_emb = get_embedding(query)
-    sims = cosine_similarity([q_emb], embeddings)[0]
+    index = embeddings.get_embeddings()
+    q_emb = embeddings.get_embedding(query)
+    sims = cosine_similarity([q_emb], index)[0]
     indices = np.argsort(sims)[::-1][:top_k]
     return "\n\n".join([documents[idx] for idx in indices])
 
@@ -76,7 +78,7 @@ Réponds UNIQUEMENT avec un objet JSON valide, sans texte avant ou après, avec 
 CONTEXTE :
 {contexte}"""
 
-    reponse = mistral_chat(prompt)
+    reponse = generation.generate_text(prompt)
 
     try:
         # Extraction du JSON, quelle que soit la forme de l'enrobage
