@@ -1,7 +1,16 @@
 test_env/
+.venv/
 __pycache__/
 *.pyc
+.pytest_cache/
 .env
 .git
 .gitignore
+.github/
+github-key.json
 energyhome.db
+tests/
+training/
+*.csv
+requirements-dev.txt
+README.md

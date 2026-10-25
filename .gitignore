@@ -2,6 +2,8 @@
 __pycache__/
 github-key.json
 test_env/
+.venv/
+.pytest_cache/
 energyhome.db
 dpe_dataset.csv
 dpe_dataset_fg.csv
