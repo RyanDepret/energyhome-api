@@ -209,6 +209,8 @@ def evaluer(df: pd.DataFrame, date_coupure: str) -> dict:
 
     entrees, exclusions = preparer_entrees(test_brut)
     test = test_brut.loc[entrees.index]
+    if test.empty:
+        raise ValueError(f"Aucun DPE évaluable établi après le {date_coupure} : test temporel vide.")
     colonnes = get_columns()
     X = features_en_lot(test[SURFACE_COLUMN], entrees, colonnes)
     lignes_verifiees = verifier_contre_build_features(test[SURFACE_COLUMN].to_numpy(), entrees, X, colonnes)
