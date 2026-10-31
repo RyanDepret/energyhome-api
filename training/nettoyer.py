@@ -63,6 +63,7 @@ def retirer_remplaces(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
         paires.loc[remplace_plus_recent, "numero_dpe"])
     garde = df[~df["numero_dpe"].isin(perdants)]
     return garde, {
+        "avec_numero_dpe_remplace": int(df["numero_dpe_remplace"].notna().sum()),
         "paires_presentes": len(paires),
         "remplace_plus_recent_que_remplacant": int(remplace_plus_recent.sum()),
         "lignes_retirees": len(df) - len(garde),
@@ -172,14 +173,18 @@ Appliquées dans cet ordre ; chaque ligne part du résultat de la précédente.
 Règles :
 - dédoublonnage **par identifiant** (`numero_dpe`), jamais par contenu ; en cas de doublon, on garde la version
   dont `date_derniere_modification_dpe` est la plus récente ;
-- DPE remplacés : quand un DPE et celui qu'il remplace (`numero_dpe_remplace`) sont tous deux présents, on ne garde
+- DPE remplacés : `avec_numero_dpe_remplace` compte les DPE qui en remplacent un autre ; la plupart des DPE
+  remplacés ne sont déjà plus dans le jeu ADEME, seules les `paires_presentes` sont traitées ici. Quand un DPE et celui qu'il remplace (`numero_dpe_remplace`) sont tous deux présents, on ne garde
   que celui dont `date_etablissement_dpe` est la plus récente (à date égale, le remplaçant) ;
 - surface : bornes {SURFACE_MIN}–{SURFACE_MAX} m², identiques à la validation de `/predict`.
 
 ## Valeurs inconnues du modèle actuel
 
-Comptées sur le jeu nettoyé, **non supprimées** ({_n(total_inconnues)} valeurs au total). Ces lignes ne pourront pas
-être évaluées par le modèle actuel (l'API les refuse) ; `training/evaluer.py` les exclut en les comptant.
+Comptées sur le jeu nettoyé, **non supprimées** ({_n(total_inconnues)} valeurs au total).
+- Chauffage, période ou type de bâtiment inconnus : l'API refuse ces logements ; `training/evaluer.py` les exclut
+  du test en les comptant.
+- `zone_climatique` : sans effet sur l'évaluation, car l'API (comme `training/evaluer.py`) déduit la zone du
+  département et n'utilise pas ce champ.
 
 {chr(10).join(blocs_inconnues)}
 

@@ -58,7 +58,7 @@ def test_dpe_remplace_seul_le_plus_recent_reste():
     ])
     garde, detail = n.retirer_remplaces(df)
     assert sorted(garde["numero_dpe"]) == ["C", "D", "E"]
-    assert detail == {"paires_presentes": 3, "remplace_plus_recent_que_remplacant": 1, "lignes_retirees": 3}
+    assert detail == {"avec_numero_dpe_remplace": 4, "paires_presentes": 3, "remplace_plus_recent_que_remplacant": 1, "lignes_retirees": 3}
 
 
 def test_etiquette_manquante_ou_hors_A_G():

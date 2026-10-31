@@ -353,6 +353,10 @@ def estimer(lignes: int, extraction: dict) -> dict:
     }
 
 
+def _n(x: int) -> str:
+    return f"{x:,}".replace(",", " ")
+
+
 def _go(octets: float) -> str:
     return f"{octets / 1e9:.2f} Go"
 
@@ -366,7 +370,7 @@ def rapport_metropole(res: dict) -> str:
     e = res["estimation"]
     ex = res["exports"]
     lignes_regions = "\n".join(
-        f"| {code} | {nom} | {res['par_region'].get(code, 0):,} |".replace(",", " ")
+        f"| {code} | {nom} | {_n(res['par_region'].get(code, 0))} |"
         for code, nom in REGIONS_METROPOLE.items()
     )
     ressources = "\n".join(
@@ -382,7 +386,7 @@ Périmètre : maisons et appartements des 13 régions métropolitaines (Corse co
 ## Volume
 
 - Requête de comptage : `{res['qs']}`
-- **{res['total']:,} lignes** (somme par région : {res['somme_par_region']:,} ; écart : {res['total'] - res['somme_par_region']:,})
+- **{_n(res['total'])} lignes** (somme par région : {_n(res['somme_par_region'])} ; écart : {_n(res['total'] - res['somme_par_region'])})
 
 | Code | Région | DPE maisons + appartements |
 |---|---|---:|
@@ -390,11 +394,11 @@ Périmètre : maisons et appartements des 13 régions métropolitaines (Corse co
 
 ## Taille et durée estimées par l'API
 
-Mesures de référence : extraction de la région {res['reference']['region']} ({res['reference']['lignes']:,} lignes, {res['reference']['pages']} pages).
+Mesures de référence : extraction de la région {res['reference']['region']} ({_n(res['reference']['lignes'])} lignes, {res['reference']['pages']} pages).
 
 | | Valeur |
 |---|---:|
-| Pages de {TAILLE_PAGE:,} lignes | {e['pages_de_10000']:,} |
+| Pages de {_n(TAILLE_PAGE)} lignes | {_n(e['pages_de_10000'])} |
 | Octets JSON reçus par ligne (mesurés) | {e['octets_json_par_ligne_mesures']:.0f} |
 | Octets Parquet par ligne (mesurés) | {e['octets_parquet_par_ligne_mesures']:.0f} |
 | Volume JSON à transférer | {_go(e['taille_json_estimee_octets'])} |
@@ -424,14 +428,14 @@ Exports complets (CSV/Parquet) trouvés :
 
 
 def conclure(exports: dict, estimation: dict) -> str:
+    pages = f"{estimation['pages_de_10000']:,}".replace(",", " ")
     if exports["exports_complets_trouves"]:
         return ("Un export complet est disponible : il est plus adapté que l'API pour la métropole "
-                f"(un seul téléchargement au lieu de {estimation['pages_de_10000']:,} requêtes paginées).")
+                f"(un seul téléchargement au lieu de {pages} requêtes paginées).")
     return ("Aucun export complet (CSV ou Parquet) n'a été trouvé sur data.ademe.fr ni sur data.gouv.fr : "
             "le jeu est servi uniquement par l'API. L'extraction métropole par l'API reste faisable avec le "
-            f"même script ({estimation['pages_de_10000']:,} pages, durée estimée "
-            f"{_duree(estimation['duree_estimee_secondes'])}, reprise possible), "
-            "de préférence région par région pour limiter la perte en cas de coupure.").replace(",", " ")
+            f"même script ({pages} pages, durée estimée {_duree(estimation['duree_estimee_secondes'])}, "
+            "reprise possible), de préférence région par région pour limiter la perte en cas de coupure.")
 
 
 def mode_metropole(session, code_reference: str = "93") -> dict:
