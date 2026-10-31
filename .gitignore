@@ -7,3 +7,6 @@ test_env/
 energyhome.db
 dpe_dataset.csv
 dpe_dataset_fg.csv
+
+# Donnees telechargees (ADEME) et fichiers intermediaires : jamais commites
+data/
