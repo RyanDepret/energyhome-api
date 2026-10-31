@@ -1,0 +1,1162 @@
+{
+  "date_coupure": "2026-08-30",
+  "periode_test": {
+    "min": "2026-08-31",
+    "max": "2026-10-26"
+  },
+  "jeu_nettoye": 1225576,
+  "avant_coupure": 1192658,
+  "test_brut": 32918,
+  "exclusions_test": {
+    "periode_inconnue": 0,
+    "type_batiment_inconnu": 0,
+    "chauffage_inconnu": 105,
+    "departement_sans_zone": 0,
+    "total_lignes_exclues": 105
+  },
+  "test_evalue": 32813,
+  "lignes_verifiees_contre_build_features": 500,
+  "zone_dataset_differente_de_zone_api": 78,
+  "references": {
+    "classe_majoritaire": "C",
+    "repartition_avant_coupure": {
+      "total": 1192658,
+      "effectifs": {
+        "A": 42302,
+        "B": 133537,
+        "C": 506608,
+        "D": 307262,
+        "E": 134825,
+        "F": 47158,
+        "G": 20966
+      },
+      "pourcentages": {
+        "A": 3.5468675848399123,
+        "B": 11.196587789626196,
+        "C": 42.47722314360026,
+        "D": 25.76279201581677,
+        "E": 11.304581866721223,
+        "F": 3.9540253786081174,
+        "G": 1.7579222207875183
+      }
+    },
+    "graine_tirage_aleatoire": 42
+  },
+  "resultats": {
+    "tous": {
+      "modele": {
+        "effectif": 32813,
+        "accuracy": 0.3057629598025173,
+        "f1_macro": 0.28767452913495667,
+        "accuracy_a_une_classe_pres": 0.6486758297016426,
+        "f1_par_classe": {
+          "A": 0.5467800729040098,
+          "B": 0.32413350449293965,
+          "C": 0.3524441762220881,
+          "D": 0.336445713403812,
+          "E": 0.254499464928495,
+          "F": 0.07407407407407407,
+          "G": 0.12534469791927802
+        },
+        "matrice_confusion": [
+          [
+            1350,
+            120,
+            10,
+            4,
+            12,
+            85,
+            20
+          ],
+          [
+            1104,
+            1515,
+            285,
+            86,
+            434,
+            590,
+            231
+          ],
+          [
+            784,
+            2850,
+            3212,
+            1809,
+            2334,
+            1885,
+            978
+          ],
+          [
+            76,
+            521,
+            749,
+            2180,
+            2196,
+            1267,
+            1080
+          ],
+          [
+            21,
+            69,
+            102,
+            679,
+            1308,
+            611,
+            615
+          ],
+          [
+            1,
+            21,
+            16,
+            125,
+            445,
+            218,
+            376
+          ],
+          [
+            1,
+            7,
+            1,
+            7,
+            145,
+            28,
+            250
+          ]
+        ],
+        "brier_multiclasse": 0.7573732413989924,
+        "fiabilite": [
+          {
+            "tranche": "0–10 %",
+            "effectif": 0,
+            "probabilite_moyenne_annoncee": null,
+            "taux_bonnes_reponses": null
+          },
+          {
+            "tranche": "10–20 %",
+            "effectif": 2174,
+            "probabilite_moyenne_annoncee": 0.1902991806682496,
+            "taux_bonnes_reponses": 0.09889604415823366
+          },
+          {
+            "tranche": "20–30 %",
+            "effectif": 14196,
+            "probabilite_moyenne_annoncee": 0.24899644158198786,
+            "taux_bonnes_reponses": 0.19463229078613695
+          },
+          {
+            "tranche": "30–40 %",
+            "effectif": 8764,
+            "probabilite_moyenne_annoncee": 0.35588646779413047,
+            "taux_bonnes_reponses": 0.40278411684162485
+          },
+          {
+            "tranche": "40–50 %",
+            "effectif": 4373,
+            "probabilite_moyenne_annoncee": 0.4358102235582346,
+            "taux_bonnes_reponses": 0.4079579236222273
+          },
+          {
+            "tranche": "50–60 %",
+            "effectif": 1590,
+            "probabilite_moyenne_annoncee": 0.535934744709656,
+            "taux_bonnes_reponses": 0.4968553459119497
+          },
+          {
+            "tranche": "60–70 %",
+            "effectif": 1289,
+            "probabilite_moyenne_annoncee": 0.6486353264246558,
+            "taux_bonnes_reponses": 0.4903025601241272
+          },
+          {
+            "tranche": "70–80 %",
+            "effectif": 409,
+            "probabilite_moyenne_annoncee": 0.7552425200516591,
+            "taux_bonnes_reponses": 0.7432762836185819
+          },
+          {
+            "tranche": "80–90 %",
+            "effectif": 18,
+            "probabilite_moyenne_annoncee": 0.8016891111281268,
+            "taux_bonnes_reponses": 0.8333333333333334
+          },
+          {
+            "tranche": "90–100 %",
+            "effectif": 0,
+            "probabilite_moyenne_annoncee": null,
+            "taux_bonnes_reponses": null
+          }
+        ]
+      },
+      "classe_majoritaire": {
+        "effectif": 32813,
+        "accuracy": 0.42214975771797764,
+        "f1_macro": 0.08481119223645742,
+        "accuracy_a_une_classe_pres": 0.7974278487184957,
+        "f1_par_classe": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.5936783456552019,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "G": 0.0
+        },
+        "matrice_confusion": [
+          [
+            0,
+            0,
+            1601,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            4245,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            13852,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            8069,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            3405,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1202,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            439,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "aleatoire_selon_repartition": {
+        "effectif": 32813,
+        "accuracy": 0.2727882241794411,
+        "f1_macro": 0.1431015039539771,
+        "accuracy_a_une_classe_pres": 0.662572760796026,
+        "f1_par_classe": {
+          "A": 0.04520990312163617,
+          "B": 0.11210418794688458,
+          "C": 0.4268231228853214,
+          "D": 0.24771634615384616,
+          "E": 0.11378431927540333,
+          "F": 0.038338658146964855,
+          "G": 0.017733990147783252
+        },
+        "matrice_confusion": [
+          [
+            63,
+            199,
+            654,
+            426,
+            176,
+            62,
+            21
+          ],
+          [
+            150,
+            439,
+            1805,
+            1159,
+            469,
+            152,
+            71
+          ],
+          [
+            463,
+            1502,
+            5929,
+            3617,
+            1522,
+            568,
+            251
+          ],
+          [
+            323,
+            913,
+            3406,
+            2061,
+            918,
+            305,
+            143
+          ],
+          [
+            132,
+            356,
+            1438,
+            875,
+            402,
+            148,
+            54
+          ],
+          [
+            40,
+            130,
+            510,
+            323,
+            124,
+            48,
+            27
+          ],
+          [
+            15,
+            48,
+            188,
+            110,
+            50,
+            19,
+            9
+          ]
+        ]
+      },
+      "brier_reference_repartition_constante": 0.7306491311507954,
+      "repartition_reelle": {
+        "total": 32813,
+        "effectifs": {
+          "A": 1601,
+          "B": 4245,
+          "C": 13852,
+          "D": 8069,
+          "E": 3405,
+          "F": 1202,
+          "G": 439
+        },
+        "pourcentages": {
+          "A": 4.879163746076251,
+          "B": 12.936945722731844,
+          "C": 42.21497577179776,
+          "D": 24.590863377319966,
+          "E": 10.376984731661231,
+          "F": 3.6631822753177095,
+          "G": 1.3378843750952367
+        }
+      }
+    },
+    "chauffage_electrique": {
+      "modele": {
+        "effectif": 22440,
+        "accuracy": 0.27482174688057043,
+        "f1_macro": 0.2407393743474233,
+        "accuracy_a_une_classe_pres": 0.5595811051693405,
+        "f1_par_classe": {
+          "A": 0.5764680576468058,
+          "B": 0.3333333333333333,
+          "C": 0.3639127460667325,
+          "D": 0.046296296296296294,
+          "E": 0.22599775605064915,
+          "F": 0.0582010582010582,
+          "G": 0.08096637283708782
+        },
+        "matrice_confusion": [
+          [
+            1340,
+            118,
+            10,
+            4,
+            12,
+            85,
+            20
+          ],
+          [
+            1023,
+            1351,
+            231,
+            61,
+            405,
+            589,
+            231
+          ],
+          [
+            616,
+            2175,
+            2394,
+            137,
+            1796,
+            1842,
+            942
+          ],
+          [
+            63,
+            485,
+            518,
+            110,
+            1210,
+            1124,
+            886
+          ],
+          [
+            17,
+            60,
+            87,
+            35,
+            705,
+            493,
+            431
+          ],
+          [
+            1,
+            21,
+            15,
+            8,
+            217,
+            143,
+            212
+          ],
+          [
+            0,
+            5,
+            0,
+            1,
+            66,
+            21,
+            124
+          ]
+        ],
+        "brier_multiclasse": 0.782418365125999,
+        "fiabilite": [
+          {
+            "tranche": "0–10 %",
+            "effectif": 0,
+            "probabilite_moyenne_annoncee": null,
+            "taux_bonnes_reponses": null
+          },
+          {
+            "tranche": "10–20 %",
+            "effectif": 2084,
+            "probabilite_moyenne_annoncee": 0.1903654661628968,
+            "taux_bonnes_reponses": 0.0935700575815739
+          },
+          {
+            "tranche": "20–30 %",
+            "effectif": 11587,
+            "probabilite_moyenne_annoncee": 0.24578549200334396,
+            "taux_bonnes_reponses": 0.180978683006818
+          },
+          {
+            "tranche": "30–40 %",
+            "effectif": 3769,
+            "probabilite_moyenne_annoncee": 0.35006018500047065,
+            "taux_bonnes_reponses": 0.4247811090474927
+          },
+          {
+            "tranche": "40–50 %",
+            "effectif": 1998,
+            "probabilite_moyenne_annoncee": 0.4406291299007168,
+            "taux_bonnes_reponses": 0.35985985985985985
+          },
+          {
+            "tranche": "50–60 %",
+            "effectif": 1361,
+            "probabilite_moyenne_annoncee": 0.5360976407078989,
+            "taux_bonnes_reponses": 0.4886113152094049
+          },
+          {
+            "tranche": "60–70 %",
+            "effectif": 1219,
+            "probabilite_moyenne_annoncee": 0.6508258093449983,
+            "taux_bonnes_reponses": 0.4716981132075472
+          },
+          {
+            "tranche": "70–80 %",
+            "effectif": 404,
+            "probabilite_moyenne_annoncee": 0.7553158786697102,
+            "taux_bonnes_reponses": 0.7425742574257426
+          },
+          {
+            "tranche": "80–90 %",
+            "effectif": 18,
+            "probabilite_moyenne_annoncee": 0.8016891111281268,
+            "taux_bonnes_reponses": 0.8333333333333334
+          },
+          {
+            "tranche": "90–100 %",
+            "effectif": 0,
+            "probabilite_moyenne_annoncee": null,
+            "taux_bonnes_reponses": null
+          }
+        ]
+      },
+      "classe_majoritaire": {
+        "effectif": 22440,
+        "accuracy": 0.4412655971479501,
+        "f1_macro": 0.08747581649690363,
+        "accuracy_a_une_classe_pres": 0.8105614973262032,
+        "f1_par_classe": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.6123307154783254,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "G": 0.0
+        },
+        "matrice_confusion": [
+          [
+            0,
+            0,
+            1589,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            3891,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            9902,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            4396,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1828,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            617,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            217,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "aleatoire_selon_repartition": {
+        "effectif": 22440,
+        "accuracy": 0.2674688057040998,
+        "f1_macro": 0.13447317168292247,
+        "accuracy_a_une_classe_pres": 0.6488413547237076,
+        "f1_par_classe": {
+          "A": 0.037146475306036306,
+          "B": 0.1259571808095015,
+          "C": 0.4317571753045633,
+          "D": 0.22903885480572597,
+          "E": 0.08143547273982056,
+          "F": 0.020053475935828877,
+          "G": 0.01592356687898089
+        },
+        "matrice_confusion": [
+          [
+            44,
+            171,
+            681,
+            426,
+            183,
+            60,
+            24
+          ],
+          [
+            143,
+            403,
+            1613,
+            1036,
+            444,
+            182,
+            70
+          ],
+          [
+            360,
+            1152,
+            4182,
+            2524,
+            1132,
+            379,
+            173
+          ],
+          [
+            146,
+            473,
+            1847,
+            1176,
+            486,
+            172,
+            96
+          ],
+          [
+            50,
+            224,
+            806,
+            470,
+            177,
+            67,
+            34
+          ],
+          [
+            29,
+            59,
+            261,
+            172,
+            72,
+            15,
+            9
+          ],
+          [
+            8,
+            26,
+            80,
+            69,
+            25,
+            4,
+            5
+          ]
+        ]
+      },
+      "brier_reference_repartition_constante": 0.7346522283861983,
+      "repartition_reelle": {
+        "total": 22440,
+        "effectifs": {
+          "A": 1589,
+          "B": 3891,
+          "C": 9902,
+          "D": 4396,
+          "E": 1828,
+          "F": 617,
+          "G": 217
+        },
+        "pourcentages": {
+          "A": 7.081105169340463,
+          "B": 17.33957219251337,
+          "C": 44.12655971479501,
+          "D": 19.590017825311943,
+          "E": 8.146167557932264,
+          "F": 2.749554367201426,
+          "G": 0.9670231729055259
+        }
+      }
+    },
+    "autres_chauffages": {
+      "modele": {
+        "effectif": 10373,
+        "accuracy": 0.37269835148944375,
+        "f1_macro": 0.2693426094507082,
+        "accuracy_a_une_classe_pres": 0.8414152125710981,
+        "f1_par_classe": {
+          "A": 0.06920415224913495,
+          "B": 0.2640901771336554,
+          "C": 0.32268244575936883,
+          "D": 0.5044474229316437,
+          "E": 0.2985148514851485,
+          "F": 0.15432098765432098,
+          "G": 0.27213822894168466
+        },
+        "matrice_confusion": [
+          [
+            10,
+            2,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            81,
+            164,
+            54,
+            25,
+            29,
+            1,
+            0
+          ],
+          [
+            168,
+            675,
+            818,
+            1672,
+            538,
+            43,
+            36
+          ],
+          [
+            13,
+            36,
+            231,
+            2070,
+            986,
+            143,
+            194
+          ],
+          [
+            4,
+            9,
+            15,
+            644,
+            603,
+            118,
+            184
+          ],
+          [
+            0,
+            0,
+            1,
+            117,
+            228,
+            75,
+            164
+          ],
+          [
+            1,
+            2,
+            1,
+            6,
+            79,
+            7,
+            126
+          ]
+        ],
+        "brier_multiclasse": 0.7031929101125733,
+        "fiabilite": [
+          {
+            "tranche": "0–10 %",
+            "effectif": 0,
+            "probabilite_moyenne_annoncee": null,
+            "taux_bonnes_reponses": null
+          },
+          {
+            "tranche": "10–20 %",
+            "effectif": 90,
+            "probabilite_moyenne_annoncee": 0.1887643032144184,
+            "taux_bonnes_reponses": 0.2222222222222222
+          },
+          {
+            "tranche": "20–30 %",
+            "effectif": 2609,
+            "probabilite_moyenne_annoncee": 0.26325679910124683,
+            "taux_bonnes_reponses": 0.2552702184745113
+          },
+          {
+            "tranche": "30–40 %",
+            "effectif": 4995,
+            "probabilite_moyenne_annoncee": 0.36028271601220935,
+            "taux_bonnes_reponses": 0.38618618618618616
+          },
+          {
+            "tranche": "40–50 %",
+            "effectif": 2375,
+            "probabilite_moyenne_annoncee": 0.43175625519095906,
+            "taux_bonnes_reponses": 0.44842105263157894
+          },
+          {
+            "tranche": "50–60 %",
+            "effectif": 229,
+            "probabilite_moyenne_annoncee": 0.5349666160912774,
+            "taux_bonnes_reponses": 0.5458515283842795
+          },
+          {
+            "tranche": "60–70 %",
+            "effectif": 70,
+            "probabilite_moyenne_annoncee": 0.6104896309975488,
+            "taux_bonnes_reponses": 0.8142857142857143
+          },
+          {
+            "tranche": "70–80 %",
+            "effectif": 5,
+            "probabilite_moyenne_annoncee": 0.7493151437131396,
+            "taux_bonnes_reponses": 0.8
+          },
+          {
+            "tranche": "80–90 %",
+            "effectif": 0,
+            "probabilite_moyenne_annoncee": null,
+            "taux_bonnes_reponses": null
+          },
+          {
+            "tranche": "90–100 %",
+            "effectif": 0,
+            "probabilite_moyenne_annoncee": null,
+            "taux_bonnes_reponses": null
+          }
+        ]
+      },
+      "classe_majoritaire": {
+        "effectif": 10373,
+        "accuracy": 0.3807962980815579,
+        "f1_macro": 0.07879434675496953,
+        "accuracy_a_une_classe_pres": 0.7690157138725537,
+        "f1_par_classe": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.5515604272847867,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "G": 0.0
+        },
+        "matrice_confusion": [
+          [
+            0,
+            0,
+            12,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            354,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            3950,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            3673,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1577,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            585,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            222,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "aleatoire_selon_repartition": {
+        "effectif": 10373,
+        "accuracy": 0.27600501301455704,
+        "f1_macro": 0.1304044412318366,
+        "accuracy_a_une_classe_pres": 0.6747324785500819,
+        "f1_par_classe": {
+          "A": 0.0,
+          "B": 0.04456094364351245,
+          "C": 0.4125432216525575,
+          "D": 0.287515762925599,
+          "E": 0.1242603550295858,
+          "F": 0.034170854271356785,
+          "G": 0.009779951100244499
+        },
+        "matrice_confusion": [
+          [
+            0,
+            3,
+            5,
+            3,
+            1,
+            0,
+            0
+          ],
+          [
+            8,
+            34,
+            156,
+            101,
+            34,
+            13,
+            8
+          ],
+          [
+            138,
+            420,
+            1730,
+            1022,
+            414,
+            148,
+            78
+          ],
+          [
+            140,
+            447,
+            1559,
+            912,
+            391,
+            155,
+            69
+          ],
+          [
+            54,
+            179,
+            679,
+            404,
+            168,
+            71,
+            22
+          ],
+          [
+            24,
+            63,
+            220,
+            165,
+            88,
+            17,
+            8
+          ],
+          [
+            5,
+            26,
+            88,
+            64,
+            31,
+            6,
+            2
+          ]
+        ]
+      },
+      "brier_reference_repartition_constante": 0.7219891965164131,
+      "repartition_reelle": {
+        "total": 10373,
+        "effectifs": {
+          "A": 12,
+          "B": 354,
+          "C": 3950,
+          "D": 3673,
+          "E": 1577,
+          "F": 585,
+          "G": 222
+        },
+        "pourcentages": {
+          "A": 0.11568495131591632,
+          "B": 3.4127060638195315,
+          "C": 38.07962980815579,
+          "D": 35.40923551528005,
+          "E": 15.202930685433337,
+          "F": 5.63964137665092,
+          "G": 2.140171599344452
+        }
+      }
+    }
+  },
+  "coefficient_electricite_1_9": {
+    "test_total": 32813,
+    "etablis_depuis_2026_01_01": 32813,
+    "dont_chauffage_electrique": 22440,
+    "dont_autres_chauffages": 10373
+  },
+  "comparaison_avant_depuis_2026": {
+    "chauffage_electrique": {
+      "avant_2026": {
+        "total": 614713,
+        "effectifs": {
+          "A": 33979,
+          "B": 95722,
+          "C": 262131,
+          "D": 129757,
+          "E": 62417,
+          "F": 20533,
+          "G": 10174
+        },
+        "pourcentages": {
+          "A": 5.527620206502872,
+          "B": 15.571819694719323,
+          "C": 42.64282681511535,
+          "D": 21.108549843585543,
+          "E": 10.15384415166102,
+          "F": 3.340257974046425,
+          "G": 1.65508131436947
+        }
+      },
+      "depuis_2026": {
+        "total": 109029,
+        "effectifs": {
+          "A": 7383,
+          "B": 18748,
+          "C": 46651,
+          "D": 22128,
+          "E": 9615,
+          "F": 3387,
+          "G": 1117
+        },
+        "pourcentages": {
+          "A": 6.771592878958809,
+          "B": 17.195425070394116,
+          "C": 42.78769868567078,
+          "D": 20.295517706298323,
+          "E": 8.81875464326005,
+          "F": 3.10651294609691,
+          "G": 1.0244980693210064
+        }
+      }
+    },
+    "autres_chauffages": {
+      "avant_2026": {
+        "total": 444278,
+        "effectifs": {
+          "A": 2288,
+          "B": 21142,
+          "C": 189304,
+          "D": 142811,
+          "E": 58305,
+          "F": 21458,
+          "G": 8970
+        },
+        "pourcentages": {
+          "A": 0.5149928648278781,
+          "B": 4.758732145188373,
+          "C": 42.609357204273,
+          "D": 32.1445131201635,
+          "E": 13.123539765642233,
+          "F": 4.829858782113901,
+          "G": 2.019006117791113
+        }
+      },
+      "depuis_2026": {
+        "total": 57556,
+        "effectifs": {
+          "A": 253,
+          "B": 2170,
+          "C": 22467,
+          "D": 20640,
+          "E": 7899,
+          "F": 2982,
+          "G": 1145
+        },
+        "pourcentages": {
+          "A": 0.4395718951977205,
+          "B": 3.7702411564389466,
+          "C": 39.035026756550145,
+          "D": 35.86072694419348,
+          "E": 13.724025297101953,
+          "F": 5.181041073041907,
+          "G": 1.9893668774758495
+        }
+      }
+    }
+  },
+  "git_modele": {
+    "blob_actuel": "d2fbb5340b87676c386accb86c7ba65e640c4735",
+    "dernier_commit": {
+      "commit": "94c3bbf",
+      "date": "2026-10-25",
+      "sujet": "Déplacement des scripts d'entraînement dans training/ et des artefacts dans artifacts/",
+      "chemin": "artifacts/modele_dpe_v2.pkl",
+      "blob": "d2fbb5340b87676c386accb86c7ba65e640c4735"
+    },
+    "commit_production": {
+      "commit": "f7a44a7",
+      "date": "2026-08-30",
+      "sujet": "Correction du data leakage : nouveau modele ML sans consommation en entree, zones climatiques deduites du code postal, agent enrichi maison/appartement",
+      "chemin": "modele_dpe_v2.pkl",
+      "blob": "d2fbb5340b87676c386accb86c7ba65e640c4735"
+    },
+    "historique": [
+      {
+        "commit": "94c3bbf",
+        "date": "2026-10-25",
+        "sujet": "Déplacement des scripts d'entraînement dans training/ et des artefacts dans artifacts/",
+        "chemin": "artifacts/modele_dpe_v2.pkl",
+        "blob": "d2fbb5340b87676c386accb86c7ba65e640c4735"
+      },
+      {
+        "commit": "f7a44a7",
+        "date": "2026-08-30",
+        "sujet": "Correction du data leakage : nouveau modele ML sans consommation en entree, zones climatiques deduites du code postal, agent enrichi maison/appartement",
+        "chemin": "modele_dpe_v2.pkl",
+        "blob": "d2fbb5340b87676c386accb86c7ba65e640c4735"
+      }
+    ]
+  },
+  "extraction": {
+    "debut_extraction": "2026-10-31T19:53:21+00:00",
+    "lignes": 1226609,
+    "sha256": "956077421b096bd5eb8c47d6ab90dbbbdcc6c737e52654a89bb298b1186267be"
+  }
+}

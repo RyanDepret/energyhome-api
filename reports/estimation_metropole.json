@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-31T20:26:27+00:00",
+  "qs": "code_region_ban:(11 OR 24 OR 27 OR 28 OR 32 OR 44 OR 52 OR 53 OR 75 OR 76 OR 84 OR 93 OR 94) AND type_batiment:(maison OR appartement)",
+  "total": 14934380,
+  "par_region": {
+    "11": 3297010,
+    "84": 1796954,
+    "75": 1302867,
+    "76": 1287997,
+    "32": 1275879,
+    "44": 1249757,
+    "93": 1226609,
+    "52": 820545,
+    "28": 807197,
+    "53": 672325,
+    "24": 576076,
+    "27": 568291,
+    "94": 52873
+  },
+  "somme_par_region": 14934380,
+  "reference": {
+    "region": "93",
+    "lignes": 1226609,
+    "pages": 123,
+    "octets_json_recus": 843656166,
+    "octets_parquet": 43481510,
+    "secondes_requetes": 1600.1
+  },
+  "estimation": {
+    "lignes": 14934380,
+    "pages_de_10000": 1494,
+    "octets_json_par_ligne_mesures": 687.7955126694815,
+    "octets_parquet_par_ligne_mesures": 35.448549619316346,
+    "taille_json_estimee_octets": 10271799549,
+    "taille_parquet_estimee_octets": 529402110,
+    "secondes_par_page_mesurees": 13.008943089430893,
+    "duree_estimee_secondes": 20182,
+    "duree_plancher_limite_debit_secondes": 149
+  },
+  "exports": {
+    "data_ademe": {
+      "jeu_virtuel": true,
+      "fichier": null,
+      "fichier_original": null,
+      "fichiers_de_donnees_stockes": [],
+      "date_mise_a_jour_donnees": "2026-10-28T20:13:07.863Z",
+      "statut_http_full": 404,
+      "data_files": []
+    },
+    "data_gouv": {
+      "statut_http": 200,
+      "ressources": [
+        {
+          "titre": "Consultez les données",
+          "format": "url",
+          "url": "https://data.ademe.fr/datasets/dpe03existant",
+          "taille": null
+        },
+        {
+          "titre": "Description des champs",
+          "format": "url",
+          "url": "https://data.ademe.fr/datasets/dpe03existant",
+          "taille": null
+        }
+      ]
+    },
+    "exports_complets_trouves": []
+  },
+  "conclusion": "Aucun export complet (CSV ou Parquet) n'a été trouvé sur data.ademe.fr ni sur data.gouv.fr : le jeu est servi uniquement par l'API. L'extraction métropole par l'API reste faisable avec le même script (1 494 pages, durée estimée 5 h 36 min, reprise possible), de préférence région par région pour limiter la perte en cas de coupure."
+}
