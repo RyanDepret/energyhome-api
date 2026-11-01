@@ -1,0 +1,281 @@
+{
+  "genere_le": "2026-11-01T09:25:59+00:00",
+  "modele": "LightGBM {'num_leaves': 63, 'learning_rate': 0.1, 'min_child_samples': 500}",
+  "localisation": "departement",
+  "plis": 5,
+  "calibration": {
+    "aucune": {
+      "effectif": 62467,
+      "accuracy": 0.4915395328733571,
+      "f1_macro": 0.3433335910995248,
+      "accuracy_a_une_classe_pres": 0.8812332911777419,
+      "f1_par_classe": {
+        "A": 0.571928707829408,
+        "B": 0.22826193993106844,
+        "C": 0.6276046849881344,
+        "D": 0.40223579339612875,
+        "E": 0.21926311573888665,
+        "F": 0.11814345991561181,
+        "G": 0.2358974358974359
+      },
+      "brier_multiclasse": 0.6288822226094167,
+      "fiabilite": [
+        {
+          "tranche": "0–10 %",
+          "effectif": 0,
+          "probabilite_moyenne_annoncee": null,
+          "taux_bonnes_reponses": null
+        },
+        {
+          "tranche": "10–20 %",
+          "effectif": 0,
+          "probabilite_moyenne_annoncee": null,
+          "taux_bonnes_reponses": null
+        },
+        {
+          "tranche": "20–30 %",
+          "effectif": 2411,
+          "probabilite_moyenne_annoncee": 0.2756189628313467,
+          "taux_bonnes_reponses": 0.29282455412691827
+        },
+        {
+          "tranche": "30–40 %",
+          "effectif": 18025,
+          "probabilite_moyenne_annoncee": 0.3591045308264097,
+          "taux_bonnes_reponses": 0.37220527045769763
+        },
+        {
+          "tranche": "40–50 %",
+          "effectif": 20427,
+          "probabilite_moyenne_annoncee": 0.44840331292758995,
+          "taux_bonnes_reponses": 0.4673226611837274
+        },
+        {
+          "tranche": "50–60 %",
+          "effectif": 9543,
+          "probabilite_moyenne_annoncee": 0.5424274939609931,
+          "taux_bonnes_reponses": 0.5528659750602536
+        },
+        {
+          "tranche": "60–70 %",
+          "effectif": 5955,
+          "probabilite_moyenne_annoncee": 0.6479196340231614,
+          "taux_bonnes_reponses": 0.6403022670025189
+        },
+        {
+          "tranche": "70–80 %",
+          "effectif": 3348,
+          "probabilite_moyenne_annoncee": 0.7486895842140494,
+          "taux_bonnes_reponses": 0.716547192353644
+        },
+        {
+          "tranche": "80–90 %",
+          "effectif": 2511,
+          "probabilite_moyenne_annoncee": 0.840402248714234,
+          "taux_bonnes_reponses": 0.8104340900039825
+        },
+        {
+          "tranche": "90–100 %",
+          "effectif": 247,
+          "probabilite_moyenne_annoncee": 0.905884501798052,
+          "taux_bonnes_reponses": 0.8947368421052632
+        }
+      ]
+    },
+    "isotonique": {
+      "effectif": 62467,
+      "accuracy": 0.49952775065234445,
+      "f1_macro": 0.34248438346606497,
+      "accuracy_a_une_classe_pres": 0.8831703139257528,
+      "f1_par_classe": {
+        "A": 0.5889011161767018,
+        "B": 0.23459948828970675,
+        "C": 0.6252636512772439,
+        "D": 0.4491736050702125,
+        "E": 0.13534591194968554,
+        "F": 0.15247524752475247,
+        "G": 0.21163166397415187
+      },
+      "brier_multiclasse": 0.6251900965173558,
+      "fiabilite": [
+        {
+          "tranche": "0–10 %",
+          "effectif": 0,
+          "probabilite_moyenne_annoncee": null,
+          "taux_bonnes_reponses": null
+        },
+        {
+          "tranche": "10–20 %",
+          "effectif": 0,
+          "probabilite_moyenne_annoncee": null,
+          "taux_bonnes_reponses": null
+        },
+        {
+          "tranche": "20–30 %",
+          "effectif": 1755,
+          "probabilite_moyenne_annoncee": 0.28740022826833006,
+          "taux_bonnes_reponses": 0.28205128205128205
+        },
+        {
+          "tranche": "30–40 %",
+          "effectif": 16964,
+          "probabilite_moyenne_annoncee": 0.357428335669666,
+          "taux_bonnes_reponses": 0.37473473237444
+        },
+        {
+          "tranche": "40–50 %",
+          "effectif": 19732,
+          "probabilite_moyenne_annoncee": 0.449334918063803,
+          "taux_bonnes_reponses": 0.4696938982363673
+        },
+        {
+          "tranche": "50–60 %",
+          "effectif": 11975,
+          "probabilite_moyenne_annoncee": 0.5442320050523256,
+          "taux_bonnes_reponses": 0.550062630480167
+        },
+        {
+          "tranche": "60–70 %",
+          "effectif": 6266,
+          "probabilite_moyenne_annoncee": 0.6399589525346913,
+          "taux_bonnes_reponses": 0.6490584104691989
+        },
+        {
+          "tranche": "70–80 %",
+          "effectif": 3358,
+          "probabilite_moyenne_annoncee": 0.7445659323338031,
+          "taux_bonnes_reponses": 0.7298987492555092
+        },
+        {
+          "tranche": "80–90 %",
+          "effectif": 1839,
+          "probabilite_moyenne_annoncee": 0.8475145902346689,
+          "taux_bonnes_reponses": 0.7939097335508428
+        },
+        {
+          "tranche": "90–100 %",
+          "effectif": 578,
+          "probabilite_moyenne_annoncee": 0.9175284860732844,
+          "taux_bonnes_reponses": 0.8979238754325259
+        }
+      ]
+    },
+    "sigmoide": {
+      "effectif": 62467,
+      "accuracy": 0.49328445419181327,
+      "f1_macro": 0.3427336234889921,
+      "accuracy_a_une_classe_pres": 0.8839707365488978,
+      "f1_par_classe": {
+        "A": 0.552956899432008,
+        "B": 0.25940024138891465,
+        "C": 0.6236417517286796,
+        "D": 0.43051021061391714,
+        "E": 0.18088317495807713,
+        "F": 0.14189643577673167,
+        "G": 0.20984665052461662
+      },
+      "brier_multiclasse": 0.6275485767731444,
+      "fiabilite": [
+        {
+          "tranche": "0–10 %",
+          "effectif": 0,
+          "probabilite_moyenne_annoncee": null,
+          "taux_bonnes_reponses": null
+        },
+        {
+          "tranche": "10–20 %",
+          "effectif": 0,
+          "probabilite_moyenne_annoncee": null,
+          "taux_bonnes_reponses": null
+        },
+        {
+          "tranche": "20–30 %",
+          "effectif": 1561,
+          "probabilite_moyenne_annoncee": 0.27664859132614605,
+          "taux_bonnes_reponses": 0.2703395259449071
+        },
+        {
+          "tranche": "30–40 %",
+          "effectif": 18088,
+          "probabilite_moyenne_annoncee": 0.36055155255339844,
+          "taux_bonnes_reponses": 0.3719040247678019
+        },
+        {
+          "tranche": "40–50 %",
+          "effectif": 17763,
+          "probabilite_moyenne_annoncee": 0.4473357989308127,
+          "taux_bonnes_reponses": 0.45746777008388223
+        },
+        {
+          "tranche": "50–60 %",
+          "effectif": 13677,
+          "probabilite_moyenne_annoncee": 0.5395000252040881,
+          "taux_bonnes_reponses": 0.5484389851575638
+        },
+        {
+          "tranche": "60–70 %",
+          "effectif": 5631,
+          "probabilite_moyenne_annoncee": 0.6468674529948955,
+          "taux_bonnes_reponses": 0.6473095364944059
+        },
+        {
+          "tranche": "70–80 %",
+          "effectif": 3225,
+          "probabilite_moyenne_annoncee": 0.7528766426333352,
+          "taux_bonnes_reponses": 0.7243410852713178
+        },
+        {
+          "tranche": "80–90 %",
+          "effectif": 2219,
+          "probabilite_moyenne_annoncee": 0.8442847302342155,
+          "taux_bonnes_reponses": 0.8017124831004957
+        },
+        {
+          "tranche": "90–100 %",
+          "effectif": 303,
+          "probabilite_moyenne_annoncee": 0.9078032225320649,
+          "taux_bonnes_reponses": 0.9174917491749175
+        }
+      ]
+    }
+  },
+  "methode_retenue": "isotonique",
+  "courbe_apprentissage": [
+    {
+      "lignes": 10000,
+      "secondes": 0.8,
+      "meilleure_iteration": 71,
+      "accuracy": 0.4796292442409592,
+      "f1_macro": 0.32492204806565683,
+      "accuracy_a_une_classe_pres": 0.8804328685545968,
+      "brier_multiclasse": 0.6367007545242206
+    },
+    {
+      "lignes": 50000,
+      "secondes": 1.8,
+      "meilleure_iteration": 41,
+      "accuracy": 0.4872652760657627,
+      "f1_macro": 0.33730237799180945,
+      "accuracy_a_une_classe_pres": 0.8814093841548337,
+      "brier_multiclasse": 0.6321398964824142
+    },
+    {
+      "lignes": 200000,
+      "secondes": 3.8,
+      "meilleure_iteration": 47,
+      "accuracy": 0.48937839179086556,
+      "f1_macro": 0.34018389565380375,
+      "accuracy_a_une_classe_pres": 0.8802887924824307,
+      "brier_multiclasse": 0.6281286571357323
+    },
+    {
+      "lignes": 1130191,
+      "secondes": 9.7,
+      "meilleure_iteration": 41,
+      "accuracy": 0.4915395328733571,
+      "f1_macro": 0.3433335910995248,
+      "accuracy_a_une_classe_pres": 0.8812332911777419,
+      "brier_multiclasse": 0.6288822226094167
+    }
+  ]
+}
