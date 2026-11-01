@@ -57,17 +57,29 @@ curl -X POST http://localhost:8000/predict -H "Content-Type: application/json" \
   -d '{"surface": 80, "annee_construction": 1998, "type_batiment": "maison", "chauffage": "gaz_naturel", "code_postal": "13001"}'
 ```
 
-Sortie :
+Sortie (modèle v3) :
 
 ```json
 {
   "classe": "C",
-  "probabilites": {"A": 0.046, "B": 0.110, "C": 0.469, "D": 0.170, "E": 0.106, "F": 0.055, "G": 0.044},
-  "model_version": "v2-rf-2025",
+  "probabilites": {"A": 0.0, "B": 0.005, "C": 0.905, "D": 0.085, "E": 0.004, "F": 0.0, "G": 0.0},
+  "importances": [
+    {"critere": "Période de construction", "valeur": "1989_2000", "poids": 0.548},
+    {"critere": "Énergie de chauffage", "valeur": "gaz_naturel", "poids": 0.226},
+    {"critere": "Département", "valeur": "13", "poids": 0.121},
+    {"critere": "Type de bâtiment", "valeur": "maison", "poids": 0.098},
+    {"critere": "Surface", "valeur": 80.0, "poids": 0.006}
+  ],
+  "model_version": "v3-lightgbm-2026-11",
   "entree": {"surface": 80.0, "periode": "1989_2000", "type_batiment": "maison", "chauffage": "gaz_naturel",
              "code_postal": "13001", "departement": "13", "zone_climatique": "H3", "annee_construction": 1998}
 }
 ```
+
+`probabilites` sont calibrées ; `importances` donne le poids de chaque critère dans la prédiction
+(contributions SHAP, somme des poids = 1). Le modèle servi se choisit par la variable d'environnement
+`MODEL_VERSION` : `v3-lightgbm-2026-11` par défaut (artefacts dans `artifacts/v3/`), `v2-rf-2025` pour revenir
+à l'ancien modèle (`importances` est alors vide). Fiche du modèle : `reports/fiche_modele_v3.md`.
 
 ## Structure
 
