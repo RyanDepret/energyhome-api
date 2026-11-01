@@ -1,0 +1,20 @@
+{
+  "source": "https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant",
+  "url_initiale": "https://data.ademe.fr/data-fair/api/v1/datasets/dpe03existant/lines?size=10000&qs=code_region_ban%3A93+AND+type_batiment%3A%28maison+OR+appartement%29&select=numero_dpe%2Cclasse_altitude",
+  "qs": "code_region_ban:93 AND type_batiment:(maison OR appartement)",
+  "debut": "2026-11-01T08:20:52+00:00",
+  "fin": "2026-11-01T08:24:14+00:00",
+  "pages": 123,
+  "total_annonce_par_api": 1226609,
+  "lignes": 1226609,
+  "doublons_numero_dpe_retires": 0,
+  "repartition_classe_altitude": {
+    "inférieur à 400m": 1134204,
+    "400-800m": 51183,
+    "supérieur à 800m": 39537,
+    "<NA>": 1297,
+    "Non affecté": 388
+  },
+  "fichier": "data/altitude_r93.parquet",
+  "sha256": "eb3bee7ddd86dcbda18767ee16d928800310edbd1ceeef323b819debfd7da566"
+}
