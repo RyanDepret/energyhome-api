@@ -1,6 +1,8 @@
 anthropic==1.4.0
 fastapi==0.139.2
 joblib==1.5.3
+# Modèle v3 (artifacts/v3/) : version exacte qui l'a entraîné
+lightgbm==4.7.0
 numpy==2.5.1
 pandas==3.0.5
 pydantic==2.13.4

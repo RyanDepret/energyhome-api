@@ -2,3 +2,5 @@ httpx==0.28.1
 pytest==9.1.1
 # Lecture/ecriture parquet pour les scripts de training/
 pyarrow==26.0.0
+# Contrôle des explications du v3 (training/expliquer_v3.py) ; inutile en production
+shap==0.54.1

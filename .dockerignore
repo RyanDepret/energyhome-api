@@ -15,3 +15,5 @@ training/
 requirements-dev.txt
 README.md
 pytest.ini
+# Données ADEME téléchargées et modèles intermédiaires (environ 150 Mo)
+data/
