@@ -18,6 +18,13 @@ class Settings(BaseSettings):
     anthropic_api_key: str | None = None
     mistral_api_key: str | None = None
 
+    # Génération Mistral pour /chat (modele=mistral). Vérifié dans GET /v1/models le 2026-11-01 :
+    # mistral-small-latest y figure (alias de mistral-small-2603).
+    mistral_chat_model: str = "mistral-small-latest"
+    # Délais maximaux (secondes) des appels externes : génération (Claude, Mistral) et embedding de la question
+    generation_timeout_s: float = 30.0
+    embedding_timeout_s: float = 10.0
+
     # Origines autorisées pour le front Next.js
     cors_origins: list[str] = [
         "http://localhost:3000",
