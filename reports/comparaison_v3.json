@@ -1,0 +1,672 @@
+{
+  "genere_le": "2026-11-01T09:25:01+00:00",
+  "regle_de_choix": {
+    "taille_max_mo": 50,
+    "ecart_brier_egalite": 0.002,
+    "texte": "taille ≤ max, puis plus petit Brier, puis accuracy à égalité de Brier"
+  },
+  "localisation_retenue": "departement",
+  "colonnes": [
+    "surface",
+    "periode",
+    "type_batiment",
+    "chauffage",
+    "departement"
+  ],
+  "donnees": {
+    "entrainement": 1130191,
+    "validation": 62467
+  },
+  "resultats": [
+    {
+      "nom": "Classe majoritaire (C)",
+      "famille": "reference",
+      "params": {},
+      "secondes_entrainement": 0,
+      "taille_mo": 0.0,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4059583460066915,
+        "f1_macro": 0.08249753571184583,
+        "accuracy_a_une_classe_pres": 0.7958442057406311,
+        "f1_par_classe": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.5774827499829208,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "G": 0.0
+        },
+        "brier_multiclasse": 1.1880833079866169
+      }
+    },
+    {
+      "nom": "Répartition des classes (probabilités constantes)",
+      "famille": "reference",
+      "params": {},
+      "secondes_entrainement": 0,
+      "taille_mo": 0.0,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4059583460066915,
+        "f1_macro": 0.08249753571184583,
+        "accuracy_a_une_classe_pres": 0.7958442057406311,
+        "f1_par_classe": {
+          "A": 0.0,
+          "B": 0.0,
+          "C": 0.5774827499829208,
+          "D": 0.0,
+          "E": 0.0,
+          "F": 0.0,
+          "G": 0.0
+        },
+        "brier_multiclasse": 0.7362994673501732
+      },
+      "validation_tirage_aleatoire": {
+        "effectif": 62467,
+        "accuracy": 0.26991851697696384,
+        "f1_macro": 0.14310646261841667,
+        "accuracy_a_une_classe_pres": 0.6657435125746394,
+        "f1_par_classe": {
+          "A": 0.040438397581254726,
+          "B": 0.11534025374855825,
+          "C": 0.4132588167276932,
+          "D": 0.2644299813609558,
+          "E": 0.10796341735445014,
+          "F": 0.04821759736245621,
+          "G": 0.012096774193548387
+        }
+      }
+    },
+    {
+      "nom": "LightGBM base, localisation = zone",
+      "famille": "localisation",
+      "params": {
+        "num_leaves": 63,
+        "learning_rate": 0.1,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 11.8,
+      "taille_mo": 1.32,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4830710615204828,
+        "f1_macro": 0.3313167515899945,
+        "accuracy_a_une_classe_pres": 0.8787519810459923,
+        "f1_par_classe": {
+          "A": 0.5607562128373228,
+          "B": 0.2295210166177908,
+          "C": 0.6174461213589219,
+          "D": 0.4001605458559101,
+          "E": 0.21039629439011837,
+          "F": 0.1044404973357016,
+          "G": 0.1964965727341965
+        },
+        "brier_multiclasse": 0.6322788045020842
+      },
+      "localisation": "zone",
+      "meilleure_iteration": 63
+    },
+    {
+      "nom": "LightGBM base, localisation = departement",
+      "famille": "localisation",
+      "params": {
+        "num_leaves": 63,
+        "learning_rate": 0.1,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 10.7,
+      "taille_mo": 0.99,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48740935213792885,
+        "f1_macro": 0.33872825820630054,
+        "accuracy_a_une_classe_pres": 0.8794563529543599,
+        "f1_par_classe": {
+          "A": 0.5713011152416357,
+          "B": 0.21950497978503106,
+          "C": 0.6229988586939758,
+          "D": 0.39949179314607514,
+          "E": 0.2186842895764494,
+          "F": 0.11123071402942232,
+          "G": 0.22788605697151423
+        },
+        "brier_multiclasse": 0.6297582357390982
+      },
+      "localisation": "departement",
+      "meilleure_iteration": 47
+    },
+    {
+      "nom": "LightGBM base, localisation = departement_et_zone",
+      "famille": "localisation",
+      "params": {
+        "num_leaves": 63,
+        "learning_rate": 0.1,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 11.5,
+      "taille_mo": 1.03,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48960251012534617,
+        "f1_macro": 0.3428781455828024,
+        "accuracy_a_une_classe_pres": 0.880576944626763,
+        "f1_par_classe": {
+          "A": 0.5690665865023298,
+          "B": 0.22787524366471734,
+          "C": 0.6242373563752361,
+          "D": 0.40478796169630643,
+          "E": 0.22455508898220355,
+          "F": 0.11483594864479316,
+          "G": 0.23478883321403007
+        },
+        "brier_multiclasse": 0.6297035825543092
+      },
+      "localisation": "departement_et_zone",
+      "meilleure_iteration": 49
+    },
+    {
+      "nom": "Régression logistique multinomiale",
+      "famille": "logistique",
+      "params": {
+        "C": 1.0,
+        "surface": "splines de log(surface), 6 nœuds"
+      },
+      "secondes_entrainement": 112.8,
+      "taille_mo": 0.0,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4755791057678454,
+        "f1_macro": 0.30943701638349846,
+        "accuracy_a_une_classe_pres": 0.877503321753886,
+        "f1_par_classe": {
+          "A": 0.5776073619631902,
+          "B": 0.14476924724274548,
+          "C": 0.6231669337526079,
+          "D": 0.36655109676976416,
+          "E": 0.19771555645405842,
+          "F": 0.09337676438653637,
+          "G": 0.1628721541155867
+        },
+        "brier_multiclasse": 0.636878594758778
+      }
+    },
+    {
+      "nom": "Random Forest 100 arbres, feuilles ≥ 500",
+      "famille": "random_forest",
+      "params": {
+        "n_estimators": 100,
+        "min_samples_leaf": 500,
+        "max_features": "sqrt",
+        "class_weight": null
+      },
+      "secondes_entrainement": 134.6,
+      "taille_mo": 7.46,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48832183392831413,
+        "f1_macro": 0.3072321705706331,
+        "accuracy_a_une_classe_pres": 0.879440344501897,
+        "f1_par_classe": {
+          "A": 0.567047308319739,
+          "B": 0.14178536479286724,
+          "C": 0.6302244153234742,
+          "D": 0.394272974291089,
+          "E": 0.1972961554710604,
+          "F": 0.09341669731518941,
+          "G": 0.12658227848101267
+        },
+        "brier_multiclasse": 0.6346312508122536
+      }
+    },
+    {
+      "nom": "Random Forest 100 arbres, feuilles ≥ 500, balanced",
+      "famille": "random_forest",
+      "params": {
+        "n_estimators": 100,
+        "min_samples_leaf": 500,
+        "max_features": "sqrt",
+        "class_weight": "balanced"
+      },
+      "secondes_entrainement": 84.7,
+      "taille_mo": 6.83,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.32594810059711526,
+        "f1_macro": 0.3014122610253268,
+        "accuracy_a_une_classe_pres": 0.6761490066755247,
+        "f1_par_classe": {
+          "A": 0.5524523160762943,
+          "B": 0.34688577230013695,
+          "C": 0.38637326629191265,
+          "D": 0.3560516167309404,
+          "E": 0.20032161727544223,
+          "F": 0.1423013923013923,
+          "G": 0.12549984620116886
+        },
+        "brier_multiclasse": 0.7514320664628108
+      }
+    },
+    {
+      "nom": "Random Forest 100 arbres, feuilles ≥ 200",
+      "famille": "random_forest",
+      "params": {
+        "n_estimators": 100,
+        "min_samples_leaf": 200,
+        "max_features": "sqrt",
+        "class_weight": null
+      },
+      "secondes_entrainement": 146.5,
+      "taille_mo": 18.39,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48873805369234957,
+        "f1_macro": 0.31994107894181567,
+        "accuracy_a_une_classe_pres": 0.8837946435718059,
+        "f1_par_classe": {
+          "A": 0.550586634926033,
+          "B": 0.18074134585928725,
+          "C": 0.6289747309877887,
+          "D": 0.4050974310565707,
+          "E": 0.20499479708636836,
+          "F": 0.09309198374584411,
+          "G": 0.1761006289308176
+        },
+        "brier_multiclasse": 0.6329388549452407
+      }
+    },
+    {
+      "nom": "Random Forest 100 arbres, feuilles ≥ 200, balanced",
+      "famille": "random_forest",
+      "params": {
+        "n_estimators": 100,
+        "min_samples_leaf": 200,
+        "max_features": "sqrt",
+        "class_weight": "balanced"
+      },
+      "secondes_entrainement": 119.8,
+      "taille_mo": 15.16,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.33214337170025776,
+        "f1_macro": 0.3062395590968512,
+        "accuracy_a_une_classe_pres": 0.6818159988473914,
+        "f1_par_classe": {
+          "A": 0.5591770688858068,
+          "B": 0.35043387050634117,
+          "C": 0.38985709803474144,
+          "D": 0.37561170116359155,
+          "E": 0.1993502658003544,
+          "F": 0.1404392504533548,
+          "G": 0.1288076588337685
+        },
+        "brier_multiclasse": 0.7497493014256078
+      }
+    },
+    {
+      "nom": "Random Forest 60 arbres, feuilles ≥ 100",
+      "famille": "random_forest",
+      "params": {
+        "n_estimators": 60,
+        "min_samples_leaf": 100,
+        "max_features": 0.5,
+        "class_weight": null
+      },
+      "secondes_entrainement": 161.0,
+      "taille_mo": 23.73,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48745737749531753,
+        "f1_macro": 0.3382851110684471,
+        "accuracy_a_une_classe_pres": 0.8828501448764948,
+        "f1_par_classe": {
+          "A": 0.5454835620810724,
+          "B": 0.22974653275944523,
+          "C": 0.6201686018768888,
+          "D": 0.4256784768951111,
+          "E": 0.2180458724866121,
+          "F": 0.10578984989278056,
+          "G": 0.22308288148721922
+        },
+        "brier_multiclasse": 0.6339246922004765
+      }
+    },
+    {
+      "nom": "Random Forest 60 arbres, feuilles ≥ 100, balanced",
+      "famille": "random_forest",
+      "params": {
+        "n_estimators": 60,
+        "min_samples_leaf": 100,
+        "max_features": 0.5,
+        "class_weight": "balanced"
+      },
+      "secondes_entrainement": 103.6,
+      "taille_mo": 19.45,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.32938991787663885,
+        "f1_macro": 0.30508799660138924,
+        "accuracy_a_une_classe_pres": 0.679318680263179,
+        "f1_par_classe": {
+          "A": 0.5536003704561241,
+          "B": 0.34936191934660543,
+          "C": 0.39509452089632374,
+          "D": 0.36338978080785866,
+          "E": 0.2075626798191533,
+          "F": 0.13795039775386056,
+          "G": 0.1286563071297989
+        },
+        "brier_multiclasse": 0.7536194247015344
+      }
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 31, 'learning_rate': 0.1, 'min_child_samples': 100}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 31,
+        "learning_rate": 0.1,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 9.4,
+      "taille_mo": 0.59,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4857924984391759,
+        "f1_macro": 0.33569216427115384,
+        "accuracy_a_une_classe_pres": 0.8767829413930556,
+        "f1_par_classe": {
+          "A": 0.5586142901330035,
+          "B": 0.21391650099403578,
+          "C": 0.6224595984329089,
+          "D": 0.3977583284325596,
+          "E": 0.21303082019877523,
+          "F": 0.11177927131234525,
+          "G": 0.2322863403944485
+        },
+        "brier_multiclasse": 0.6297209788194807
+      },
+      "meilleure_iteration": 57
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 63, 'learning_rate': 0.1, 'min_child_samples': 100}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 63,
+        "learning_rate": 0.1,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 30.3,
+      "taille_mo": 0.99,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48740935213792885,
+        "f1_macro": 0.33872825820630054,
+        "accuracy_a_une_classe_pres": 0.8794563529543599,
+        "f1_par_classe": {
+          "A": 0.5713011152416357,
+          "B": 0.21950497978503106,
+          "C": 0.6229988586939758,
+          "D": 0.39949179314607514,
+          "E": 0.2186842895764494,
+          "F": 0.11123071402942232,
+          "G": 0.22788605697151423
+        },
+        "brier_multiclasse": 0.6297582357390982
+      },
+      "meilleure_iteration": 47
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 127, 'learning_rate': 0.1, 'min_child_samples': 100}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 127,
+        "learning_rate": 0.1,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 60.5,
+      "taille_mo": 1.54,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48841788464309155,
+        "f1_macro": 0.3383394379967669,
+        "accuracy_a_une_classe_pres": 0.8817295532040917,
+        "f1_par_classe": {
+          "A": 0.5327868852459017,
+          "B": 0.23338397265476643,
+          "C": 0.623348703888335,
+          "D": 0.41437462356956434,
+          "E": 0.21926774391491102,
+          "F": 0.11245551601423487,
+          "G": 0.23275862068965517
+        },
+        "brier_multiclasse": 0.6305325566160633
+      },
+      "meilleure_iteration": 37
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 255, 'learning_rate': 0.1, 'min_child_samples': 100}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 255,
+        "learning_rate": 0.1,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 85.3,
+      "taille_mo": 3.05,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4902428482238622,
+        "f1_macro": 0.33758316461155685,
+        "accuracy_a_une_classe_pres": 0.8815854771319257,
+        "f1_par_classe": {
+          "A": 0.531470777135517,
+          "B": 0.24600728495376856,
+          "C": 0.6230765603633907,
+          "D": 0.42645074224021595,
+          "E": 0.2160106874935772,
+          "F": 0.10339943342776203,
+          "G": 0.21666666666666667
+        },
+        "brier_multiclasse": 0.6323683898252439
+      },
+      "meilleure_iteration": 37
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 63, 'learning_rate': 0.05, 'min_child_samples': 100}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 63,
+        "learning_rate": 0.05,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 76.7,
+      "taille_mo": 2.03,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4913154145388765,
+        "f1_macro": 0.3440110449342268,
+        "accuracy_a_une_classe_pres": 0.8820337138008869,
+        "f1_par_classe": {
+          "A": 0.5845210727969349,
+          "B": 0.21678183613030602,
+          "C": 0.6276727227783957,
+          "D": 0.404791972422267,
+          "E": 0.22135416666666666,
+          "F": 0.11806543385490754,
+          "G": 0.2348901098901099
+        },
+        "brier_multiclasse": 0.6287703491783441
+      },
+      "meilleure_iteration": 97
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 127, 'learning_rate': 0.05, 'min_child_samples': 100}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 127,
+        "learning_rate": 0.05,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 17.0,
+      "taille_mo": 3.17,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48798565642659325,
+        "f1_macro": 0.3388406323401335,
+        "accuracy_a_une_classe_pres": 0.8806089615316888,
+        "f1_par_classe": {
+          "A": 0.540363975734951,
+          "B": 0.23206952535574443,
+          "C": 0.6228980936470515,
+          "D": 0.4137630369898387,
+          "E": 0.22011116725618998,
+          "F": 0.11043819023868899,
+          "G": 0.23224043715846995
+        },
+        "brier_multiclasse": 0.629863632338568
+      },
+      "meilleure_iteration": 76
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 63, 'learning_rate': 0.1, 'min_child_samples': 500}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 63,
+        "learning_rate": 0.1,
+        "min_child_samples": 500
+      },
+      "secondes_entrainement": 9.8,
+      "taille_mo": 0.86,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4915395328733571,
+        "f1_macro": 0.3433335910995248,
+        "accuracy_a_une_classe_pres": 0.8812332911777419,
+        "f1_par_classe": {
+          "A": 0.571928707829408,
+          "B": 0.22826193993106844,
+          "C": 0.6276046849881344,
+          "D": 0.40223579339612875,
+          "E": 0.21926311573888665,
+          "F": 0.11814345991561181,
+          "G": 0.2358974358974359
+        },
+        "brier_multiclasse": 0.6288822226094167
+      },
+      "meilleure_iteration": 41
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 127, 'learning_rate': 0.1, 'min_child_samples': 500}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 127,
+        "learning_rate": 0.1,
+        "min_child_samples": 500
+      },
+      "secondes_entrainement": 11.6,
+      "taille_mo": 1.46,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48814574095122226,
+        "f1_macro": 0.3405708063513043,
+        "accuracy_a_une_classe_pres": 0.879760513551155,
+        "f1_par_classe": {
+          "A": 0.5501930501930502,
+          "B": 0.2328093355193365,
+          "C": 0.6206317883058564,
+          "D": 0.41597003945696515,
+          "E": 0.214314762098414,
+          "F": 0.11576704545454546,
+          "G": 0.23430962343096234
+        },
+        "brier_multiclasse": 0.6296872475819498
+      },
+      "meilleure_iteration": 35
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 255, 'learning_rate': 0.05, 'min_child_samples': 500}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 255,
+        "learning_rate": 0.05,
+        "min_child_samples": 500
+      },
+      "secondes_entrainement": 24.5,
+      "taille_mo": 6.16,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.48923431571869946,
+        "f1_macro": 0.34325806148833155,
+        "accuracy_a_une_classe_pres": 0.8846270830998767,
+        "f1_par_classe": {
+          "A": 0.5529257067718606,
+          "B": 0.23575273807313904,
+          "C": 0.6231171515360285,
+          "D": 0.4194609683958659,
+          "E": 0.215962441314554,
+          "F": 0.1160745691171298,
+          "G": 0.2395128552097429
+        },
+        "brier_multiclasse": 0.6304151385660361
+      },
+      "meilleure_iteration": 74
+    },
+    {
+      "nom": "LightGBM {'num_leaves': 511, 'learning_rate': 0.05, 'min_child_samples': 1000}",
+      "famille": "lightgbm",
+      "params": {
+        "num_leaves": 511,
+        "learning_rate": 0.05,
+        "min_child_samples": 1000
+      },
+      "secondes_entrainement": 33.0,
+      "taille_mo": 12.17,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.4892503241711624,
+        "f1_macro": 0.3420948348429355,
+        "accuracy_a_une_classe_pres": 0.8825139673747738,
+        "f1_par_classe": {
+          "A": 0.5525435073627845,
+          "B": 0.23801779393475558,
+          "C": 0.623903063614503,
+          "D": 0.4165209646026457,
+          "E": 0.2114572864321608,
+          "F": 0.11315417256011315,
+          "G": 0.239067055393586
+        },
+        "brier_multiclasse": 0.6304417320124193
+      },
+      "meilleure_iteration": 72
+    },
+    {
+      "nom": "Ordinal : régression CEP et EGES puis seuils",
+      "famille": "ordinal",
+      "params": {
+        "num_leaves": 127,
+        "learning_rate": 0.1,
+        "min_child_samples": 100
+      },
+      "secondes_entrainement": 19.2,
+      "taille_mo": 5.32,
+      "validation": {
+        "effectif": 62467,
+        "accuracy": 0.49115533001424755,
+        "f1_macro": 0.32454866216132777,
+        "accuracy_a_une_classe_pres": 0.8874605791858101,
+        "f1_par_classe": {
+          "A": 0.5633480464279875,
+          "B": 0.2115085536547434,
+          "C": 0.6300299275845493,
+          "D": 0.4227123296415691,
+          "E": 0.1562829989440338,
+          "F": 0.10055478502080444,
+          "G": 0.18740399385560677
+        },
+        "brier_multiclasse": 0.6371568163990587
+      }
+    }
+  ],
+  "choix": "LightGBM {'num_leaves': 63, 'learning_rate': 0.1, 'min_child_samples': 500}"
+}
