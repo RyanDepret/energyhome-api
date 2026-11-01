@@ -1,0 +1,98 @@
+{
+  "genere_le": "2026-11-01T09:28:01+00:00",
+  "lignes_validation": 62467,
+  "importance_globale": {
+    "surface": {
+      "critere": "Surface",
+      "classe_predite": 0.10963695487035581,
+      "part_classe_predite": 0.0967181460279856,
+      "toutes_classes": 1.9469296743325515,
+      "part_toutes_classes": 0.15076550168174477
+    },
+    "periode": {
+      "critere": "Période de construction",
+      "classe_predite": 0.5503513255091753,
+      "part_classe_predite": 0.48550199091387,
+      "toutes_classes": 5.687008404278475,
+      "part_toutes_classes": 0.44038810771800446
+    },
+    "type_batiment": {
+      "critere": "Type de bâtiment",
+      "classe_predite": 0.06622240792969199,
+      "part_classe_predite": 0.05841924858313055,
+      "toutes_classes": 0.7792963127896461,
+      "part_toutes_classes": 0.06034681226826709
+    },
+    "chauffage": {
+      "critere": "Énergie de chauffage",
+      "classe_predite": 0.25724392050338046,
+      "part_classe_predite": 0.2269321972456998,
+      "toutes_classes": 2.7332844500094526,
+      "part_toutes_classes": 0.21165890415936997
+    },
+    "departement": {
+      "critere": "Département",
+      "classe_predite": 0.1501171083151431,
+      "part_classe_predite": 0.13242841722931395,
+      "toutes_classes": 1.7671096254150058,
+      "part_toutes_classes": 0.1368406741726136
+    }
+  },
+  "controle_shap": {
+    "lignes": 1000,
+    "version_shap": "0.54.1",
+    "ecart_absolu_max": 0.0,
+    "ecart_additivite_max": 1.532107773982716e-14
+  },
+  "temps": {
+    "expliquer": {
+      "mediane_ms": 20.641950017306954,
+      "p95_ms": 34.189804998459294,
+      "max_ms": 70.86200010962784
+    },
+    "predire_complet": {
+      "mediane_ms": 21.207000012509525,
+      "p95_ms": 35.22959501715377,
+      "max_ms": 38.3931000251323
+    }
+  },
+  "limite_ms": 200,
+  "exemple": {
+    "entree": {
+      "surface": 74.2,
+      "periode": "1983_1988",
+      "type_batiment": "appartement",
+      "chauffage": "gaz_naturel",
+      "departement": "13",
+      "zone_climatique": "H3"
+    },
+    "facteurs": [
+      {
+        "critere": "Période de construction",
+        "valeur": "1983_1988",
+        "poids": 0.5046260008445916
+      },
+      {
+        "critere": "Énergie de chauffage",
+        "valeur": "gaz_naturel",
+        "poids": 0.29220571415126495
+      },
+      {
+        "critere": "Département",
+        "valeur": "13",
+        "poids": 0.15031811436530476
+      },
+      {
+        "critere": "Type de bâtiment",
+        "valeur": "appartement",
+        "poids": 0.03618474890217621
+      },
+      {
+        "critere": "Surface",
+        "valeur": 74.2,
+        "poids": 0.016665421736662384
+      }
+    ],
+    "classe": "C"
+  }
+}
