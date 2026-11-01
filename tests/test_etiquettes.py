@@ -8,7 +8,10 @@ from app.core.reglementation import (
     seuils_etiquette,
 )
 from training.etiquettes import (
+    CoefficientInattendu,
     classe_selon_seuils,
+    controler_coefficient_publie,
+    mesurer_coefficient_publie,
     ef_electrique_par_m2,
     etiquette_cible,
     recalculer_etiquette,
@@ -158,24 +161,51 @@ def test_seuils_lot_identiques_a_seuils_etiquette():
 
 # ── Cible : étiquette officielle décalée du seul effet du coefficient ───────
 
-def test_cible_garde_l_etiquette_officielle_sans_effet_du_coefficient():
-    # Officiel « C » alors que le recalcul donne D : le coefficient ne change rien → C conservé
-    df = pd.DataFrame([dpe(conso_5_usages_ef_energie_n1=0.0, etiquette_dpe="C")])
-    assert etiquette_cible(df, 1.9).tolist() == ["C"]
+def test_cible_egale_etiquette_officielle_si_meme_coefficient():
+    df = pd.DataFrame([dpe(etiquette_dpe="C"), dpe(date_etablissement_dpe="2022-01-01", etiquette_dpe="F")])
+    assert etiquette_cible(df, 1.9, coefficient_source=1.9).tolist() == ["C", "F"]
 
 
-def test_cible_applique_le_decalage_du_coefficient():
-    # 2,3 → 1,9 : 200 → 180 reste D ; 205 → 185 reste D ; 190 → 170 passe de D à C
-    df = pd.DataFrame([dpe(conso_5_usages_par_m2_ep=190.0, etiquette_dpe="E")])
-    assert etiquette_cible(df, 1.9).tolist() == ["D"]
-
-
-def test_cible_dpe_deja_au_coefficient_cible_inchangee():
-    df = pd.DataFrame([dpe(date_etablissement_dpe="2026-03-01", etiquette_dpe="B")])
-    assert etiquette_cible(df, 1.9).tolist() == ["B"]
+def test_cible_ignore_la_date_et_part_du_coefficient_publie():
+    # Publié en 1,9 (quelle que soit la date) → 1,7 : 190 − 0,2 × 50 = 180 → D, inchangé
+    # 185 − 10 = 175 → passe de D à C : l'officiel E devient D
+    df = pd.DataFrame([dpe(date_etablissement_dpe="2022-01-01", conso_5_usages_par_m2_ep=190.0, etiquette_dpe="D"),
+                       dpe(date_etablissement_dpe="2022-01-01", conso_5_usages_par_m2_ep=185.0, etiquette_dpe="E")])
+    assert etiquette_cible(df, 1.7, coefficient_source=1.9).tolist() == ["D", "D"]
 
 
 def test_cible_bornee():
     df = pd.DataFrame([dpe(conso_5_usages_par_m2_ep=75.0, conso_5_usages_ef_energie_n1=3000.0,
                            emission_ges_5_usages_par_m2=1.0, etiquette_dpe="A")])
-    assert etiquette_cible(df, 1.9).tolist() == ["A"]
+    assert etiquette_cible(df, 1.7, coefficient_source=1.9).tolist() == ["A"]
+
+
+# ── Contrôle du coefficient publié ──────────────────────────────────────────
+
+def _tout_electrique(ratio: float, n: int = 200) -> pd.DataFrame:
+    return pd.DataFrame([dpe(conso_5_usages_par_m2_ef=100.0, conso_5_usages_par_m2_ep=100.0 * ratio)] * n)
+
+
+def test_mesure_du_coefficient_publie():
+    assert mesurer_coefficient_publie(_tout_electrique(1.9))["mediane"] == pytest.approx(1.9)
+
+
+def test_controle_accepte_19():
+    assert controler_coefficient_publie(_tout_electrique(1.905), attendu=1.9)["mediane"] == pytest.approx(1.905)
+
+
+def test_controle_detecte_une_republication_en_17():
+    with pytest.raises(CoefficientInattendu):
+        controler_coefficient_publie(_tout_electrique(1.7), attendu=1.9)
+
+
+def test_controle_ignore_les_dpe_multi_energies():
+    df = pd.concat([_tout_electrique(1.9),
+                    pd.DataFrame([dpe(type_energie_n2="Gaz naturel", conso_5_usages_ef_energie_n2=1.0,
+                                      conso_5_usages_par_m2_ef=100.0, conso_5_usages_par_m2_ep=120.0)] * 500)])
+    assert controler_coefficient_publie(df, attendu=1.9)["n"] == 200
+
+
+def test_controle_refuse_trop_peu_de_dpe():
+    with pytest.raises(CoefficientInattendu):
+        controler_coefficient_publie(_tout_electrique(1.9, n=5), attendu=1.9)

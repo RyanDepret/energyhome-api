@@ -1,6 +1,6 @@
 # Validation du recalcul des étiquettes
 
-Généré par `training/valider_etiquettes.py` le 2026-11-01T08:28:01+00:00.
+Généré par `training/valider_etiquettes.py` le 2026-11-01T08:54:47+00:00.
 
 Règles appliquées (Arrêté du 25 mars 2024 (NOR TREL2330369A), JORF du 20 avril 2024, texte 15, annexe 1 ; Légifrance JORFARTI000049446339) : CEP et EGES arrondis à l'entier inférieur, inégalités strictes, seuils petites surfaces (≤ 40 m², interpolation linéaire) et altitude (> 800 m en H1b, H1c, H2d). La surface utilisée est `surface_habitable_logement` : le jeu ADEME ne publie pas la surface de référence.
 

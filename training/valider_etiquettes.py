@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 
 from app.core.reglementation import DATE_SEUILS_PETITES_SURFACES, SOURCE_SEUILS, ZONES_ALTITUDE
-from training.etiquettes import ALTITUDE_SUP_800, CLASSES, etiquette_cible, recalculer_lot
+from training.etiquettes import ALTITUDE_SUP_800, CLASSES, indices_lot, recalculer_lot
 
 RACINE = Path(__file__).resolve().parent.parent
 ENTREE = RACINE / "data" / "dpe_paca.parquet"
@@ -151,8 +151,10 @@ def effet_altitude(df: pd.DataFrame, coefficient: float) -> dict:
 def effet_cible(df: pd.DataFrame) -> dict:
     """Combien d'étiquettes la cible en 1,9 change, avant 2026 (par chauffage électrique ou non)."""
     avant = df[pd.to_datetime(df["date_etablissement_dpe"]) < DATE_19]
-    cible = etiquette_cible(avant, 1.9)
+    # Hypothèse de la table datée (source = coefficient à la date du DPE), conservée pour mémoire
     vrai = avant["etiquette_dpe"].astype(str)
+    indice = np.clip(vrai.map(CLASSES.index).to_numpy() + indices_lot(avant, 1.9) - indices_lot(avant, 2.3), 0, 6)
+    cible = pd.Series(np.asarray(CLASSES)[indice], index=avant.index)
     decalage = cible.map(CLASSES.index) - vrai.map(CLASSES.index)
     elec = avant["type_energie_principale_chauffage"].astype(str).str.startswith("Électricité")
     return {

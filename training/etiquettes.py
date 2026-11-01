@@ -17,6 +17,10 @@ annuels en kWh : on les divise par la surface. La surface utilisée est
 
 Cible d'entraînement (`etiquette_cible`) : on garde `etiquette_dpe` et on lui applique
 seulement le décalage de classe dû au changement de coefficient, calculé avec ces seuils.
+Le coefficient de départ est celui **des données publiées**, mesuré dans les données
+(`mesurer_coefficient_publie`) : en novembre 2026, l'ADEME publie tous les DPE en 1,9,
+y compris ceux établis avant 2026 (reports/validation_etiquettes.md). La date d'établissement
+ne dit donc pas en quel coefficient une ligne est publiée.
 """
 
 import math
@@ -109,8 +113,10 @@ def ef_electrique_par_m2_lot(df: pd.DataFrame) -> np.ndarray:
     return total / df["surface_habitable_logement"].to_numpy(dtype=float)
 
 
-def ep_au_coefficient_lot(df: pd.DataFrame, coefficient_cible: float) -> np.ndarray:
-    coef = coefficients_dpe(df["date_etablissement_dpe"])
+def ep_au_coefficient_lot(df: pd.DataFrame, coefficient_cible: float,
+                          coefficient_source: float | None = None) -> np.ndarray:
+    """CEP par m² au coefficient cible, depuis le coefficient source (par défaut : table datée)."""
+    coef = coefficients_dpe(df["date_etablissement_dpe"]) if coefficient_source is None else coefficient_source
     return df["conso_5_usages_par_m2_ep"].to_numpy(dtype=float) - (coef - coefficient_cible) * ef_electrique_par_m2_lot(df)
 
 
@@ -149,9 +155,10 @@ def _indice_classe(valeurs: np.ndarray, seuils: np.ndarray) -> np.ndarray:
     return (np.floor(valeurs)[:, None] >= seuils).sum(axis=1)
 
 
-def indices_lot(df: pd.DataFrame, coefficient_cible: float, petites_surfaces: bool = True) -> np.ndarray:
+def indices_lot(df: pd.DataFrame, coefficient_cible: float, petites_surfaces: bool = True,
+                coefficient_source: float | None = None) -> np.ndarray:
     cep, eges = seuils_lot(df, petites_surfaces)
-    ep = ep_au_coefficient_lot(df, coefficient_cible)
+    ep = ep_au_coefficient_lot(df, coefficient_cible, coefficient_source)
     ges = df["emission_ges_5_usages_par_m2"].to_numpy(dtype=float)
     return np.maximum(_indice_classe(ep, cep), _indice_classe(ges, eges))
 
@@ -162,18 +169,56 @@ def recalculer_lot(df: pd.DataFrame, coefficient_cible: float, petites_surfaces:
     return pd.Series(np.asarray(CLASSES)[indice], index=df.index, name="etiquette_recalculee")
 
 
-def etiquette_cible(df: pd.DataFrame, coefficient_cible: float) -> pd.Series:
-    """`etiquette_dpe` décalée du seul effet du changement de coefficient.
+# ── Coefficient des données publiées ─────────────────────────────────────────
 
-    décalage = classe recalculée au coefficient cible − classe recalculée au coefficient du DPE
-    (mêmes seuils des deux côtés) ; résultat borné à A…G.
+# Coefficient des données ADEME publiées, mesuré le 2026-11-01 (reports/validation_etiquettes.md)
+COEFFICIENT_PUBLIE = 1.9
+TOLERANCE_COEFFICIENT = 0.05
+
+
+class CoefficientInattendu(RuntimeError):
+    """Les données ne sont pas publiées au coefficient attendu (ex. republication ADEME en 1,7)."""
+
+
+def mesurer_coefficient_publie(df: pd.DataFrame) -> dict:
+    """Coefficient électricité contenu dans les données : médiane de CEP / CEF par m²
+    sur les DPE dont la seule énergie est l'électricité."""
+    seul_elec = (df["type_energie_n1"].astype("string").str.startswith(PREFIXE_ELECTRICITE).fillna(False)
+                 & df["type_energie_n2"].isna() & df["type_energie_n3"].isna())
+    sous = df[seul_elec]
+    ratio = (sous["conso_5_usages_par_m2_ep"] / sous["conso_5_usages_par_m2_ef"]).replace([np.inf, -np.inf], np.nan).dropna()
+    return {"n": int(ratio.size), "mediane": float(ratio.median()) if ratio.size else float("nan"),
+            "p10": float(ratio.quantile(0.1)) if ratio.size else float("nan"),
+            "p90": float(ratio.quantile(0.9)) if ratio.size else float("nan")}
+
+
+def controler_coefficient_publie(df: pd.DataFrame, attendu: float, tolerance: float = TOLERANCE_COEFFICIENT,
+                                 n_min: int = 100) -> dict:
+    """Vérifie que les données sont publiées au coefficient attendu ; lève CoefficientInattendu sinon.
+
+    À appeler à chaque préparation des données : le jour où l'ADEME republiera la base
+    au coefficient 1,7, le pipeline s'arrêtera au lieu d'appliquer une double correction.
     """
-    coef_propre = coefficients_dpe(df["date_etablissement_dpe"])
-    propre = np.empty(len(df), dtype=int)
-    for c in np.unique(coef_propre):
-        m = coef_propre == c
-        propre[m] = indices_lot(df[m], float(c))
-    cible = indices_lot(df, coefficient_cible)
-    officiel = df["etiquette_dpe"].astype(str).map(CLASSES.index).to_numpy()
-    indice = np.clip(officiel + cible - propre, 0, len(CLASSES) - 1)
+    mesure = mesurer_coefficient_publie(df)
+    if mesure["n"] < n_min:
+        raise CoefficientInattendu(f"Trop peu de DPE tout électriques pour mesurer le coefficient ({mesure['n']})")
+    if abs(mesure["mediane"] - attendu) > tolerance:
+        raise CoefficientInattendu(
+            f"Coefficient mesuré dans les données : {mesure['mediane']:.3f} (attendu {attendu} ± {tolerance}). "
+            "La base a peut-être été republiée : mettez à jour COEFFICIENT_PUBLIE avant d'entraîner.")
+    return {**mesure, "attendu": attendu, "tolerance": tolerance}
+
+
+def etiquette_cible(df: pd.DataFrame, coefficient_cible: float, coefficient_source: float) -> pd.Series:
+    """`etiquette_dpe` décalée du seul effet du passage du coefficient source au coefficient cible.
+
+    décalage = classe recalculée au coefficient cible − classe des valeurs publiées (mêmes seuils) ;
+    résultat borné à A…G. Si cible = source, `etiquette_dpe` est renvoyée telle quelle.
+    """
+    officiel = df["etiquette_dpe"].astype(str)
+    if math.isclose(coefficient_cible, coefficient_source):
+        return officiel.rename("etiquette_cible")
+    propre = indices_lot(df, coefficient_source, coefficient_source=coefficient_source)
+    cible = indices_lot(df, coefficient_cible, coefficient_source=coefficient_source)
+    indice = np.clip(officiel.map(CLASSES.index).to_numpy() + cible - propre, 0, len(CLASSES) - 1)
     return pd.Series(np.asarray(CLASSES)[indice], index=df.index, name="etiquette_cible")
