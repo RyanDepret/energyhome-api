@@ -1,132 +1,95 @@
 {
-  "genere_le": "2026-11-01T08:07:03+00:00",
-  "seuils_energie": [
-    70,
-    110,
-    180,
-    250,
-    330,
-    420
-  ],
-  "seuils_ges": [
-    6,
-    11,
-    30,
-    50,
-    70,
-    100
-  ],
+  "genere_le": "2026-11-01T08:28:01+00:00",
+  "source_seuils": "Arrêté du 25 mars 2024 (NOR TREL2330369A), JORF du 20 avril 2024, texte 15, annexe 1 ; Légifrance JORFARTI000049446339",
+  "jointure_altitude": {
+    "dpe": 1225576,
+    "avec_classe_altitude": 1224279,
+    "sans_classe_altitude": 1297,
+    "repartition": {
+      "inférieur à 400m": 1133218,
+      "400-800m": 51159,
+      "supérieur à 800m": 39514,
+      "<NA>": 1297,
+      "Non affecté": 388
+    }
+  },
   "depuis_2026_coef_1_9": {
     "coefficient": 1.9,
     "n": 166585,
-    "concordance": 0.9164270492541345,
+    "concordance": 0.9998199117567608,
     "par_tranche": {
       "< 40 m²": {
         "n": 40635,
-        "concordance": 0.7430540174726221
+        "concordance": 0.9993109388458226
       },
       "40–100 m²": {
         "n": 97831,
-        "concordance": 0.9718596354938619
+        "concordance": 0.9999795565822694
       },
       "> 100 m²": {
         "n": 28119,
-        "concordance": 0.9741100323624595
+        "concordance": 1.0
       }
     },
-    "ecarts_par_rang": {
-      "-3": 6,
-      "-2": 305,
-      "-1": 10817,
-      "1": 2794
-    },
-    "diagnostic_desaccords": {
-      "< 40 m²": {
-        "desaccords": 10441,
-        "officiel_meilleur": 10441,
-        "officiel_plus_mauvais": 0,
-        "valeur_ep_ou_ges_pile_sur_un_seuil": 1028
-      },
-      ">= 40 m²": {
-        "desaccords": 3481,
-        "officiel_meilleur": 687,
-        "officiel_plus_mauvais": 2794,
-        "valeur_ep_ou_ges_pile_sur_un_seuil": 2810
-      }
-    },
-    "concordance_par_surface_fine": {
+    "par_surface_fine": {
       "[0.0, 10.0)": {
         "n": 315,
-        "concordance": 0.022222222222222223
+        "concordance": 1.0
       },
       "[10.0, 15.0)": {
         "n": 896,
-        "concordance": 0.19196428571428573
+        "concordance": 0.9966517857142857
       },
       "[15.0, 20.0)": {
         "n": 5776,
-        "concordance": 0.47714681440443213
+        "concordance": 0.9994806094182825
       },
       "[20.0, 25.0)": {
         "n": 7355,
-        "concordance": 0.6186267845003399
+        "concordance": 0.9985044187627464
       },
       "[25.0, 30.0)": {
         "n": 8299,
-        "concordance": 0.7540667550307266
+        "concordance": 0.9991565248825159
       },
       "[30.0, 35.0)": {
         "n": 9131,
-        "concordance": 0.8748220348264155
+        "concordance": 0.9998904829701019
       },
       "[35.0, 40.0)": {
         "n": 8863,
-        "concordance": 0.9548685546654632
+        "concordance": 0.9996615141599909
       },
-      "[40.0, 45.0)": {
-        "n": 10443,
-        "concordance": 0.9720386862012832
+      "[40.0, 40.0001)": {
+        "n": 392,
+        "concordance": 0.9948979591836735
+      },
+      "[40.0001, 45.0)": {
+        "n": 10051,
+        "concordance": 1.0
       },
       "[45.0, 50.0)": {
         "n": 9768,
-        "concordance": 0.9758394758394758
+        "concordance": 1.0
       },
       "[50.0, inf)": {
         "n": 105739,
-        "concordance": 0.9720727451555244
+        "concordance": 1.0
       }
     },
-    "concordance_par_trimestre": {
-      "2026Q1": {
-        "< 40 m²": 0.7486797141969556,
-        ">= 40 m²": 0.9711395418030349
-      },
-      "2026Q2": {
-        "< 40 m²": 0.7485873323774985,
-        ">= 40 m²": 0.9744472496366001
-      },
-      "2026Q3": {
-        "< 40 m²": 0.7390701468189234,
-        ">= 40 m²": 0.9707297962838594
-      },
-      "2026Q4": {
-        "< 40 m²": 0.7185612300933553,
-        ">= 40 m²": 0.9747867653950698
-      }
+    "desaccords": {
+      "total": 30,
+      "officiel_meilleur": 30,
+      "officiel_plus_mauvais": 0
     },
-    "concordance_composante_energie_seule": 0.7990155176036258,
-    "consommations_par_energie_incompletes": {
-      "n": 409,
-      "concordance": 0.9902200488997555
-    },
-    "concordance_par_chauffage": {
+    "par_chauffage": {
       "Bois – Bûches": {
         "n": 2900,
-        "concordance": 0.9710344827586207
+        "concordance": 1.0
       },
       "Bois – Granulés (pellets) ou briquettes": {
         "n": 1115,
-        "concordance": 0.9434977578475336
+        "concordance": 1.0
       },
       "Bois – Plaquettes d’industrie": {
         "n": 10,
@@ -134,7 +97,7 @@
       },
       "Bois – Plaquettes forestières": {
         "n": 112,
-        "concordance": 0.29464285714285715
+        "concordance": 1.0
       },
       "Butane": {
         "n": 6,
@@ -142,37 +105,37 @@
       },
       "Charbon": {
         "n": 8,
-        "concordance": 0.75
+        "concordance": 1.0
       },
       "Fioul domestique": {
         "n": 6647,
-        "concordance": 0.9368136001203551
+        "concordance": 1.0
       },
       "GPL": {
         "n": 653,
-        "concordance": 0.9218989280245024
+        "concordance": 1.0
       },
       "Gaz naturel": {
         "n": 43792,
-        "concordance": 0.9450584581658751
+        "concordance": 1.0
       },
       "Propane": {
         "n": 186,
-        "concordance": 0.9838709677419355
+        "concordance": 1.0
       },
       "Réseau de Chauffage urbain": {
         "n": 2127,
-        "concordance": 0.8537846732487071
+        "concordance": 0.999529854254819
       },
       "Électricité": {
         "n": 109029,
-        "concordance": 0.903667831494373
+        "concordance": 0.9997340157205881
       }
     },
     "confusion_reel_lignes_recalcule_colonnes": [
       [
-        7282,
-        354,
+        7636,
+        0,
         0,
         0,
         0,
@@ -180,9 +143,9 @@
         0
       ],
       [
-        320,
-        19765,
-        833,
+        0,
+        20917,
+        1,
         0,
         0,
         0,
@@ -190,39 +153,30 @@
       ],
       [
         0,
-        1160,
-        63490,
-        4335,
-        130,
-        3,
+        0,
+        69106,
+        12,
+        0,
+        0,
         0
       ],
       [
         0,
         0,
-        923,
-        39045,
-        2704,
-        93,
-        3
-      ],
-      [
         0,
+        42759,
+        9,
         0,
-        0,
-        281,
-        15319,
-        1832,
-        82
+        0
       ],
       [
         0,
         0,
         0,
         0,
-        90,
-        5520,
-        759
+        17508,
+        6,
+        0
       ],
       [
         0,
@@ -230,390 +184,287 @@
         0,
         0,
         0,
-        20,
-        2242
+        6367,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2262
       ]
     ],
     "exemples_ecarts": [
       {
-        "numero_dpe": "2613E2567093B",
-        "date_etablissement_dpe": "2026-10-07",
-        "surface_habitable_logement": 152.6,
-        "type_energie_principale_chauffage": "Fioul domestique",
-        "conso_5_usages_par_m2_ep": 139.0,
-        "emission_ges_5_usages_par_m2": 30.0,
-        "etiquette_dpe": "D",
-        "ep_recalculee": 139.0,
-        "classe_ep": "C",
-        "classe_ges": "C",
-        "etiquette_recalculee": "C"
-      },
-      {
-        "numero_dpe": "2613E0671144Y",
-        "date_etablissement_dpe": "2026-03-09",
-        "surface_habitable_logement": 21.3,
+        "numero_dpe": "2613E2630653R",
+        "date_etablissement_dpe": "2026-10-14",
+        "surface_habitable_logement": 14.5,
         "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 191.0,
-        "emission_ges_5_usages_par_m2": 7.0,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 191.0,
-        "classe_ep": "D",
-        "classe_ges": "B",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2613E2596552C",
-        "date_etablissement_dpe": "2026-10-12",
-        "surface_habitable_logement": 25.5,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 258.0,
-        "emission_ges_5_usages_par_m2": 10.0,
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 341.0,
+        "emission_ges_5_usages_par_m2": 13.0,
         "etiquette_dpe": "D",
-        "ep_recalculee": 258.0,
-        "classe_ep": "E",
-        "classe_ges": "B",
         "etiquette_recalculee": "E"
       },
       {
-        "numero_dpe": "2606E2503300F",
-        "date_etablissement_dpe": "2026-09-30",
-        "surface_habitable_logement": 59.3,
+        "numero_dpe": "2683E1536227B",
+        "date_etablissement_dpe": "2026-06-08",
+        "surface_habitable_logement": 23.0,
         "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 47.0,
-        "emission_ges_5_usages_par_m2": 6.0,
-        "etiquette_dpe": "B",
-        "ep_recalculee": 47.0,
-        "classe_ep": "A",
-        "classe_ges": "A",
-        "etiquette_recalculee": "A"
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 217.0,
+        "emission_ges_5_usages_par_m2": 8.0,
+        "etiquette_dpe": "C",
+        "etiquette_recalculee": "D"
       },
       {
-        "numero_dpe": "2683E0509576M",
-        "date_etablissement_dpe": "2026-02-21",
-        "surface_habitable_logement": 154.8,
-        "type_energie_principale_chauffage": "Fioul domestique",
-        "conso_5_usages_par_m2_ep": 175.0,
-        "emission_ges_5_usages_par_m2": 30.0,
+        "numero_dpe": "2613E2041578Y",
+        "date_etablissement_dpe": "2026-07-30",
+        "surface_habitable_logement": 15.9,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 326.0,
+        "emission_ges_5_usages_par_m2": 12.0,
         "etiquette_dpe": "D",
-        "ep_recalculee": 175.0,
-        "classe_ep": "C",
-        "classe_ges": "C",
-        "etiquette_recalculee": "C"
+        "etiquette_recalculee": "E"
       },
       {
-        "numero_dpe": "2613E2173706U",
-        "date_etablissement_dpe": "2026-08-21",
+        "numero_dpe": "2613E1568538C",
+        "date_etablissement_dpe": "2026-06-11",
+        "surface_habitable_logement": 29.5,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 268.0,
+        "emission_ges_5_usages_par_m2": 10.0,
+        "etiquette_dpe": "D",
+        "etiquette_recalculee": "E"
+      },
+      {
+        "numero_dpe": "2683E0593517Z",
+        "date_etablissement_dpe": "2026-03-02",
+        "surface_habitable_logement": 19.6,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 302.0,
+        "emission_ges_5_usages_par_m2": 12.0,
+        "etiquette_dpe": "D",
+        "etiquette_recalculee": "E"
+      },
+      {
+        "numero_dpe": "2606E0909996H",
+        "date_etablissement_dpe": "2026-03-31",
+        "surface_habitable_logement": 22.5,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 289.7,
+        "emission_ges_5_usages_par_m2": 11.3,
+        "etiquette_dpe": "D",
+        "etiquette_recalculee": "E"
+      },
+      {
+        "numero_dpe": "2606E2664853U",
+        "date_etablissement_dpe": "2026-10-19",
+        "surface_habitable_logement": 22.5,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 289.7,
+        "emission_ges_5_usages_par_m2": 11.3,
+        "etiquette_dpe": "D",
+        "etiquette_recalculee": "E"
+      },
+      {
+        "numero_dpe": "2684E2336378D",
+        "date_etablissement_dpe": "2026-09-12",
+        "surface_habitable_logement": 39.5,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H2d",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 251.0,
+        "emission_ges_5_usages_par_m2": 9.0,
+        "etiquette_dpe": "D",
+        "etiquette_recalculee": "E"
+      },
+      {
+        "numero_dpe": "2683E1177518O",
+        "date_etablissement_dpe": "2026-04-29",
+        "surface_habitable_logement": 40.0,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 250.0,
+        "emission_ges_5_usages_par_m2": 9.0,
+        "etiquette_dpe": "D",
+        "etiquette_recalculee": "E"
+      },
+      {
+        "numero_dpe": "2606E0044855Q",
+        "date_etablissement_dpe": "2026-01-08",
+        "surface_habitable_logement": 20.8,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 472.0,
+        "emission_ges_5_usages_par_m2": 18.0,
+        "etiquette_dpe": "F",
+        "etiquette_recalculee": "G"
+      },
+      {
+        "numero_dpe": "2613E0381411J",
+        "date_etablissement_dpe": "2026-02-09",
+        "surface_habitable_logement": 21.5,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 223.0,
+        "emission_ges_5_usages_par_m2": 8.0,
+        "etiquette_dpe": "C",
+        "etiquette_recalculee": "D"
+      },
+      {
+        "numero_dpe": "2683E1559234Y",
+        "date_etablissement_dpe": "2026-06-10",
+        "surface_habitable_logement": 24.5,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 212.0,
+        "emission_ges_5_usages_par_m2": 7.0,
+        "etiquette_dpe": "C",
+        "etiquette_recalculee": "D"
+      },
+      {
+        "numero_dpe": "2606E0382760Z",
+        "date_etablissement_dpe": "2026-02-10",
+        "surface_habitable_logement": 20.8,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "400-800m",
+        "conso_5_usages_par_m2_ep": 226.4,
+        "emission_ges_5_usages_par_m2": 8.6,
+        "etiquette_dpe": "C",
+        "etiquette_recalculee": "D"
+      },
+      {
+        "numero_dpe": "2613E1259897H",
+        "date_etablissement_dpe": "2026-05-07",
+        "surface_habitable_logement": 13.9,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 274.4,
+        "emission_ges_5_usages_par_m2": 10.3,
+        "etiquette_dpe": "C",
+        "etiquette_recalculee": "D"
+      },
+      {
+        "numero_dpe": "2613E1071338A",
+        "date_etablissement_dpe": "2026-04-17",
         "surface_habitable_logement": 18.5,
         "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 207.0,
-        "emission_ges_5_usages_par_m2": 7.0,
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 238.0,
+        "emission_ges_5_usages_par_m2": 9.0,
         "etiquette_dpe": "C",
-        "ep_recalculee": 207.0,
-        "classe_ep": "D",
-        "classe_ges": "B",
         "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2684E0846068N",
-        "date_etablissement_dpe": "2026-03-25",
-        "surface_habitable_logement": 21.0,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 193.0,
-        "emission_ges_5_usages_par_m2": 7.0,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 193.0,
-        "classe_ep": "D",
-        "classe_ges": "B",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2613E0406246O",
-        "date_etablissement_dpe": "2026-02-11",
-        "surface_habitable_logement": 114.8,
-        "type_energie_principale_chauffage": "Fioul domestique",
-        "conso_5_usages_par_m2_ep": 265.0,
-        "emission_ges_5_usages_par_m2": 70.0,
-        "etiquette_dpe": "F",
-        "ep_recalculee": 265.0,
-        "classe_ep": "E",
-        "classe_ges": "E",
-        "etiquette_recalculee": "E"
-      },
-      {
-        "numero_dpe": "2613E0319108C",
-        "date_etablissement_dpe": "2026-02-03",
-        "surface_habitable_logement": 28.3,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 271.0,
-        "emission_ges_5_usages_par_m2": 10.0,
-        "etiquette_dpe": "D",
-        "ep_recalculee": 271.0,
-        "classe_ep": "E",
-        "classe_ges": "B",
-        "etiquette_recalculee": "E"
-      },
-      {
-        "numero_dpe": "2613E2063678Y",
-        "date_etablissement_dpe": "2026-08-03",
-        "surface_habitable_logement": 27.8,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 200.0,
-        "emission_ges_5_usages_par_m2": 7.0,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 200.0,
-        "classe_ep": "D",
-        "classe_ges": "B",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2613E2570898K",
-        "date_etablissement_dpe": "2026-10-08",
-        "surface_habitable_logement": 22.0,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 263.0,
-        "emission_ges_5_usages_par_m2": 10.0,
-        "etiquette_dpe": "D",
-        "ep_recalculee": 263.0,
-        "classe_ep": "E",
-        "classe_ges": "B",
-        "etiquette_recalculee": "E"
-      },
-      {
-        "numero_dpe": "2613E2435313P",
-        "date_etablissement_dpe": "2026-09-23",
-        "surface_habitable_logement": 40.5,
-        "type_energie_principale_chauffage": "Gaz naturel",
-        "conso_5_usages_par_m2_ep": 231.0,
-        "emission_ges_5_usages_par_m2": 50.0,
-        "etiquette_dpe": "E",
-        "ep_recalculee": 231.0,
-        "classe_ep": "D",
-        "classe_ges": "D",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2613E1785992S",
-        "date_etablissement_dpe": "2026-07-01",
-        "surface_habitable_logement": 59.6,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 180.0,
-        "emission_ges_5_usages_par_m2": 6.0,
-        "etiquette_dpe": "D",
-        "ep_recalculee": 180.0,
-        "classe_ep": "C",
-        "classe_ges": "A",
-        "etiquette_recalculee": "C"
-      },
-      {
-        "numero_dpe": "2613E0204922I",
-        "date_etablissement_dpe": "2026-01-23",
-        "surface_habitable_logement": 50.9,
-        "type_energie_principale_chauffage": "Gaz naturel",
-        "conso_5_usages_par_m2_ep": 144.0,
-        "emission_ges_5_usages_par_m2": 30.0,
-        "etiquette_dpe": "D",
-        "ep_recalculee": 144.0,
-        "classe_ep": "C",
-        "classe_ges": "C",
-        "etiquette_recalculee": "C"
-      },
-      {
-        "numero_dpe": "2605E1922432C",
-        "date_etablissement_dpe": "2026-07-17",
-        "surface_habitable_logement": 30.4,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 348.0,
-        "emission_ges_5_usages_par_m2": 13.0,
-        "etiquette_dpe": "E",
-        "ep_recalculee": 348.0,
-        "classe_ep": "F",
-        "classe_ges": "C",
-        "etiquette_recalculee": "F"
       }
     ]
   },
   "avant_2026_coef_2_3": {
     "coefficient": 2.3,
     "n": 1058991,
-    "concordance": 0.9297047850265017,
+    "concordance": 0.9971595603739787,
     "par_tranche": {
       "< 40 m²": {
         "n": 223268,
-        "concordance": 0.7556344841177419
+        "concordance": 0.9930173603024168
       },
       "40–100 m²": {
         "n": 685450,
-        "concordance": 0.9753388285068203
+        "concordance": 0.9984681596031804
       },
       "> 100 m²": {
         "n": 150273,
-        "concordance": 0.9801760795352459
+        "concordance": 0.9973448324050228
       }
     },
-    "ecarts_par_rang": {
-      "-5": 1,
-      "-4": 7,
-      "-3": 64,
-      "-2": 1688,
-      "-1": 55969,
-      "1": 15354,
-      "2": 665,
-      "3": 420,
-      "4": 175,
-      "5": 84,
-      "6": 15
-    },
-    "diagnostic_desaccords": {
-      "< 40 m²": {
-        "desaccords": 54559,
-        "officiel_meilleur": 54067,
-        "officiel_plus_mauvais": 492,
-        "valeur_ep_ou_ges_pile_sur_un_seuil": 5666
-      },
-      ">= 40 m²": {
-        "desaccords": 19883,
-        "officiel_meilleur": 3662,
-        "officiel_plus_mauvais": 16221,
-        "valeur_ep_ou_ges_pile_sur_un_seuil": 15030
-      }
-    },
-    "concordance_par_surface_fine": {
+    "par_surface_fine": {
       "[0.0, 10.0)": {
         "n": 490,
-        "concordance": 0.1510204081632653
+        "concordance": 0.9938775510204082
       },
       "[10.0, 15.0)": {
         "n": 5183,
-        "concordance": 0.18637854524406713
+        "concordance": 0.9918965849893884
       },
       "[15.0, 20.0)": {
         "n": 27407,
-        "concordance": 0.4757908563505674
+        "concordance": 0.9935417958915606
       },
       "[20.0, 25.0)": {
         "n": 38245,
-        "concordance": 0.6151915283043535
+        "concordance": 0.9925218982873578
       },
       "[25.0, 30.0)": {
         "n": 47478,
-        "concordance": 0.7528960781835797
+        "concordance": 0.9924386031425081
       },
       "[30.0, 35.0)": {
         "n": 51688,
-        "concordance": 0.8713434452871073
+        "concordance": 0.9932286023835319
       },
       "[35.0, 40.0)": {
         "n": 52777,
-        "concordance": 0.953388786782121
+        "concordance": 0.9935199045038559
       },
-      "[40.0, 45.0)": {
-        "n": 64078,
-        "concordance": 0.9799307094478604
+      "[40.0, 40.0001)": {
+        "n": 3533,
+        "concordance": 0.995188225304274
+      },
+      "[40.0001, 45.0)": {
+        "n": 60545,
+        "concordance": 0.9982327194648608
       },
       "[45.0, 50.0)": {
         "n": 69266,
-        "concordance": 0.9785464730170647
+        "concordance": 0.9988883434874253
       },
       "[50.0, inf)": {
         "n": 702379,
-        "concordance": 0.9756385085544984
+        "concordance": 0.9982231815017248
       }
     },
-    "concordance_par_trimestre": {
-      "2021Q3": {
-        "< 40 m²": 0.7193675889328063,
-        ">= 40 m²": 0.9491751204016805
-      },
-      "2021Q4": {
-        "< 40 m²": 0.7489549743222262,
-        ">= 40 m²": 0.9571755943855629
-      },
-      "2022Q1": {
-        "< 40 m²": 0.7413468213825251,
-        ">= 40 m²": 0.9829459750654148
-      },
-      "2022Q2": {
-        "< 40 m²": 0.7378433714383211,
-        ">= 40 m²": 0.9797581094074187
-      },
-      "2022Q3": {
-        "< 40 m²": 0.7332356174422866,
-        ">= 40 m²": 0.9860042538665547
-      },
-      "2022Q4": {
-        "< 40 m²": 0.7612056984016679,
-        ">= 40 m²": 0.9831255115304992
-      },
-      "2023Q1": {
-        "< 40 m²": 0.7477721301736088,
-        ">= 40 m²": 0.9853583916083916
-      },
-      "2023Q2": {
-        "< 40 m²": 0.7241545229584823,
-        ">= 40 m²": 0.9810654085174485
-      },
-      "2023Q3": {
-        "< 40 m²": 0.7354894987586392,
-        ">= 40 m²": 0.9768340661883823
-      },
-      "2023Q4": {
-        "< 40 m²": 0.7643686197734583,
-        ">= 40 m²": 0.975824073643591
-      },
-      "2024Q1": {
-        "< 40 m²": 0.7891185453512324,
-        ">= 40 m²": 0.9697412386354806
-      },
-      "2024Q2": {
-        "< 40 m²": 0.7526760985103675,
-        ">= 40 m²": 0.9753265357714671
-      },
-      "2024Q3": {
-        "< 40 m²": 0.7736616045405738,
-        ">= 40 m²": 0.9771999764340842
-      },
-      "2024Q4": {
-        "< 40 m²": 0.7861456236551676,
-        ">= 40 m²": 0.9672126449135177
-      },
-      "2025Q1": {
-        "< 40 m²": 0.781369573822404,
-        ">= 40 m²": 0.9770637666831439
-      },
-      "2025Q2": {
-        "< 40 m²": 0.7562421972534332,
-        ">= 40 m²": 0.9816138224252566
-      },
-      "2025Q3": {
-        "< 40 m²": 0.7518156774355121,
-        ">= 40 m²": 0.9819431443070404
-      },
-      "2025Q4": {
-        "< 40 m²": 0.7640702386312472,
-        ">= 40 m²": 0.9741522514341403
-      }
+    "desaccords": {
+      "total": 3008,
+      "officiel_meilleur": 80,
+      "officiel_plus_mauvais": 2928
     },
-    "concordance_composante_energie_seule": 0.7719810649948866,
-    "consommations_par_energie_incompletes": {
-      "n": 78132,
-      "concordance": 0.9341243024624993
-    },
-    "concordance_par_chauffage": {
+    "par_chauffage": {
       "Bois – Bûches": {
         "n": 23989,
-        "concordance": 0.9779482262703739
+        "concordance": 0.9995831422735421
       },
       "Bois – Granulés (pellets) ou briquettes": {
         "n": 5185,
-        "concordance": 0.9689488910318226
+        "concordance": 0.9996142719382836
       },
       "Bois – Plaquettes d’industrie": {
         "n": 35,
-        "concordance": 0.7714285714285715
+        "concordance": 1.0
       },
       "Bois – Plaquettes forestières": {
         "n": 290,
-        "concordance": 0.9586206896551724
+        "concordance": 1.0
       },
       "Butane": {
         "n": 36,
@@ -621,298 +472,751 @@
       },
       "Charbon": {
         "n": 51,
-        "concordance": 0.9019607843137255
+        "concordance": 1.0
       },
       "Fioul domestique": {
         "n": 43272,
-        "concordance": 0.9412553152153817
+        "concordance": 0.9993529303013496
       },
       "GPL": {
         "n": 3534,
-        "concordance": 0.9411431805319751
+        "concordance": 0.9994340690435767
       },
       "Gaz naturel": {
         "n": 335650,
-        "concordance": 0.9552837777446745
+        "concordance": 0.9997646357813198
       },
       "Propane": {
         "n": 1098,
-        "concordance": 0.9781420765027322
+        "concordance": 1.0
       },
       "Réseau de Chauffage urbain": {
         "n": 31138,
-        "concordance": 0.9439912646926585
+        "concordance": 0.9997109640953176
       },
       "Électricité": {
         "n": 614456,
-        "concordance": 0.9117935214238285
+        "concordance": 0.9953161821188173
       },
       "Électricité d'origine renouvelable utilisée dans le bâtiment": {
         "n": 257,
-        "concordance": 0.9961089494163424
+        "concordance": 1.0
       }
     },
     "confusion_reel_lignes_recalcule_colonnes": [
       [
-        35238,
-        1026,
-        3,
+        36267,
+        0,
+        0,
         0,
         0,
         0,
         0
       ],
       [
-        1260,
-        111738,
-        3865,
+        82,
+        116771,
+        11,
         0,
         0,
         0,
-        1
+        0
       ],
       [
-        253,
-        5612,
-        419439,
-        25152,
-        949,
-        23,
-        7
-      ],
-      [
-        193,
-        274,
-        6180,
-        252722,
-        12747,
-        411,
-        41
-      ],
-      [
-        97,
-        159,
-        123,
-        1710,
-        108959,
-        9349,
-        325
-      ],
-      [
-        42,
-        56,
-        55,
-        12,
-        481,
-        37515,
-        3830
-      ],
-      [
+        263,
+        412,
+        450745,
         15,
-        42,
-        22,
+        0,
+        0,
+        0
+      ],
+      [
+        233,
+        249,
+        594,
+        271479,
         13,
-        3,
-        111,
-        18938
+        0,
+        0
+      ],
+      [
+        109,
+        160,
+        122,
+        304,
+        120004,
+        23,
+        0
+      ],
+      [
+        50,
+        50,
+        61,
+        10,
+        103,
+        41699,
+        18
+      ],
+      [
+        19,
+        41,
+        22,
+        12,
+        2,
+        30,
+        19018
       ]
     ],
     "exemples_ecarts": [
       {
-        "numero_dpe": "2206E0150335K",
-        "date_etablissement_dpe": "2022-01-25",
-        "surface_habitable_logement": 23.0,
+        "numero_dpe": "2106E0186508Q",
+        "date_etablissement_dpe": "2021-07-29",
+        "surface_habitable_logement": 22.0,
         "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 202.4,
-        "emission_ges_5_usages_par_m2": 7.4,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 202.4,
-        "classe_ep": "D",
-        "classe_ges": "B",
-        "etiquette_recalculee": "D"
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 56.3,
+        "emission_ges_5_usages_par_m2": 0.2,
+        "etiquette_dpe": "F",
+        "etiquette_recalculee": "A"
       },
       {
-        "numero_dpe": "2383E3368221G",
-        "date_etablissement_dpe": "2023-10-07",
-        "surface_habitable_logement": 32.6,
+        "numero_dpe": "2183E0389393W",
+        "date_etablissement_dpe": "2021-09-23",
+        "surface_habitable_logement": 113.3,
         "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 185.4,
-        "emission_ges_5_usages_par_m2": 7.0,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 185.4,
-        "classe_ep": "D",
-        "classe_ges": "B",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2584E2143461F",
-        "date_etablissement_dpe": "2025-06-30",
-        "surface_habitable_logement": 14.7,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 257.1,
-        "emission_ges_5_usages_par_m2": 9.0,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 257.1,
-        "classe_ep": "E",
-        "classe_ges": "B",
-        "etiquette_recalculee": "E"
-      },
-      {
-        "numero_dpe": "2313E4239077A",
-        "date_etablissement_dpe": "2023-12-10",
-        "surface_habitable_logement": 77.0,
-        "type_energie_principale_chauffage": "Gaz naturel",
-        "conso_5_usages_par_m2_ep": 149.7,
-        "emission_ges_5_usages_par_m2": 30.0,
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 102.5,
+        "emission_ges_5_usages_par_m2": 3.1,
         "etiquette_dpe": "D",
-        "ep_recalculee": 149.7,
-        "classe_ep": "C",
-        "classe_ges": "C",
-        "etiquette_recalculee": "C"
-      },
-      {
-        "numero_dpe": "2506E3933127N",
-        "date_etablissement_dpe": "2025-12-16",
-        "surface_habitable_logement": 32.6,
-        "type_energie_principale_chauffage": "Gaz naturel",
-        "conso_5_usages_par_m2_ep": 233.3,
-        "emission_ges_5_usages_par_m2": 50.8,
-        "etiquette_dpe": "D",
-        "ep_recalculee": 233.3,
-        "classe_ep": "D",
-        "classe_ges": "E",
-        "etiquette_recalculee": "E"
-      },
-      {
-        "numero_dpe": "2306E0009034U",
-        "date_etablissement_dpe": "2023-01-03",
-        "surface_habitable_logement": 20.8,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 216.4,
-        "emission_ges_5_usages_par_m2": 8.0,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 216.4,
-        "classe_ep": "D",
-        "classe_ges": "B",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2583E0206962L",
-        "date_etablissement_dpe": "2025-01-21",
-        "surface_habitable_logement": 20.6,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 226.9,
-        "emission_ges_5_usages_par_m2": 8.0,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 226.9,
-        "classe_ep": "D",
-        "classe_ges": "B",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2484E4434584H",
-        "date_etablissement_dpe": "2024-12-13",
-        "surface_habitable_logement": 65.0,
-        "type_energie_principale_chauffage": "Gaz naturel",
-        "conso_5_usages_par_m2_ep": 138.3,
-        "emission_ges_5_usages_par_m2": 30.0,
-        "etiquette_dpe": "D",
-        "ep_recalculee": 138.3,
-        "classe_ep": "C",
-        "classe_ges": "C",
-        "etiquette_recalculee": "C"
-      },
-      {
-        "numero_dpe": "2284E2255051A",
-        "date_etablissement_dpe": "2022-09-30",
-        "surface_habitable_logement": 154.6,
-        "type_energie_principale_chauffage": "Gaz naturel",
-        "conso_5_usages_par_m2_ep": 176.3,
-        "emission_ges_5_usages_par_m2": 30.0,
-        "etiquette_dpe": "D",
-        "ep_recalculee": 176.3,
-        "classe_ep": "C",
-        "classe_ges": "C",
-        "etiquette_recalculee": "C"
-      },
-      {
-        "numero_dpe": "2383E0116702V",
-        "date_etablissement_dpe": "2023-01-13",
-        "surface_habitable_logement": 89.0,
-        "type_energie_principale_chauffage": "Gaz naturel",
-        "conso_5_usages_par_m2_ep": 240.1,
-        "emission_ges_5_usages_par_m2": 50.0,
-        "etiquette_dpe": "E",
-        "ep_recalculee": 240.1,
-        "classe_ep": "D",
-        "classe_ges": "D",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2283E2426918G",
-        "date_etablissement_dpe": "2022-09-30",
-        "surface_habitable_logement": 15.7,
-        "type_energie_principale_chauffage": "Gaz naturel",
-        "conso_5_usages_par_m2_ep": 183.8,
-        "emission_ges_5_usages_par_m2": 35.0,
-        "etiquette_dpe": "C",
-        "ep_recalculee": 183.8,
-        "classe_ep": "D",
-        "classe_ges": "D",
-        "etiquette_recalculee": "D"
-      },
-      {
-        "numero_dpe": "2104E0631400U",
-        "date_etablissement_dpe": "2021-11-04",
-        "surface_habitable_logement": 64.0,
-        "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 81.8,
-        "emission_ges_5_usages_par_m2": 2.6,
-        "etiquette_dpe": "G",
-        "ep_recalculee": 81.8,
-        "classe_ep": "B",
-        "classe_ges": "A",
         "etiquette_recalculee": "B"
       },
       {
-        "numero_dpe": "2406E3918200J",
-        "date_etablissement_dpe": "2024-11-06",
-        "surface_habitable_logement": 18.5,
+        "numero_dpe": "2206E0333790J",
+        "date_etablissement_dpe": "2022-02-08",
+        "surface_habitable_logement": 20.6,
         "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 219.5,
-        "emission_ges_5_usages_par_m2": 8.0,
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 127.0,
+        "emission_ges_5_usages_par_m2": 3.0,
         "etiquette_dpe": "C",
-        "ep_recalculee": 219.5,
-        "classe_ep": "D",
-        "classe_ges": "B",
+        "etiquette_recalculee": "B"
+      },
+      {
+        "numero_dpe": "2383E4194151U",
+        "date_etablissement_dpe": "2023-12-06",
+        "surface_habitable_logement": 26.5,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 205.9,
+        "emission_ges_5_usages_par_m2": 7.0,
+        "etiquette_dpe": "D",
+        "etiquette_recalculee": "C"
+      },
+      {
+        "numero_dpe": "2183E0538357G",
+        "date_etablissement_dpe": "2021-07-19",
+        "surface_habitable_logement": 65.7,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 185.2,
+        "emission_ges_5_usages_par_m2": 31.6,
+        "etiquette_dpe": "E",
         "etiquette_recalculee": "D"
       },
       {
-        "numero_dpe": "2105E0291998X",
-        "date_etablissement_dpe": "2021-09-09",
-        "surface_habitable_logement": 154.8,
+        "numero_dpe": "2513E1391177M",
+        "date_etablissement_dpe": "2025-04-24",
+        "surface_habitable_logement": 23.6,
         "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 327.3,
-        "emission_ges_5_usages_par_m2": 103.0,
-        "etiquette_dpe": "F",
-        "ep_recalculee": 327.3,
-        "classe_ep": "E",
-        "classe_ges": "G",
-        "etiquette_recalculee": "G"
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 122.9,
+        "emission_ges_5_usages_par_m2": 4.0,
+        "etiquette_dpe": "C",
+        "etiquette_recalculee": "B"
       },
       {
-        "numero_dpe": "2283E2673990A",
-        "date_etablissement_dpe": "2022-11-11",
-        "surface_habitable_logement": 26.8,
+        "numero_dpe": "2113E0355174B",
+        "date_etablissement_dpe": "2021-09-18",
+        "surface_habitable_logement": 109.0,
         "type_energie_principale_chauffage": "Électricité",
-        "conso_5_usages_par_m2_ep": 111.4,
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 100.4,
+        "emission_ges_5_usages_par_m2": 3.1,
+        "etiquette_dpe": "E",
+        "etiquette_recalculee": "B"
+      },
+      {
+        "numero_dpe": "2113E0801016V",
+        "date_etablissement_dpe": "2021-11-29",
+        "surface_habitable_logement": 16.1,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 138.0,
+        "emission_ges_5_usages_par_m2": 13.0,
+        "etiquette_dpe": "F",
+        "etiquette_recalculee": "C"
+      },
+      {
+        "numero_dpe": "2484E1468893G",
+        "date_etablissement_dpe": "2024-04-23",
+        "surface_habitable_logement": 28.6,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H2d",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 270.9,
+        "emission_ges_5_usages_par_m2": 10.0,
+        "etiquette_dpe": "E",
+        "etiquette_recalculee": "D"
+      },
+      {
+        "numero_dpe": "2306E0638979L",
+        "date_etablissement_dpe": "2023-02-27",
+        "surface_habitable_logement": 31.6,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 115.7,
+        "emission_ges_5_usages_par_m2": 4.0,
+        "etiquette_dpe": "C",
+        "etiquette_recalculee": "B"
+      },
+      {
+        "numero_dpe": "2183E0434374X",
+        "date_etablissement_dpe": "2021-10-04",
+        "surface_habitable_logement": 24.4,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 186.0,
+        "emission_ges_5_usages_par_m2": 5.4,
+        "etiquette_dpe": "E",
+        "etiquette_recalculee": "C"
+      },
+      {
+        "numero_dpe": "2113E0874699U",
+        "date_etablissement_dpe": "2021-12-08",
+        "surface_habitable_logement": 54.5,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 31.9,
         "emission_ges_5_usages_par_m2": 3.0,
         "etiquette_dpe": "B",
-        "ep_recalculee": 111.4,
-        "classe_ep": "C",
-        "classe_ges": "A",
-        "etiquette_recalculee": "C"
+        "etiquette_recalculee": "A"
+      },
+      {
+        "numero_dpe": "2106E0375868S",
+        "date_etablissement_dpe": "2021-09-23",
+        "surface_habitable_logement": 38.0,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 67.6,
+        "emission_ges_5_usages_par_m2": 6.7,
+        "etiquette_dpe": "E",
+        "etiquette_recalculee": "A"
+      },
+      {
+        "numero_dpe": "2406E3978721C",
+        "date_etablissement_dpe": "2024-11-12",
+        "surface_habitable_logement": 35.2,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 72.9,
+        "emission_ges_5_usages_par_m2": 2.6,
+        "etiquette_dpe": "B",
+        "etiquette_recalculee": "A"
+      },
+      {
+        "numero_dpe": "2183E0631419O",
+        "date_etablissement_dpe": "2021-10-27",
+        "surface_habitable_logement": 60.0,
+        "type_energie_principale_chauffage": "Électricité",
+        "zone_climatique": "H3",
+        "classe_altitude": "inférieur à 400m",
+        "conso_5_usages_par_m2_ep": 93.7,
+        "emission_ges_5_usages_par_m2": 2.9,
+        "etiquette_dpe": "E",
+        "etiquette_recalculee": "B"
       }
     ]
+  },
+  "petites_surfaces": {
+    "seuils_petites_surfaces": {
+      "avant_2024_07_01": {
+        "n": 147200,
+        "concordance": 0.9912092391304348
+      },
+      "depuis_2024_07_01": {
+        "n": 79601,
+        "concordance": 0.9964573309380536
+      }
+    },
+    "seuils_standards": {
+      "avant_2024_07_01": {
+        "n": 147200,
+        "concordance": 0.7549116847826087
+      },
+      "depuis_2024_07_01": {
+        "n": 79601,
+        "concordance": 0.7737591236291002
+      }
+    },
+    "depuis_2026_coef_1_9": {
+      "seuils_petites_surfaces": {
+        "n": 41027,
+        "concordance": 0.9992687742218539
+      },
+      "seuils_standards": {
+        "n": 41027,
+        "concordance": 0.7401711068320862
+      }
+    },
+    "par_trimestre": {
+      "2021Q3": {
+        "seuils_petites_surfaces": 0.9396610169491525,
+        "seuils_standards": 0.734406779661017,
+        "n": 5900
+      },
+      "2021Q4": {
+        "seuils_petites_surfaces": 0.9582497936077368,
+        "seuils_standards": 0.7548059912725558,
+        "n": 8479
+      },
+      "2022Q1": {
+        "seuils_petites_surfaces": 0.9880567792462066,
+        "seuils_standards": 0.7517376407244248,
+        "n": 10215
+      },
+      "2022Q2": {
+        "seuils_petites_surfaces": 0.9965543322968317,
+        "seuils_standards": 0.7467014034792839,
+        "n": 11899
+      },
+      "2022Q3": {
+        "seuils_petites_surfaces": 0.995216606498195,
+        "seuils_standards": 0.7399819494584837,
+        "n": 11080
+      },
+      "2022Q4": {
+        "seuils_petites_surfaces": 0.9962415648757154,
+        "seuils_standards": 0.768172888015717,
+        "n": 11707
+      },
+      "2023Q1": {
+        "seuils_petites_surfaces": 0.9967420342737995,
+        "seuils_standards": 0.7542842249299537,
+        "n": 15347
+      },
+      "2023Q2": {
+        "seuils_petites_surfaces": 0.9966083299416633,
+        "seuils_standards": 0.7321937321937322,
+        "n": 14742
+      },
+      "2023Q3": {
+        "seuils_petites_surfaces": 0.995915140334695,
+        "seuils_standards": 0.7425220714191593,
+        "n": 15178
+      },
+      "2023Q4": {
+        "seuils_petites_surfaces": 0.9952629410957023,
+        "seuils_standards": 0.7647947274474804,
+        "n": 14566
+      },
+      "2024Q1": {
+        "seuils_petites_surfaces": 0.9964691221268347,
+        "seuils_standards": 0.7981860980337857,
+        "n": 14444
+      },
+      "2024Q2": {
+        "seuils_petites_surfaces": 0.9969214982042073,
+        "seuils_standards": 0.7567983581323756,
+        "n": 13643
+      },
+      "2024Q3": {
+        "seuils_petites_surfaces": 0.9970411956604203,
+        "seuils_standards": 0.7802898110917229,
+        "n": 13181
+      },
+      "2024Q4": {
+        "seuils_petites_surfaces": 0.9968600682593857,
+        "seuils_standards": 0.7713993174061433,
+        "n": 14650
+      },
+      "2025Q1": {
+        "seuils_petites_surfaces": 0.9963690591973027,
+        "seuils_standards": 0.7865525513842961,
+        "n": 15423
+      },
+      "2025Q2": {
+        "seuils_petites_surfaces": 0.9963005780346821,
+        "seuils_standards": 0.7637764932562621,
+        "n": 12975
+      },
+      "2025Q3": {
+        "seuils_petites_surfaces": 0.9962859029382635,
+        "seuils_standards": 0.7685704853086828,
+        "n": 12116
+      },
+      "2025Q4": {
+        "seuils_petites_surfaces": 0.9957356076759062,
+        "seuils_standards": 0.7687455579246624,
+        "n": 11256
+      }
+    }
+  },
+  "altitude": {
+    "coefficient": 1.9,
+    "concordance_sans_altitude": 0.9936668967794219,
+    "concordance_avec_altitude": 0.9998199117567608,
+    "concernes": 4662,
+    "plus_de_800m_hors_zones_H1b_H1c_H2d": 871,
+    "par_departement": {
+      "04": {
+        "n": 5372,
+        "concernes_altitude": 1122,
+        "concordance_sans_altitude": 0.9553239017125837,
+        "concordance_avec_altitude": 1.0,
+        "concordance_concernes_sans": 0.786096256684492,
+        "concordance_concernes_avec": 1.0
+      },
+      "05": {
+        "n": 6170,
+        "concernes_altitude": 3495,
+        "concordance_sans_altitude": 0.8743922204213939,
+        "concordance_avec_altitude": 1.0,
+        "concordance_concernes_sans": 0.7782546494992847,
+        "concordance_concernes_avec": 1.0
+      },
+      "06": {
+        "n": 40280,
+        "concernes_altitude": 5,
+        "concordance_sans_altitude": 0.9998510427010924,
+        "concordance_avec_altitude": 0.999875868917577,
+        "concordance_concernes_sans": 0.8,
+        "concordance_concernes_avec": 1.0
+      },
+      "13": {
+        "n": 62556,
+        "concernes_altitude": 2,
+        "concordance_sans_altitude": 0.9997442291706631,
+        "concordance_avec_altitude": 0.9997442291706631,
+        "concordance_concernes_sans": 1.0,
+        "concordance_concernes_avec": 1.0
+      },
+      "83": {
+        "n": 35205,
+        "concernes_altitude": 7,
+        "concordance_sans_altitude": 0.9997727595512002,
+        "concordance_avec_altitude": 0.9997727595512002,
+        "concordance_concernes_sans": 1.0,
+        "concordance_concernes_avec": 1.0
+      },
+      "84": {
+        "n": 17002,
+        "concernes_altitude": 31,
+        "concordance_sans_altitude": 0.9994118339018939,
+        "concordance_avec_altitude": 0.9999411833901893,
+        "concordance_concernes_sans": 0.7096774193548387,
+        "concordance_concernes_avec": 1.0
+      }
+    }
+  },
+  "cible": {
+    "dpe": 1058991,
+    "decalages": {
+      "-3": 6,
+      "-2": 903,
+      "-1": 332891,
+      "0": 725191
+    },
+    "part_changee_electrique": 0.5122227771333939,
+    "part_changee_autres": 0.04260845686709673,
+    "repartition_officielle": {
+      "A": 36267,
+      "B": 116864,
+      "C": 451435,
+      "D": 272568,
+      "E": 120722,
+      "F": 41991,
+      "G": 19144
+    },
+    "repartition_cible": {
+      "A": 65646,
+      "B": 200750,
+      "C": 444869,
+      "D": 222649,
+      "E": 84919,
+      "F": 28629,
+      "G": 11529
+    },
+    "electrique": {
+      "avant_2026_officielle": {
+        "A": 0.05527620206502872,
+        "B": 0.15571819694719324,
+        "C": 0.4264282681511535,
+        "D": 0.21108549843585545,
+        "E": 0.10153844151661019,
+        "F": 0.03340257974046425,
+        "G": 0.0165508131436947
+      },
+      "avant_2026_cible_1_9": {
+        "A": 0.10114638863990187,
+        "B": 0.28885024393497455,
+        "C": 0.4088428258390501,
+        "D": 0.13404304122411598,
+        "E": 0.048759339724391705,
+        "F": 0.013259846464935669,
+        "G": 0.005098314172630155
+      },
+      "depuis_2026_officielle": {
+        "A": 0.0677159287895881,
+        "B": 0.17195425070394116,
+        "C": 0.42787698685670783,
+        "D": 0.20295517706298324,
+        "E": 0.0881875464326005,
+        "F": 0.0310651294609691,
+        "G": 0.010244980693210063
+      },
+      "n_avant": 614713,
+      "n_depuis": 109029
+    },
+    "autres": {
+      "avant_2026_officielle": {
+        "A": 0.00514992864827878,
+        "B": 0.047587321451883734,
+        "C": 0.42609357204273,
+        "D": 0.32144513120163504,
+        "E": 0.13123539765642234,
+        "F": 0.048298587821139015,
+        "G": 0.02019006117791113
+      },
+      "avant_2026_cible_1_9": {
+        "A": 0.007810425004164059,
+        "B": 0.052197047794399,
+        "C": 0.43564614948298136,
+        "D": 0.31568297327349093,
+        "E": 0.12367481621867389,
+        "F": 0.046092761739271355,
+        "G": 0.018895826487019388
+      },
+      "depuis_2026_officielle": {
+        "A": 0.004395718951977204,
+        "B": 0.037702411564389464,
+        "C": 0.39035026756550145,
+        "D": 0.35860726944193483,
+        "E": 0.13724025297101952,
+        "F": 0.05181041073041907,
+        "G": 0.019893668774758497
+      },
+      "n_avant": 444278,
+      "n_depuis": 57556
+    }
+  },
+  "coefficient_observe": {
+    "avant_2026": {
+      "n": 549768,
+      "p10": 1.8991399530883502,
+      "mediane": 1.9058823529411764,
+      "p90": 1.9235294117647062,
+      "part_entre_1_85_et_1_95": 0.9789438454038795,
+      "part_entre_2_25_et_2_35": 0.005851559203154786
+    },
+    "depuis_2026": {
+      "n": 95565,
+      "p10": 1.8958333333333333,
+      "mediane": 1.9024390243902438,
+      "p90": 1.9166666666666667,
+      "part_entre_1_85_et_1_95": 0.9933762360696908,
+      "part_entre_2_25_et_2_35": 0.0
+    },
+    "par_trimestre": {
+      "2021Q3": {
+        "n": 15691,
+        "p10": 1.8988152442369002,
+        "mediane": 1.905514526201466,
+        "p90": 1.9310344827586208,
+        "part_entre_1_85_et_1_95": 0.8860493276400484,
+        "part_entre_2_25_et_2_35": 0.06099037664903448
+      },
+      "2021Q4": {
+        "n": 20891,
+        "p10": 1.8991031390134527,
+        "mediane": 1.9061538461538463,
+        "p90": 1.9314285714285713,
+        "part_entre_1_85_et_1_95": 0.8986644966732086,
+        "part_entre_2_25_et_2_35": 0.0720884591450864
+      },
+      "2022Q1": {
+        "n": 24821,
+        "p10": 1.8991596638655464,
+        "mediane": 1.9057142857142857,
+        "p90": 1.9238095238095239,
+        "part_entre_1_85_et_1_95": 0.9504048990773941,
+        "part_entre_2_25_et_2_35": 0.030377502920913742
+      },
+      "2022Q2": {
+        "n": 28017,
+        "p10": 1.8990498812351544,
+        "mediane": 1.9045112781954887,
+        "p90": 1.9202898550724639,
+        "part_entre_1_85_et_1_95": 0.9951458043330835,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2022Q3": {
+        "n": 28016,
+        "p10": 1.8989361702127658,
+        "mediane": 1.9033333333333335,
+        "p90": 1.92,
+        "part_entre_1_85_et_1_95": 0.9951813249571674,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2022Q4": {
+        "n": 28008,
+        "p10": 1.8990182328190746,
+        "mediane": 1.9044444444444446,
+        "p90": 1.920689655172414,
+        "part_entre_1_85_et_1_95": 0.9935375606969438,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2023Q1": {
+        "n": 34206,
+        "p10": 1.8990764857033513,
+        "mediane": 1.9047058823529412,
+        "p90": 1.9208955223880595,
+        "part_entre_1_85_et_1_95": 0.9930129217096416,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2023Q2": {
+        "n": 34374,
+        "p10": 1.8991596638655464,
+        "mediane": 1.9057142857142857,
+        "p90": 1.9216666666666666,
+        "part_entre_1_85_et_1_95": 0.9922034095537324,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2023Q3": {
+        "n": 30811,
+        "p10": 1.8990536277602525,
+        "mediane": 1.904651162790698,
+        "p90": 1.9204545454545454,
+        "part_entre_1_85_et_1_95": 0.9924053097919574,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2023Q4": {
+        "n": 32827,
+        "p10": 1.8991680145241663,
+        "mediane": 1.9057692307692309,
+        "p90": 1.921875,
+        "part_entre_1_85_et_1_95": 0.9922015414140799,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2024Q1": {
+        "n": 33781,
+        "p10": 1.89920098340504,
+        "mediane": 1.906122448979592,
+        "p90": 1.9238095238095239,
+        "part_entre_1_85_et_1_95": 0.9895503389479293,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2024Q2": {
+        "n": 35678,
+        "p10": 1.8992248062015504,
+        "mediane": 1.9068965517241379,
+        "p90": 1.925,
+        "part_entre_1_85_et_1_95": 0.9869387297494254,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2024Q3": {
+        "n": 33894,
+        "p10": 1.8992395437262357,
+        "mediane": 1.9064516129032258,
+        "p90": 1.9241935483870967,
+        "part_entre_1_85_et_1_95": 0.986575795125981,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2024Q4": {
+        "n": 40533,
+        "p10": 1.8993668050789945,
+        "mediane": 1.9080000000000001,
+        "p90": 1.9307692307692308,
+        "part_entre_1_85_et_1_95": 0.9552710137418893,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2025Q1": {
+        "n": 39260,
+        "p10": 1.8991735537190084,
+        "mediane": 1.9063291139240506,
+        "p90": 1.9236363636363636,
+        "part_entre_1_85_et_1_95": 0.9866530820173204,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2025Q2": {
+        "n": 31587,
+        "p10": 1.899159663865546,
+        "mediane": 1.9064327485380117,
+        "p90": 1.9241379310344826,
+        "part_entre_1_85_et_1_95": 0.983505872669136,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2025Q3": {
+        "n": 28865,
+        "p10": 1.899207726119579,
+        "mediane": 1.9066666666666667,
+        "p90": 1.9240000000000002,
+        "part_entre_1_85_et_1_95": 0.9855880824527975,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2025Q4": {
+        "n": 28508,
+        "p10": 1.8992932862190812,
+        "mediane": 1.9071428571428573,
+        "p90": 1.925,
+        "part_entre_1_85_et_1_95": 0.9844605023151396,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2026Q1": {
+        "n": 30526,
+        "p10": 1.8958333333333333,
+        "mediane": 1.9021739130434783,
+        "p90": 1.9166666666666667,
+        "part_entre_1_85_et_1_95": 0.9942016641551464,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2026Q2": {
+        "n": 29111,
+        "p10": 1.8956521739130434,
+        "mediane": 1.9024390243902438,
+        "p90": 1.9175257731958764,
+        "part_entre_1_85_et_1_95": 0.9929579883892686,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2026Q3": {
+        "n": 27712,
+        "p10": 1.8958333333333333,
+        "mediane": 1.9024390243902438,
+        "p90": 1.917808219178082,
+        "part_entre_1_85_et_1_95": 0.9923498845265589,
+        "part_entre_2_25_et_2_35": 0.0
+      },
+      "2026Q4": {
+        "n": 8216,
+        "p10": 1.8955223880597014,
+        "mediane": 1.9019607843137254,
+        "p90": 1.9166666666666667,
+        "part_entre_1_85_et_1_95": 0.995253164556962,
+        "part_entre_2_25_et_2_35": 0.0
+      }
+    }
   }
 }

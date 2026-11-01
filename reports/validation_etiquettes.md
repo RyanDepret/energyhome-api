@@ -1,192 +1,275 @@
 # Validation du recalcul des étiquettes
 
-Généré par `training/valider_etiquettes.py` le 2026-11-01T08:07:03+00:00. Seuils appliqués (double seuil, bornes incluses) : énergie [70, 110, 180, 250, 330, 420] kWh/m²·an, GES [6, 11, 30, 50, 70, 100] kgCO₂/m²·an. Aucun seuil spécifique aux petites surfaces n'est appliqué.
+Généré par `training/valider_etiquettes.py` le 2026-11-01T08:28:01+00:00.
 
-## DPE établis depuis le 2026-01-01, recalculés en 1,9
+Règles appliquées (Arrêté du 25 mars 2024 (NOR TREL2330369A), JORF du 20 avril 2024, texte 15, annexe 1 ; Légifrance JORFARTI000049446339) : CEP et EGES arrondis à l'entier inférieur, inégalités strictes, seuils petites surfaces (≤ 40 m², interpolation linéaire) et altitude (> 800 m en H1b, H1c, H2d). La surface utilisée est `surface_habitable_logement` : le jeu ADEME ne publie pas la surface de référence.
+
+Recalculer un DPE à son propre coefficient n'applique aucune correction : les deux premières sections valident les seuils, pas le coefficient. Le coefficient réellement présent dans les données est mesuré plus bas.
+
+## DPE établis depuis le 2026-01-01, coefficient 1,9 (aucune correction : seuils seuls)
 
 - DPE comparés : 166 585, coefficient 1.9
-- **Concordance globale : 91.64 %**
+- **Concordance globale : 99.98 %**
+- Désaccords : 30 (étiquette officielle meilleure : 30, plus mauvaise : 0)
 
 | Tranche de surface | DPE | Concordance |
 |---|---:|---:|
-| < 40 m² | 40 635 | 74.31 % |
-| 40–100 m² | 97 831 | 97.19 % |
-| > 100 m² | 28 119 | 97.41 % |
-
-Consommations par énergie dont la somme diffère du total de plus de 1 % : 409 DPE (concordance 99.02 %).
-
-Écart de rang réel − recalculé parmi les désaccords (> 0 : DPE officiel plus mauvais) : -3 : 6, -2 : 305, -1 : 10 817, 1 : 2 794
-
-| Désaccords | Total | DPE officiel meilleur | DPE officiel plus mauvais | Valeur EP ou GES pile sur un seuil |
-|---|---:|---:|---:|---:|
-| < 40 m² | 10 441 | 10 441 | 0 | 1 028 |
-| >= 40 m² | 3 481 | 687 | 2 794 | 2 810 |
+| < 40 m² | 40 635 | 99.93 % |
+| 40–100 m² | 97 831 | 100.00 % |
+| > 100 m² | 28 119 | 100.00 % |
 
 | Surface (m²) | DPE | Concordance |
 |---|---:|---:|
-| [0.0, 10.0) | 315 | 2.22 % |
-| [10.0, 15.0) | 896 | 19.20 % |
-| [15.0, 20.0) | 5 776 | 47.71 % |
-| [20.0, 25.0) | 7 355 | 61.86 % |
-| [25.0, 30.0) | 8 299 | 75.41 % |
-| [30.0, 35.0) | 9 131 | 87.48 % |
-| [35.0, 40.0) | 8 863 | 95.49 % |
-| [40.0, 45.0) | 10 443 | 97.20 % |
-| [45.0, 50.0) | 9 768 | 97.58 % |
-| [50.0, inf) | 105 739 | 97.21 % |
-
-| Trimestre | Concordance < 40 m² | Concordance ≥ 40 m² |
-|---|---:|---:|
-| 2026Q1 | 74.87 % | 97.11 % |
-| 2026Q2 | 74.86 % | 97.44 % |
-| 2026Q3 | 73.91 % | 97.07 % |
-| 2026Q4 | 71.86 % | 97.48 % |
+| [0.0, 10.0) | 315 | 100.00 % |
+| [10.0, 15.0) | 896 | 99.67 % |
+| [15.0, 20.0) | 5 776 | 99.95 % |
+| [20.0, 25.0) | 7 355 | 99.85 % |
+| [25.0, 30.0) | 8 299 | 99.92 % |
+| [30.0, 35.0) | 9 131 | 99.99 % |
+| [35.0, 40.0) | 8 863 | 99.97 % |
+| [40.0, 40.0001) | 392 | 99.49 % |
+| [40.0001, 45.0) | 10 051 | 100.00 % |
+| [45.0, 50.0) | 9 768 | 100.00 % |
+| [50.0, inf) | 105 739 | 100.00 % |
 
 | Chauffage principal | DPE | Concordance |
 |---|---:|---:|
-| Électricité | 109 029 | 90.37 % |
-| Gaz naturel | 43 792 | 94.51 % |
-| Fioul domestique | 6 647 | 93.68 % |
-| Bois – Bûches | 2 900 | 97.10 % |
-| Réseau de Chauffage urbain | 2 127 | 85.38 % |
-| Bois – Granulés (pellets) ou briquettes | 1 115 | 94.35 % |
-| GPL | 653 | 92.19 % |
-| Propane | 186 | 98.39 % |
-| Bois – Plaquettes forestières | 112 | 29.46 % |
+| Électricité | 109 029 | 99.97 % |
+| Gaz naturel | 43 792 | 100.00 % |
+| Fioul domestique | 6 647 | 100.00 % |
+| Bois – Bûches | 2 900 | 100.00 % |
+| Réseau de Chauffage urbain | 2 127 | 99.95 % |
+| Bois – Granulés (pellets) ou briquettes | 1 115 | 100.00 % |
+| GPL | 653 | 100.00 % |
+| Propane | 186 | 100.00 % |
+| Bois – Plaquettes forestières | 112 | 100.00 % |
 | Bois – Plaquettes d’industrie | 10 | 100.00 % |
-| Charbon | 8 | 75.00 % |
+| Charbon | 8 | 100.00 % |
 | Butane | 6 | 100.00 % |
 
 Matrice réel (lignes) / recalculé (colonnes) :
 
 | | A | B | C | D | E | F | G |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **A** | 7 282 | 354 | 0 | 0 | 0 | 0 | 0 |
-| **B** | 320 | 19 765 | 833 | 0 | 0 | 0 | 0 |
-| **C** | 0 | 1 160 | 63 490 | 4 335 | 130 | 3 | 0 |
-| **D** | 0 | 0 | 923 | 39 045 | 2 704 | 93 | 3 |
-| **E** | 0 | 0 | 0 | 281 | 15 319 | 1 832 | 82 |
-| **F** | 0 | 0 | 0 | 0 | 90 | 5 520 | 759 |
-| **G** | 0 | 0 | 0 | 0 | 0 | 20 | 2 242 |
+| **A** | 7 636 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **B** | 0 | 20 917 | 1 | 0 | 0 | 0 | 0 |
+| **C** | 0 | 0 | 69 106 | 12 | 0 | 0 | 0 |
+| **D** | 0 | 0 | 0 | 42 759 | 9 | 0 | 0 |
+| **E** | 0 | 0 | 0 | 0 | 17 508 | 6 | 0 |
+| **F** | 0 | 0 | 0 | 0 | 0 | 6 367 | 2 |
+| **G** | 0 | 0 | 0 | 0 | 0 | 0 | 2 262 |
 
 Exemples d'écarts (tirés au hasard, graine 42) :
 
-| N° DPE | Date | Surface | Chauffage | EP DPE | EP recalc. | GES | Classe EP | Classe GES | Réel | Recalculé |
-|---|---|---:|---|---:|---:|---:|---|---|---|---|
-| 2613E2567093B | 2026-10-07 | 152.6 | Fioul domestique | 139.0 | 139.0 | 30.0 | C | C | D | C |
-| 2613E0671144Y | 2026-03-09 | 21.3 | Électricité | 191.0 | 191.0 | 7.0 | D | B | C | D |
-| 2613E2596552C | 2026-10-12 | 25.5 | Électricité | 258.0 | 258.0 | 10.0 | E | B | D | E |
-| 2606E2503300F | 2026-09-30 | 59.3 | Électricité | 47.0 | 47.0 | 6.0 | A | A | B | A |
-| 2683E0509576M | 2026-02-21 | 154.8 | Fioul domestique | 175.0 | 175.0 | 30.0 | C | C | D | C |
-| 2613E2173706U | 2026-08-21 | 18.5 | Électricité | 207.0 | 207.0 | 7.0 | D | B | C | D |
-| 2684E0846068N | 2026-03-25 | 21.0 | Électricité | 193.0 | 193.0 | 7.0 | D | B | C | D |
-| 2613E0406246O | 2026-02-11 | 114.8 | Fioul domestique | 265.0 | 265.0 | 70.0 | E | E | F | E |
-| 2613E0319108C | 2026-02-03 | 28.3 | Électricité | 271.0 | 271.0 | 10.0 | E | B | D | E |
-| 2613E2063678Y | 2026-08-03 | 27.8 | Électricité | 200.0 | 200.0 | 7.0 | D | B | C | D |
-| 2613E2570898K | 2026-10-08 | 22.0 | Électricité | 263.0 | 263.0 | 10.0 | E | B | D | E |
-| 2613E2435313P | 2026-09-23 | 40.5 | Gaz naturel | 231.0 | 231.0 | 50.0 | D | D | E | D |
-| 2613E1785992S | 2026-07-01 | 59.6 | Électricité | 180.0 | 180.0 | 6.0 | C | A | D | C |
-| 2613E0204922I | 2026-01-23 | 50.9 | Gaz naturel | 144.0 | 144.0 | 30.0 | C | C | D | C |
-| 2605E1922432C | 2026-07-17 | 30.4 | Électricité | 348.0 | 348.0 | 13.0 | F | C | E | F |
+| N° DPE | Date | Surface | Chauffage | Zone | Altitude | CEP | EGES | Réel | Recalculé |
+|---|---|---:|---|---|---|---:|---:|---|---|
+| 2613E2630653R | 2026-10-14 | 14.5 | Électricité | H3 | inférieur à 400m | 341.0 | 13.0 | D | E |
+| 2683E1536227B | 2026-06-08 | 23.0 | Électricité | H3 | inférieur à 400m | 217.0 | 8.0 | C | D |
+| 2613E2041578Y | 2026-07-30 | 15.9 | Électricité | H3 | inférieur à 400m | 326.0 | 12.0 | D | E |
+| 2613E1568538C | 2026-06-11 | 29.5 | Électricité | H3 | inférieur à 400m | 268.0 | 10.0 | D | E |
+| 2683E0593517Z | 2026-03-02 | 19.6 | Électricité | H3 | inférieur à 400m | 302.0 | 12.0 | D | E |
+| 2606E0909996H | 2026-03-31 | 22.5 | Électricité | H3 | inférieur à 400m | 289.7 | 11.3 | D | E |
+| 2606E2664853U | 2026-10-19 | 22.5 | Électricité | H3 | inférieur à 400m | 289.7 | 11.3 | D | E |
+| 2684E2336378D | 2026-09-12 | 39.5 | Électricité | H2d | inférieur à 400m | 251.0 | 9.0 | D | E |
+| 2683E1177518O | 2026-04-29 | 40.0 | Électricité | H3 | inférieur à 400m | 250.0 | 9.0 | D | E |
+| 2606E0044855Q | 2026-01-08 | 20.8 | Électricité | H3 | inférieur à 400m | 472.0 | 18.0 | F | G |
+| 2613E0381411J | 2026-02-09 | 21.5 | Électricité | H3 | inférieur à 400m | 223.0 | 8.0 | C | D |
+| 2683E1559234Y | 2026-06-10 | 24.5 | Électricité | H3 | inférieur à 400m | 212.0 | 7.0 | C | D |
+| 2606E0382760Z | 2026-02-10 | 20.8 | Électricité | H3 | 400-800m | 226.4 | 8.6 | C | D |
+| 2613E1259897H | 2026-05-07 | 13.9 | Électricité | H3 | inférieur à 400m | 274.4 | 10.3 | C | D |
+| 2613E1071338A | 2026-04-17 | 18.5 | Électricité | H3 | inférieur à 400m | 238.0 | 9.0 | C | D |
 
-## Contrôle : DPE établis avant 2026, recalculés en 2,3
+## DPE établis avant 2026, coefficient lu dans la table datée : 2,3 (aucune correction : seuils seuls)
 
 - DPE comparés : 1 058 991, coefficient 2.3
-- **Concordance globale : 92.97 %**
+- **Concordance globale : 99.72 %**
+- Désaccords : 3 008 (étiquette officielle meilleure : 80, plus mauvaise : 2 928)
 
 | Tranche de surface | DPE | Concordance |
 |---|---:|---:|
-| < 40 m² | 223 268 | 75.56 % |
-| 40–100 m² | 685 450 | 97.53 % |
-| > 100 m² | 150 273 | 98.02 % |
-
-Consommations par énergie dont la somme diffère du total de plus de 1 % : 78 132 DPE (concordance 93.41 %).
-
-Écart de rang réel − recalculé parmi les désaccords (> 0 : DPE officiel plus mauvais) : -5 : 1, -4 : 7, -3 : 64, -2 : 1 688, -1 : 55 969, 1 : 15 354, 2 : 665, 3 : 420, 4 : 175, 5 : 84, 6 : 15
-
-| Désaccords | Total | DPE officiel meilleur | DPE officiel plus mauvais | Valeur EP ou GES pile sur un seuil |
-|---|---:|---:|---:|---:|
-| < 40 m² | 54 559 | 54 067 | 492 | 5 666 |
-| >= 40 m² | 19 883 | 3 662 | 16 221 | 15 030 |
+| < 40 m² | 223 268 | 99.30 % |
+| 40–100 m² | 685 450 | 99.85 % |
+| > 100 m² | 150 273 | 99.73 % |
 
 | Surface (m²) | DPE | Concordance |
 |---|---:|---:|
-| [0.0, 10.0) | 490 | 15.10 % |
-| [10.0, 15.0) | 5 183 | 18.64 % |
-| [15.0, 20.0) | 27 407 | 47.58 % |
-| [20.0, 25.0) | 38 245 | 61.52 % |
-| [25.0, 30.0) | 47 478 | 75.29 % |
-| [30.0, 35.0) | 51 688 | 87.13 % |
-| [35.0, 40.0) | 52 777 | 95.34 % |
-| [40.0, 45.0) | 64 078 | 97.99 % |
-| [45.0, 50.0) | 69 266 | 97.85 % |
-| [50.0, inf) | 702 379 | 97.56 % |
-
-| Trimestre | Concordance < 40 m² | Concordance ≥ 40 m² |
-|---|---:|---:|
-| 2021Q3 | 71.94 % | 94.92 % |
-| 2021Q4 | 74.90 % | 95.72 % |
-| 2022Q1 | 74.13 % | 98.29 % |
-| 2022Q2 | 73.78 % | 97.98 % |
-| 2022Q3 | 73.32 % | 98.60 % |
-| 2022Q4 | 76.12 % | 98.31 % |
-| 2023Q1 | 74.78 % | 98.54 % |
-| 2023Q2 | 72.42 % | 98.11 % |
-| 2023Q3 | 73.55 % | 97.68 % |
-| 2023Q4 | 76.44 % | 97.58 % |
-| 2024Q1 | 78.91 % | 96.97 % |
-| 2024Q2 | 75.27 % | 97.53 % |
-| 2024Q3 | 77.37 % | 97.72 % |
-| 2024Q4 | 78.61 % | 96.72 % |
-| 2025Q1 | 78.14 % | 97.71 % |
-| 2025Q2 | 75.62 % | 98.16 % |
-| 2025Q3 | 75.18 % | 98.19 % |
-| 2025Q4 | 76.41 % | 97.42 % |
+| [0.0, 10.0) | 490 | 99.39 % |
+| [10.0, 15.0) | 5 183 | 99.19 % |
+| [15.0, 20.0) | 27 407 | 99.35 % |
+| [20.0, 25.0) | 38 245 | 99.25 % |
+| [25.0, 30.0) | 47 478 | 99.24 % |
+| [30.0, 35.0) | 51 688 | 99.32 % |
+| [35.0, 40.0) | 52 777 | 99.35 % |
+| [40.0, 40.0001) | 3 533 | 99.52 % |
+| [40.0001, 45.0) | 60 545 | 99.82 % |
+| [45.0, 50.0) | 69 266 | 99.89 % |
+| [50.0, inf) | 702 379 | 99.82 % |
 
 | Chauffage principal | DPE | Concordance |
 |---|---:|---:|
-| Électricité | 614 456 | 91.18 % |
-| Gaz naturel | 335 650 | 95.53 % |
-| Fioul domestique | 43 272 | 94.13 % |
-| Réseau de Chauffage urbain | 31 138 | 94.40 % |
-| Bois – Bûches | 23 989 | 97.79 % |
-| Bois – Granulés (pellets) ou briquettes | 5 185 | 96.89 % |
-| GPL | 3 534 | 94.11 % |
-| Propane | 1 098 | 97.81 % |
-| Bois – Plaquettes forestières | 290 | 95.86 % |
-| Électricité d'origine renouvelable utilisée dans le bâtiment | 257 | 99.61 % |
-| Charbon | 51 | 90.20 % |
+| Électricité | 614 456 | 99.53 % |
+| Gaz naturel | 335 650 | 99.98 % |
+| Fioul domestique | 43 272 | 99.94 % |
+| Réseau de Chauffage urbain | 31 138 | 99.97 % |
+| Bois – Bûches | 23 989 | 99.96 % |
+| Bois – Granulés (pellets) ou briquettes | 5 185 | 99.96 % |
+| GPL | 3 534 | 99.94 % |
+| Propane | 1 098 | 100.00 % |
+| Bois – Plaquettes forestières | 290 | 100.00 % |
+| Électricité d'origine renouvelable utilisée dans le bâtiment | 257 | 100.00 % |
+| Charbon | 51 | 100.00 % |
 | Butane | 36 | 100.00 % |
-| Bois – Plaquettes d’industrie | 35 | 77.14 % |
+| Bois – Plaquettes d’industrie | 35 | 100.00 % |
 
 Matrice réel (lignes) / recalculé (colonnes) :
 
 | | A | B | C | D | E | F | G |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **A** | 35 238 | 1 026 | 3 | 0 | 0 | 0 | 0 |
-| **B** | 1 260 | 111 738 | 3 865 | 0 | 0 | 0 | 1 |
-| **C** | 253 | 5 612 | 419 439 | 25 152 | 949 | 23 | 7 |
-| **D** | 193 | 274 | 6 180 | 252 722 | 12 747 | 411 | 41 |
-| **E** | 97 | 159 | 123 | 1 710 | 108 959 | 9 349 | 325 |
-| **F** | 42 | 56 | 55 | 12 | 481 | 37 515 | 3 830 |
-| **G** | 15 | 42 | 22 | 13 | 3 | 111 | 18 938 |
+| **A** | 36 267 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **B** | 82 | 116 771 | 11 | 0 | 0 | 0 | 0 |
+| **C** | 263 | 412 | 450 745 | 15 | 0 | 0 | 0 |
+| **D** | 233 | 249 | 594 | 271 479 | 13 | 0 | 0 |
+| **E** | 109 | 160 | 122 | 304 | 120 004 | 23 | 0 |
+| **F** | 50 | 50 | 61 | 10 | 103 | 41 699 | 18 |
+| **G** | 19 | 41 | 22 | 12 | 2 | 30 | 19 018 |
 
 Exemples d'écarts (tirés au hasard, graine 42) :
 
-| N° DPE | Date | Surface | Chauffage | EP DPE | EP recalc. | GES | Classe EP | Classe GES | Réel | Recalculé |
-|---|---|---:|---|---:|---:|---:|---|---|---|---|
-| 2206E0150335K | 2022-01-25 | 23.0 | Électricité | 202.4 | 202.4 | 7.4 | D | B | C | D |
-| 2383E3368221G | 2023-10-07 | 32.6 | Électricité | 185.4 | 185.4 | 7.0 | D | B | C | D |
-| 2584E2143461F | 2025-06-30 | 14.7 | Électricité | 257.1 | 257.1 | 9.0 | E | B | C | E |
-| 2313E4239077A | 2023-12-10 | 77.0 | Gaz naturel | 149.7 | 149.7 | 30.0 | C | C | D | C |
-| 2506E3933127N | 2025-12-16 | 32.6 | Gaz naturel | 233.3 | 233.3 | 50.8 | D | E | D | E |
-| 2306E0009034U | 2023-01-03 | 20.8 | Électricité | 216.4 | 216.4 | 8.0 | D | B | C | D |
-| 2583E0206962L | 2025-01-21 | 20.6 | Électricité | 226.9 | 226.9 | 8.0 | D | B | C | D |
-| 2484E4434584H | 2024-12-13 | 65.0 | Gaz naturel | 138.3 | 138.3 | 30.0 | C | C | D | C |
-| 2284E2255051A | 2022-09-30 | 154.6 | Gaz naturel | 176.3 | 176.3 | 30.0 | C | C | D | C |
-| 2383E0116702V | 2023-01-13 | 89.0 | Gaz naturel | 240.1 | 240.1 | 50.0 | D | D | E | D |
-| 2283E2426918G | 2022-09-30 | 15.7 | Gaz naturel | 183.8 | 183.8 | 35.0 | D | D | C | D |
-| 2104E0631400U | 2021-11-04 | 64.0 | Électricité | 81.8 | 81.8 | 2.6 | B | A | G | B |
-| 2406E3918200J | 2024-11-06 | 18.5 | Électricité | 219.5 | 219.5 | 8.0 | D | B | C | D |
-| 2105E0291998X | 2021-09-09 | 154.8 | Électricité | 327.3 | 327.3 | 103.0 | E | G | F | G |
-| 2283E2673990A | 2022-11-11 | 26.8 | Électricité | 111.4 | 111.4 | 3.0 | C | A | B | C |
+| N° DPE | Date | Surface | Chauffage | Zone | Altitude | CEP | EGES | Réel | Recalculé |
+|---|---|---:|---|---|---|---:|---:|---|---|
+| 2106E0186508Q | 2021-07-29 | 22.0 | Électricité | H3 | inférieur à 400m | 56.3 | 0.2 | F | A |
+| 2183E0389393W | 2021-09-23 | 113.3 | Électricité | H3 | inférieur à 400m | 102.5 | 3.1 | D | B |
+| 2206E0333790J | 2022-02-08 | 20.6 | Électricité | H3 | inférieur à 400m | 127.0 | 3.0 | C | B |
+| 2383E4194151U | 2023-12-06 | 26.5 | Électricité | H3 | inférieur à 400m | 205.9 | 7.0 | D | C |
+| 2183E0538357G | 2021-07-19 | 65.7 | Électricité | H3 | inférieur à 400m | 185.2 | 31.6 | E | D |
+| 2513E1391177M | 2025-04-24 | 23.6 | Électricité | H3 | inférieur à 400m | 122.9 | 4.0 | C | B |
+| 2113E0355174B | 2021-09-18 | 109.0 | Électricité | H3 | inférieur à 400m | 100.4 | 3.1 | E | B |
+| 2113E0801016V | 2021-11-29 | 16.1 | Électricité | H3 | inférieur à 400m | 138.0 | 13.0 | F | C |
+| 2484E1468893G | 2024-04-23 | 28.6 | Électricité | H2d | inférieur à 400m | 270.9 | 10.0 | E | D |
+| 2306E0638979L | 2023-02-27 | 31.6 | Électricité | H3 | inférieur à 400m | 115.7 | 4.0 | C | B |
+| 2183E0434374X | 2021-10-04 | 24.4 | Électricité | H3 | inférieur à 400m | 186.0 | 5.4 | E | C |
+| 2113E0874699U | 2021-12-08 | 54.5 | Électricité | H3 | inférieur à 400m | 31.9 | 3.0 | B | A |
+| 2106E0375868S | 2021-09-23 | 38.0 | Électricité | H3 | inférieur à 400m | 67.6 | 6.7 | E | A |
+| 2406E3978721C | 2024-11-12 | 35.2 | Électricité | H3 | inférieur à 400m | 72.9 | 2.6 | B | A |
+| 2183E0631419O | 2021-10-27 | 60.0 | Électricité | H3 | inférieur à 400m | 93.7 | 2.9 | E | B |
+
+## Petites surfaces (≤ 40 m²) avant et après le 1er juillet 2024
+
+DPE établis avant 2026 (coefficient 2,3), recalculés avec ou sans les seuils petites surfaces :
+
+| Seuils appliqués | Avant le 2024-07-01 | Depuis le 2024-07-01 |
+|---|---:|---:|
+| Petites surfaces (arrêté 2024) | 99.12 % (147 200 DPE) | 99.65 % (79 601 DPE) |
+| Standards | 75.49 % (147 200 DPE) | 77.38 % (79 601 DPE) |
+
+DPE ≤ 40 m² établis depuis le 2026-01-01 (coefficient 1,9) : 99.93 % avec les seuils petites surfaces, 74.02 % avec les seuils standards (41 027 DPE).
+
+| Trimestre | DPE ≤ 40 m² | Seuils petites surfaces | Seuils standards |
+|---|---:|---:|---:|
+| 2021Q3 | 5 900 | 93.97 % | 73.44 % |
+| 2021Q4 | 8 479 | 95.82 % | 75.48 % |
+| 2022Q1 | 10 215 | 98.81 % | 75.17 % |
+| 2022Q2 | 11 899 | 99.66 % | 74.67 % |
+| 2022Q3 | 11 080 | 99.52 % | 74.00 % |
+| 2022Q4 | 11 707 | 99.62 % | 76.82 % |
+| 2023Q1 | 15 347 | 99.67 % | 75.43 % |
+| 2023Q2 | 14 742 | 99.66 % | 73.22 % |
+| 2023Q3 | 15 178 | 99.59 % | 74.25 % |
+| 2023Q4 | 14 566 | 99.53 % | 76.48 % |
+| 2024Q1 | 14 444 | 99.65 % | 79.82 % |
+| 2024Q2 | 13 643 | 99.69 % | 75.68 % |
+| 2024Q3 | 13 181 | 99.70 % | 78.03 % |
+| 2024Q4 | 14 650 | 99.69 % | 77.14 % |
+| 2025Q1 | 15 423 | 99.64 % | 78.66 % |
+| 2025Q2 | 12 975 | 99.63 % | 76.38 % |
+| 2025Q3 | 12 116 | 99.63 % | 76.86 % |
+| 2025Q4 | 11 256 | 99.57 % | 76.87 % |
+
+## Effet de la règle d'altitude (> 800 m en H1b, H1c, H2d)
+
+Jointure de `classe_altitude` par `numero_dpe` : 1 224 279 DPE renseignés, 1 297 sans valeur. Répartition : inférieur à 400m : 1 133 218, 400-800m : 51 159, supérieur à 800m : 39 514, <NA> : 1 297, Non affecté : 388.
+
+DPE établis depuis le 2026-01-01 (coefficient 1.9) : concordance 99.37 % sans la règle, 99.98 % avec. DPE concernés par la règle : 4 662 ; à plus de 800 m mais hors zones H1b/H1c/H2d : 871.
+
+| Département | DPE | Concernés | Concordance sans | Concordance avec | Concernés : sans | Concernés : avec |
+|---|---:|---:|---:|---:|---:|---:|
+| **04** | 5 372 | 1 122 | 95.53 % | 100.00 % | 78.61 % | 100.00 % |
+| **05** | 6 170 | 3 495 | 87.44 % | 100.00 % | 77.83 % | 100.00 % |
+| 06 | 40 280 | 5 | 99.99 % | 99.99 % | 80.00 % | 100.00 % |
+| 13 | 62 556 | 2 | 99.97 % | 99.97 % | 100.00 % | 100.00 % |
+| 83 | 35 205 | 7 | 99.98 % | 99.98 % | 100.00 % | 100.00 % |
+| **84** | 17 002 | 31 | 99.94 % | 99.99 % | 70.97 % | 100.00 % |
+
+## Coefficient électricité réellement présent dans les données
+
+DPE dont la seule énergie est l'électricité : rapport CEP / CEF par m² (égal au coefficient appliqué, aux arrondis près).
+
+| Période | DPE | 10e centile | Médiane | 90e centile | Part entre 1,85 et 1,95 | Part entre 2,25 et 2,35 |
+|---|---:|---:|---:|---:|---:|---:|
+| Avant 2026 | 549 768 | 1.899 | 1.906 | 1.924 | 97.89 % | 0.59 % |
+| Depuis 2026 | 95 565 | 1.896 | 1.902 | 1.917 | 99.34 % | 0.00 % |
+| 2021Q3 | 15 691 | 1.899 | 1.906 | 1.931 | 88.60 % | 6.10 % |
+| 2021Q4 | 20 891 | 1.899 | 1.906 | 1.931 | 89.87 % | 7.21 % |
+| 2022Q1 | 24 821 | 1.899 | 1.906 | 1.924 | 95.04 % | 3.04 % |
+| 2022Q2 | 28 017 | 1.899 | 1.905 | 1.920 | 99.51 % | 0.00 % |
+| 2022Q3 | 28 016 | 1.899 | 1.903 | 1.920 | 99.52 % | 0.00 % |
+| 2022Q4 | 28 008 | 1.899 | 1.904 | 1.921 | 99.35 % | 0.00 % |
+| 2023Q1 | 34 206 | 1.899 | 1.905 | 1.921 | 99.30 % | 0.00 % |
+| 2023Q2 | 34 374 | 1.899 | 1.906 | 1.922 | 99.22 % | 0.00 % |
+| 2023Q3 | 30 811 | 1.899 | 1.905 | 1.920 | 99.24 % | 0.00 % |
+| 2023Q4 | 32 827 | 1.899 | 1.906 | 1.922 | 99.22 % | 0.00 % |
+| 2024Q1 | 33 781 | 1.899 | 1.906 | 1.924 | 98.96 % | 0.00 % |
+| 2024Q2 | 35 678 | 1.899 | 1.907 | 1.925 | 98.69 % | 0.00 % |
+| 2024Q3 | 33 894 | 1.899 | 1.906 | 1.924 | 98.66 % | 0.00 % |
+| 2024Q4 | 40 533 | 1.899 | 1.908 | 1.931 | 95.53 % | 0.00 % |
+| 2025Q1 | 39 260 | 1.899 | 1.906 | 1.924 | 98.67 % | 0.00 % |
+| 2025Q2 | 31 587 | 1.899 | 1.906 | 1.924 | 98.35 % | 0.00 % |
+| 2025Q3 | 28 865 | 1.899 | 1.907 | 1.924 | 98.56 % | 0.00 % |
+| 2025Q4 | 28 508 | 1.899 | 1.907 | 1.925 | 98.45 % | 0.00 % |
+| 2026Q1 | 30 526 | 1.896 | 1.902 | 1.917 | 99.42 % | 0.00 % |
+| 2026Q2 | 29 111 | 1.896 | 1.902 | 1.918 | 99.30 % | 0.00 % |
+| 2026Q3 | 27 712 | 1.896 | 1.902 | 1.918 | 99.23 % | 0.00 % |
+| 2026Q4 | 8 216 | 1.896 | 1.902 | 1.917 | 99.53 % | 0.00 % |
+
+## Effet de la cible d'entraînement (DPE d'avant 2026 ramenés en 1,9)
+
+**Attention** : ce calcul suppose, comme la table datée, que les DPE d'avant 2026 sont publiés en 2,3. La section précédente montre qu'ils sont publiés en 1,9 : ce décalage serait alors une double correction.
+
+Cible = `etiquette_dpe` décalée de (classe recalculée en 1,9 − classe recalculée en 2,3), mêmes seuils.
+
+- DPE : 1 058 991 ; décalages : -3 : 6, -2 : 903, -1 : 332 891, 0 : 725 191
+- Étiquettes changées : 51.22 % des chauffages électriques, 4.26 % des autres
+
+| Classe | Officielle | Cible 1,9 |
+|---|---:|---:|
+| A | 36 267 | 65 646 |
+| B | 116 864 | 200 750 |
+| C | 451 435 | 444 869 |
+| D | 272 568 | 222 649 |
+| E | 120 722 | 84 919 |
+| F | 41 991 | 28 629 |
+| G | 19 144 | 11 529 |
+
+Chauffage électrique — parts par classe (614 713 DPE avant 2026, 109 029 depuis) :
+
+| Classe | Avant 2026, officielle (2,3) | Avant 2026, cible 1,9 | Depuis 2026, officielle (1,9) |
+|---|---:|---:|---:|
+| A | 5.53 % | 10.11 % | 6.77 % |
+| B | 15.57 % | 28.89 % | 17.20 % |
+| C | 42.64 % | 40.88 % | 42.79 % |
+| D | 21.11 % | 13.40 % | 20.30 % |
+| E | 10.15 % | 4.88 % | 8.82 % |
+| F | 3.34 % | 1.33 % | 3.11 % |
+| G | 1.66 % | 0.51 % | 1.02 % |
+
+Autres chauffages — parts par classe (444 278 DPE avant 2026, 57 556 depuis) :
+
+| Classe | Avant 2026, officielle (2,3) | Avant 2026, cible 1,9 | Depuis 2026, officielle (1,9) |
+|---|---:|---:|---:|
+| A | 0.51 % | 0.78 % | 0.44 % |
+| B | 4.76 % | 5.22 % | 3.77 % |
+| C | 42.61 % | 43.56 % | 39.04 % |
+| D | 32.14 % | 31.57 % | 35.86 % |
+| E | 13.12 % | 12.37 % | 13.72 % |
+| F | 4.83 % | 4.61 % | 5.18 % |
+| G | 2.02 % | 1.89 % | 1.99 % |
