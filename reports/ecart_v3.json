@@ -1,0 +1,37 @@
+{
+  "genere_le": "2026-11-01T18:38:30+00:00",
+  "lignes": {
+    "entrainement": 1130191,
+    "validation": 62467,
+    "test": 32813
+  },
+  "calibre": {
+    "entrainement": {
+      "accuracy": 0.5058852884158518,
+      "accuracy_a_une_classe_pres": 0.883516149040295,
+      "brier_multiclasse": 0.610379074932778
+    },
+    "validation": {
+      "accuracy": 0.49952775065234445,
+      "accuracy_a_une_classe_pres": 0.8831703139257528,
+      "brier_multiclasse": 0.6251900965173558
+    },
+    "test": {
+      "accuracy": 0.5077255965623381,
+      "accuracy_a_une_classe_pres": 0.8925425898272026,
+      "brier_multiclasse": 0.6144281281317713
+    }
+  },
+  "brut": {
+    "entrainement": {
+      "accuracy": 0.5075991580184235,
+      "accuracy_a_une_classe_pres": 0.8834347468702193,
+      "brier_multiclasse": 0.6088140168441322
+    },
+    "validation": {
+      "accuracy": 0.4915395328733571,
+      "accuracy_a_une_classe_pres": 0.8812332911777419,
+      "brier_multiclasse": 0.6288822226094167
+    }
+  }
+}

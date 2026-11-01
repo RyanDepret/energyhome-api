@@ -39,6 +39,18 @@ LightGBM {'num_leaves': 63, 'learning_rate': 0.1, 'min_child_samples': 500}, cho
 
 Bat « toujours C » en accuracy : oui ; à une classe près : oui ; la répartition constante en Brier : oui. Détail par type de chauffage : `reports/modele_v3.md`.
 
+## Écart entre entraînement, validation et test
+
+| | Entraînement (1 130 191) | Validation (62 467) | Test (32 813) |
+|---|---:|---:|---:|
+| Accuracy | 50.6 % | 50.0 % | 50.8 % |
+| Accuracy à une classe près | 88.4 % | 88.3 % | 89.3 % |
+| Brier multiclasse (plus bas = mieux) | 0.6104 | 0.6252 | 0.6144 |
+
+Pas de sur-apprentissage mesurable : l'accuracy d'entraînement dépasse celle du moins bon jeu non vu de 0.6 point(s) et le Brier est plus élevé de 0.015 hors entraînement. Le modèle ne fait guère mieux sur les logements qu'il a vus (50.6 % d'accuracy) que sur les autres : sa précision est limitée par l'information contenue dans les cinq variables, pas par un apprentissage par cœur.
+
+Mesures : entraînement calculé par `training/ecart_v3.py` avec le modèle servi (calibration comprise) ; validation avec la calibration isotonique mesurée hors pli (`reports/calibration_v3.md`) ; test repris de `reports/modele_v3.md`. La validation a servi à l'arrêt précoce, au choix du modèle et à la calibration. Sans calibration : Brier 0.6088 sur l'entraînement contre 0.6289 sur la validation.
+
 ## Limites connues
 
 - **Cinq variables seulement** : l'isolation, les fenêtres, le système de chauffage exact, la ventilation ou les travaux ne sont pas observés. Deux logements identiques sur ces cinq critères reçoivent la même estimation alors que leurs DPE réels peuvent différer ; c'est la principale limite de précision.

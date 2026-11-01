@@ -30,6 +30,43 @@ def _p(x) -> str:
     return f"{100 * x:.1f} %"
 
 
+# Au-delà de ces écarts entre l'entraînement et le moins bon des jeux non vus, on signale un sur-apprentissage
+SEUIL_ECART_ACCURACY = 0.02
+SEUIL_ECART_BRIER = 0.02
+
+
+def section_ecart(e: dict) -> list[str]:
+    """Tableau entraînement / validation / test et conclusion tirée des chiffres (aucun texte figé sur le verdict)."""
+    c, lg = e["calibre"], e["lignes"]
+    jeux = ("entrainement", "validation", "test")
+    l = ["## Écart entre entraînement, validation et test", "",
+         f"| | Entraînement ({_n(lg['entrainement'])}) | Validation ({_n(lg['validation'])}) | Test ({_n(lg['test'])}) |",
+         "|---|---:|---:|---:|"]
+    for cle, lib, f in (("accuracy", "Accuracy", _p), ("accuracy_a_une_classe_pres", "Accuracy à une classe près", _p),
+                        ("brier_multiclasse", "Brier multiclasse (plus bas = mieux)", lambda v: f"{v:.4f}")):
+        l.append(f"| {lib} | " + " | ".join(f(c[j][cle]) for j in jeux) + " |")
+
+    ecart_acc = c["entrainement"]["accuracy"] - min(c["validation"]["accuracy"], c["test"]["accuracy"])
+    ecart_brier = max(c["validation"]["brier_multiclasse"], c["test"]["brier_multiclasse"]) - c["entrainement"]["brier_multiclasse"]
+    chiffres = (f"l'accuracy d'entraînement dépasse celle du moins bon jeu non vu de {100 * ecart_acc:.1f} point(s) "
+                f"et le Brier est plus élevé de {ecart_brier:.3f} hors entraînement")
+    if ecart_acc <= SEUIL_ECART_ACCURACY and ecart_brier <= SEUIL_ECART_BRIER:
+        conclusion = (f"Pas de sur-apprentissage mesurable : {chiffres}. Le modèle ne fait guère mieux sur les logements "
+                      f"qu'il a vus ({_p(c['entrainement']['accuracy'])} d'accuracy) que sur les autres : sa précision est "
+                      "limitée par l'information contenue dans les cinq variables, pas par un apprentissage par cœur.")
+    else:
+        conclusion = (f"**Sur-apprentissage** : {chiffres} (seuils : {100 * SEUIL_ECART_ACCURACY:.0f} points, "
+                      f"{SEUIL_ECART_BRIER:.2f} de Brier). Les résultats sur l'entraînement surestiment ceux attendus en service.")
+    b = e["brut"]
+    l += ["", conclusion, "",
+          "Mesures : entraînement calculé par `training/ecart_v3.py` avec le modèle servi (calibration comprise) ; "
+          "validation avec la calibration isotonique mesurée hors pli (`reports/calibration_v3.md`) ; test repris de "
+          "`reports/modele_v3.md`. La validation a servi à l'arrêt précoce, au choix du modèle et à la calibration. "
+          f"Sans calibration : Brier {b['entrainement']['brier_multiclasse']:.4f} sur l'entraînement contre "
+          f"{b['validation']['brier_multiclasse']:.4f} sur la validation.", ""]
+    return l
+
+
 def main() -> None:
     meta = lire("artifacts/v3/metadonnees.json")
     donnees = lire("reports/donnees_v3.json")
@@ -95,6 +132,7 @@ def main() -> None:
         f"à une classe près : {oui(tous['verdicts']['a_une_classe_pres_vs_classe_majoritaire'])} ; "
         f"la répartition constante en Brier : {oui(tous['verdicts']['brier_vs_repartition_constante'])}. "
         "Détail par type de chauffage : `reports/modele_v3.md`.", "",
+        *section_ecart(lire("reports/ecart_v3.json")),
         "## Limites connues", "",
         "- **Cinq variables seulement** : l'isolation, les fenêtres, le système de chauffage exact, la ventilation ou "
         "les travaux ne sont pas observés. Deux logements identiques sur ces cinq critères reçoivent la même estimation "
