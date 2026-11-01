@@ -31,6 +31,17 @@ Références à battre, construites **sans regarder le test**, à partir des 1 1
 - « toujours la classe majoritaire » : classe **C** ;
 - « tirage aléatoire selon la répartition réelle » : tirage selon cette répartition (graine 42).
 
+## Note corrective du 2026-11-01
+
+La section suivante attribue une partie des erreurs au fait que le modèle aurait appris des étiquettes
+calculées avec le coefficient 2,3. Une mesure faite après ce rapport (`training/valider_etiquettes.py`,
+`reports/validation_etiquettes.md`) montre que le jeu ADEME extrait le 2026-10-31 publie **tous** les DPE
+en 1,9, y compris ceux établis avant 2026 : pour les DPE dont la seule énergie est l'électricité, le rapport
+énergie primaire / énergie finale a une médiane de 1,906 avant 2026 (549 768 DPE) et de 1,902 depuis
+(95 565 DPE). Cette explication ne vaut donc pas pour les données actuelles ; elle vaut peut-être pour
+l'extraction de 2025 qui a servi à entraîner le modèle, ce qui ne peut plus être vérifié.
+Les chiffres de ce rapport ne changent pas.
+
 ## Attention : coefficient électricité 1,9
 
 Les DPE établis depuis le 1er janvier 2026 utilisent un coefficient de conversion de l'électricité en énergie
