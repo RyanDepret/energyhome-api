@@ -1,0 +1,127 @@
+{
+  "version": "v3-lightgbm-2026-11",
+  "date_export": "2026-11-01T09:28:36+00:00",
+  "modele": "LightGBM {'num_leaves': 63, 'learning_rate': 0.1, 'min_child_samples': 500}",
+  "hyperparametres": {
+    "num_leaves": 63,
+    "learning_rate": 0.1,
+    "min_child_samples": 500
+  },
+  "meilleure_iteration": 41,
+  "localisation": "departement",
+  "colonnes": [
+    "surface",
+    "periode",
+    "type_batiment",
+    "chauffage",
+    "departement"
+  ],
+  "calibration": "isotonique",
+  "coefficient_electricite_cible": 1.9,
+  "coefficient_electricite_donnees_publiees": {
+    "n": 645306,
+    "mediane": 1.9053333333333333,
+    "p10": 1.8988902589395809,
+    "p90": 1.9228070175438596,
+    "attendu": 1.9,
+    "tolerance": 0.05
+  },
+  "donnees": {
+    "source": "ADEME, DPE logements existants (dpe03existant), région PACA",
+    "entrainement": {
+      "lignes": 1130191,
+      "du": "2021-07-01",
+      "au": "2026-04-30",
+      "repartition": {
+        "total": 1130191,
+        "effectifs": {
+          "A": 39199,
+          "B": 125636,
+          "C": 481249,
+          "D": 290808,
+          "E": 128444,
+          "F": 44777,
+          "G": 20078
+        },
+        "pourcentages": {
+          "A": 3.4683518095613928,
+          "B": 11.116351130030234,
+          "C": 42.58120972472794,
+          "D": 25.73087203844306,
+          "E": 11.364804710000344,
+          "F": 3.961896705955011,
+          "G": 1.7765138812820134
+        }
+      }
+    },
+    "validation": {
+      "lignes": 62467,
+      "du": "2026-05-01",
+      "au": "2026-08-30",
+      "repartition": {
+        "total": 62467,
+        "effectifs": {
+          "A": 3103,
+          "B": 7901,
+          "C": 25359,
+          "D": 16454,
+          "E": 6381,
+          "F": 2381,
+          "G": 888
+        },
+        "pourcentages": {
+          "A": 4.967422799237998,
+          "B": 12.648278290937615,
+          "C": 40.59583460066915,
+          "D": 26.340307682456338,
+          "E": 10.214993516576753,
+          "F": 3.811612531416588,
+          "G": 1.4215505787055565
+        }
+      }
+    },
+    "test": {
+      "lignes": 32813,
+      "du": "2026-08-31",
+      "au": "2026-10-26"
+    },
+    "sha256_entrainement": "71a5e6cdd03de8a5499eb439ee42baf45cf2e02c10f23e03252717323fe2c85e"
+  },
+  "metriques_test": {
+    "tous": {
+      "accuracy": 0.5077255965623381,
+      "f1_macro": 0.3507047335044282,
+      "accuracy_a_une_classe_pres": 0.8925425898272026,
+      "brier_multiclasse": 0.6144281281317713
+    },
+    "chauffage_electrique": {
+      "accuracy": 0.49866310160427807,
+      "f1_macro": 0.27617490037449405,
+      "accuracy_a_une_classe_pres": 0.875222816399287,
+      "brier_multiclasse": 0.6278396978955412
+    },
+    "autres_chauffages": {
+      "accuracy": 0.5273305697483852,
+      "f1_macro": 0.3479834207995139,
+      "accuracy_a_une_classe_pres": 0.9300106044538706,
+      "brier_multiclasse": 0.585414764061686
+    }
+  },
+  "references_test": {
+    "classe_majoritaire": {
+      "accuracy": 0.42214975771797764,
+      "accuracy_a_une_classe_pres": 0.7974278487184957
+    },
+    "brier_repartition_constante": 0.7306491311507954
+  },
+  "python": "3.12.15",
+  "bibliotheques": {
+    "lightgbm": "4.7.0",
+    "scikit-learn": "1.9.0",
+    "numpy": "2.5.1",
+    "pandas": "3.0.5",
+    "joblib": "1.5.3",
+    "scipy": "1.18.1"
+  },
+  "sha256_modele_joblib": "547e0e37a9406b5beb6dc583bd2a4f7b210e4ef7aee851e84044803fd218968b"
+}

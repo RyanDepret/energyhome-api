@@ -29,6 +29,38 @@ def test_predict_avec_periode(client):
     assert corps["entree"]["zone_climatique"] == "H3"
 
 
+def test_predict_v3_renvoie_des_importances(client):
+    corps = post_predict(client, periode="1975_1977").json()
+    assert corps["model_version"].startswith("v3")
+    importances = corps["importances"]
+    criteres = {i["critere"] for i in importances}
+    assert criteres == {"Surface", "Période de construction", "Type de bâtiment", "Énergie de chauffage", "Département"}
+    assert all(0 <= i["poids"] <= 1 for i in importances)
+    assert sum(i["poids"] for i in importances) == pytest.approx(1.0)
+    assert [i["poids"] for i in importances] == sorted((i["poids"] for i in importances), reverse=True)
+    valeurs = {i["critere"]: i["valeur"] for i in importances}
+    assert valeurs["Surface"] == 80 and valeurs["Département"] == "13" and valeurs["Énergie de chauffage"] == "gaz_naturel"
+
+
+@pytest.mark.parametrize("chauffage", ["bois_plaquettes", "gpl", "electricite_renouvelable", "reseau_chaleur"])
+def test_predict_v3_tous_les_chauffages_de_l_api(client, chauffage):
+    assert post_predict(client, periode="1989_2000", chauffage=chauffage).status_code == 200
+
+
+def test_retour_au_v2_par_la_config(client, monkeypatch):
+    monkeypatch.setattr(settings, "model_version", "v2-rf-2025")
+    corps = post_predict(client, periode="1975_1977").json()
+    assert corps["model_version"] == "v2-rf-2025"
+    assert corps["importances"] == []
+    assert sum(corps["probabilites"].values()) == pytest.approx(1.0)
+
+
+def test_version_incoherente_refusee(client, monkeypatch):
+    monkeypatch.setattr(settings, "model_version", "v3-autre")
+    with pytest.raises(RuntimeError):
+        post_predict(client, periode="1975_1977")
+
+
 def test_predict_avec_annee(client):
     reponse = post_predict(client, annee_construction=1998)
     assert reponse.status_code == 200

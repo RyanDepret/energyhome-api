@@ -27,13 +27,17 @@ class Settings(BaseSettings):
     # SQLite en local, PostgreSQL en production via variable d'environnement
     database_url: str = "sqlite:///./energyhome.db"
 
-    # Chemins des artefacts du modèle et du RAG
+    # Modèle servi par /predict. Retour au v2 : MODEL_VERSION=v2-rf-2025 (aucun autre réglage).
+    # Une version commençant par « v2 » utilise model_path/columns_path ; sinon le dossier model_v3_dir,
+    # dont metadonnees.json doit annoncer exactement cette version.
+    model_version: str = "v3-lightgbm-2026-11"
+    model_v3_dir: Path = ARTIFACTS_DIR / "v3"
+
+    # Chemins des artefacts du modèle v2 et du RAG
     model_path: Path = ARTIFACTS_DIR / "modele_dpe_v2.pkl"
     columns_path: Path = ARTIFACTS_DIR / "colonnes_modele_v2.pkl"
     zones_path: Path = ARTIFACTS_DIR / "zones_climatiques.pkl"
     embeddings_cache_path: Path = ARTIFACTS_DIR / "embeddings_documents.pkl"
-
-    model_version: str = "v2-rf-2025"
 
     # Départements couverts par le simulateur (région PACA)
     departements_autorises: list[str] = ["04", "05", "06", "13", "83", "84"]

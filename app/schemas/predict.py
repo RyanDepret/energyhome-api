@@ -123,10 +123,19 @@ class PredictionInput(BaseModel):
         return self
 
 
+class Importance(BaseModel):
+    """Poids d'un critère dans la prédiction (contributions SHAP, somme des poids = 1)."""
+
+    critere: str
+    valeur: Any
+    poids: float = Field(ge=0, le=1)
+
+
 class PredictionOutput(BaseModel):
-    """Classe DPE prédite et probabilités des 7 classes."""
+    """Classe DPE prédite, probabilités des 7 classes et facteurs explicatifs."""
 
     classe: str
     probabilites: dict[str, float]
+    importances: list[Importance] = []
     model_version: str
     entree: dict[str, Any]
