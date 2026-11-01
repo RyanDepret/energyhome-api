@@ -15,7 +15,7 @@ import requests  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
 from app.main import app  # noqa: E402
-from app.rag import embeddings  # noqa: E402
+from app.rag import embeddings, generation  # noqa: E402
 
 FAKE_AGENT_JSON = """{
   "situation": {"titre": "Situation actuelle", "icone": "🏠", "resume": "r", "detail": "d"},
@@ -37,19 +37,37 @@ def block_network(monkeypatch):
 
 
 @pytest.fixture
-def mock_ai(monkeypatch):
-    """Simule Claude (generate_text) et Mistral (get_embedding) : aucun crédit consommé."""
-    prompts = []
+def mock_embedding(monkeypatch):
+    """Simule l'embedding Mistral de la question (recherche documentaire) : aucun appel réseau."""
     dimension = embeddings.get_embeddings().shape[1]
-
-    def fake_generate_text(prompt):
-        prompts.append(prompt)
-        return FAKE_AGENT_JSON
-
-    monkeypatch.setattr("app.rag.generation.generate_text", fake_generate_text)
     monkeypatch.setattr("app.rag.embeddings.get_embedding", lambda text: np.ones(dimension))
+
+
+@pytest.fixture
+def mock_ai(monkeypatch, mock_embedding):
+    """Simule la génération Claude et Mistral et l'embedding : aucun crédit consommé.
+
+    Renvoie la liste des prompts reçus ; `mock_ai.modeles` donne le modèle appelé pour chacun.
+    """
+    prompts = PromptsRecus()
+
+    def generateur(modele):
+        def fake(prompt):
+            prompts.append(prompt)
+            prompts.modeles.append(modele)
+            return generation.Generation(texte=FAKE_AGENT_JSON, tokens={"entree": 10, "sortie": 5})
+        return fake
+
+    monkeypatch.setattr("app.rag.generation.generer_claude", generateur("claude"))
+    monkeypatch.setattr("app.rag.generation.generer_mistral", generateur("mistral"))
     monkeypatch.setattr("app.agent.recommendations.time.sleep", lambda s: None)
     return prompts
+
+
+class PromptsRecus(list):
+    def __init__(self):
+        super().__init__()
+        self.modeles = []
 
 
 @pytest.fixture(scope="session")

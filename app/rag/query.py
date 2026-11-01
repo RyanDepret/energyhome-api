@@ -1,3 +1,5 @@
+import time
+
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -7,7 +9,8 @@ from app.rag.documents import documents
 
 # ── RAG ───────────────────────────────────────────────────────────────────────
 
-def rag_query(question, top_k=3, locale="fr"):
+def rag_query(question, top_k=3, locale="fr", modele="claude"):
+    # La recherche et le prompt ne dépendent pas du modèle : seule la génération change
     index = embeddings.get_embeddings()
 
     question_embedding = embeddings.get_embedding(question)
@@ -35,6 +38,12 @@ QUESTION : {question}
 
 RÉPONSE :"""
 
-    reponse = generation.generate_text(prompt)
+    debut = time.perf_counter()
+    resultat = generation.generer(modele, prompt)
+    duree_ms = round((time.perf_counter() - debut) * 1000)
 
-    return {"question": question, "reponse": reponse, "sources": sources}
+    reponse = {"question": question, "reponse": resultat.texte, "sources": sources,
+               "modele": modele, "duree_ms": duree_ms}
+    if resultat.tokens is not None:
+        reponse["tokens"] = resultat.tokens
+    return reponse

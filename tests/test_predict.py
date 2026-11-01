@@ -2,6 +2,7 @@ from datetime import date
 
 import pytest
 
+from app.api.predict import artefact_v3
 from app.core.config import settings
 
 LOGEMENT = {
@@ -57,8 +58,12 @@ def test_retour_au_v2_par_la_config(client, monkeypatch):
 
 def test_version_incoherente_refusee(client, monkeypatch):
     monkeypatch.setattr(settings, "model_version", "v3-autre")
-    with pytest.raises(RuntimeError):
-        post_predict(client, periode="1975_1977")
+    with pytest.raises(RuntimeError, match="v3-autre"):
+        artefact_v3()
+    # Côté client, le gestionnaire global transforme l'erreur en 500 (au lieu de servir le mauvais modèle)
+    reponse = post_predict(client, periode="1975_1977")
+    assert reponse.status_code == 500
+    assert reponse.json()["code"] == "erreur_interne"
 
 
 def test_predict_avec_annee(client):
