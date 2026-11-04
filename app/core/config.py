@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     cors_origins: list[str] = [
         "http://localhost:3000",
         "https://energyhome-nextjs.vercel.app",
+        "https://energy-home-ai.vercel.app",
     ]
 
     # SQLite en local, PostgreSQL en production via variable d'environnement

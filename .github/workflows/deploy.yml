@@ -51,4 +51,9 @@ jobs:
             --source . \
             --region $REGION \
             --allow-unauthenticated \
+            --memory 1Gi \
+            --cpu 1 \
+            --min-instances 1 \
+            --max-instances 3 \
+            --timeout 60 \
             --set-env-vars MISTRAL_API_KEY=${{ secrets.MISTRAL_API_KEY }},ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }}
