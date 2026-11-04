@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import json
 
-from app.rag import embeddings, generation
+from app.rag import embeddings, garde_fous, generation
 from app.rag.documents import documents
 
 
@@ -14,6 +14,31 @@ def get_context(query, top_k=2):
     sims = cosine_similarity([q_emb], index)[0]
     indices = np.argsort(sims)[::-1][:top_k]
     return "\n\n".join([documents[idx] for idx in indices])
+
+
+def _filtrer_montants(data, contexte, locale):
+    """Même garde-fou que /chat : aucun montant ni taux absent du contexte dans les textes du JSON."""
+    retire = False
+    for section in data.values():
+        if not isinstance(section, dict):
+            continue
+        for cle in ("resume", "detail"):
+            if isinstance(section.get(cle), str):
+                section[cle], retires = garde_fous.nettoyer_reponse(section[cle], contexte, locale,
+                                                                     ajouter_renvoi=False)
+                retire = retire or bool(retires)
+        if isinstance(section.get("items"), list):
+            items = []
+            for item in section["items"]:
+                if isinstance(item, str) and garde_fous.montants_non_sources(item, contexte):
+                    retire = True
+                else:
+                    items.append(item)
+            section["items"] = items
+    aides = data.get("aides")
+    if retire and isinstance(aides, dict) and isinstance(aides.get("items"), list):
+        aides["items"].append(garde_fous.RENVOI.get(locale, garde_fous.RENVOI["fr"]))
+    return data
 
 
 def agent_recommandations(classe_dpe, surface, annee_construction,
@@ -44,6 +69,8 @@ def agent_recommandations(classe_dpe, surface, annee_construction,
     prompt = f"""Tu es un assistant expert en rénovation énergétique.
 Rédige TOUS les textes du JSON (titre, resume, detail, items) en {langue}.
 
+{garde_fous.consignes(langue, locale)}
+
 Logement : Classe {classe_dpe}, {surface}m², {type_batiment}, construit en {annee_construction},
 chauffage principal : {type_chauffage}, code postal {code_postal}.
 
@@ -65,13 +92,13 @@ Réponds UNIQUEMENT avec un objet JSON valide, sans texte avant ou après, avec 
     "titre": "Travaux prioritaires",
     "icone": "🔨",
     "resume": "1 phrase sur l'urgence des travaux",
-    "items": ["Travail 1 avec coût estimé", "Travail 2 avec coût estimé"]
+    "items": ["Travail 1 (coût seulement s'il figure dans le contexte)", "Travail 2"]
   }},
   "aides": {{
     "titre": "Aides disponibles",
     "icone": "💶",
     "resume": "1 phrase sur le financement possible",
-    "items": ["Aide 1 avec montant", "Aide 2 avec montant"]
+    "items": ["Aide 1 (montant seulement s'il figure dans le contexte)", "Aide 2"]
   }}
 }}
 
@@ -87,6 +114,7 @@ CONTEXTE :
         if debut == -1 or fin == -1:
             raise ValueError("Aucun JSON trouvé dans la réponse")
         data = json.loads(reponse[debut:fin + 1])
+        data = _filtrer_montants(data, contexte, locale)
     except Exception:
         # Fallback si le JSON est invalide ou tronqué
         indisponible = "Analysis unavailable" if locale == "en" else "Analyse indisponible"
