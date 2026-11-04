@@ -25,6 +25,7 @@ ARRETE_SEUILS_DPE = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043353335
 ARRETE_COEF_2027 = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000054747079"
 ARRETE_S21 = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000054190669"
 TVA_PV = "https://entreprendre.service-public.gouv.fr/vosdroits/F23568"
+DECLARATION_PREALABLE = SP + "F17578"
 
 
 def _source(*urls):
@@ -35,7 +36,7 @@ documents = [
     # 1. MaPrimeRénov' : principe général
     "MaPrimeRénov' est l'aide de l'État à la rénovation énergétique, gérée par l'Anah. "
     "Elle s'adresse aux propriétaires occupants et bailleurs d'une résidence principale construite "
-    "depuis au moins 15 ans, sauf exceptions. Elle comporte deux parcours : le parcours par geste, "
+    "depuis au moins 15 ans (2 ans pour certains équipements du parcours par geste). Elle comporte deux parcours : le parcours par geste, "
     "pour un équipement précis, et la rénovation d'ampleur, pour un ensemble de travaux. "
     "Le montant dépend des revenus du foyer, répartis en quatre catégories (bleu, jaune, violet, rose), "
     f"et des travaux réalisés. {RENVOI}\n" + _source(MPR),
@@ -44,18 +45,19 @@ documents = [
     "Le parcours par geste de MaPrimeRénov' finance un équipement isolé. En 2026, ses montants ne sont "
     "prévus que pour les catégories de revenus bleu, jaune et violet. En métropole, il couvre les pompes "
     "à chaleur air-eau et géothermiques, le raccordement à un réseau de chaleur, la dépose d'une cuve "
-    "à fioul et l'audit énergétique hors obligation réglementaire. L'isolation des murs, les fenêtres "
-    "et le chauffage au bois ne figurent pas dans cette liste. Les travaux doivent être réalisés par "
-    f"un professionnel RGE. {RENVOI}\n" + _source(MPR),
+    "à fioul et l'audit énergétique hors obligation. L'isolation, les fenêtres "
+    "et le bois n'y figurent pas. Le logement doit être construit depuis au moins 15 ans ; "
+    "ce délai est ramené à 2 ans pour une pompe à chaleur air-eau ou géothermique et pour un raccordement "
+    f"à un réseau de chaleur. {RENVOI}\n" + _source(MPR),
 
     # 3. MaPrimeRénov' rénovation d'ampleur (remplace « rénovation globale »)
     "La rénovation d'ampleur de MaPrimeRénov' finance un ensemble de travaux dans un logement classé "
-    "E, F ou G. La première étape doit faire gagner au moins 2 classes de DPE, avec au moins deux postes "
+    "E, F ou G, construit depuis au moins 15 ans sans exception. La première étape doit faire gagner au moins 2 classes de DPE, avec au moins deux postes "
     "d'isolation. Un rendez-vous avec un conseiller France Rénov', l'accompagnement par Mon Accompagnateur "
     "Rénov' et un audit énergétique avant et après travaux sont obligatoires. L'aide est accordée avant "
-    "le début des travaux. Taux selon les revenus : 80 % (bleu), 60 % (jaune), 45 % (violet), 10 % (rose), "
+    "les travaux. Taux selon les revenus : 80 % (bleu), 60 % (jaune), 45 % (violet), 10 % (rose), "
     "sur des dépenses plafonnées à 30 000 € HT (gain de 2 classes) ou 40 000 € HT (3 classes ou plus). "
-    "Depuis le 1er septembre 2026, conserver un chauffage au gaz dans une maison individuelle exclut l'aide.\n"
+    "Depuis le 1er septembre 2026, garder un chauffage au gaz en maison individuelle exclut l'aide.\n"
     + _source(MPR),
 
     # 4. CEE
@@ -106,7 +108,8 @@ documents = [
     "et l'eau chaude. Elle fonctionne à l'électricité, ce qui compte dans le calcul du DPE. En 2026, "
     "elle fait partie des travaux du parcours par geste de MaPrimeRénov' pour les catégories de revenus "
     "bleu, jaune et violet, et peut aussi recevoir une prime CEE demandée avant la signature du devis. "
-    "Dans une rénovation d'ampleur, les PAC hybrides gaz ou fioul ne sont plus finançables. "
+    "Dans une rénovation d'ampleur, les PAC hybrides gaz ou fioul ne sont plus finançables. La PAC "
+    "air-air, elle, ne figure pas dans le parcours par geste. "
     f"L'installateur doit être RGE. {RENVOI}\n" + _source(MPR, CEE),
 
     # 10. DPE : classes, seuils, validité
@@ -201,4 +204,45 @@ documents = [
     "25 000 € de travaux par logement. Un assistant à maîtrise d'ouvrage est obligatoire. Le recours à "
     "l'aide et les travaux sont votés à la majorité absolue ; avec au moins un tiers des voix, un second "
     "vote à la majorité simple est possible.\n" + _source(COPRO),
+
+    # 21. Déclaration préalable de travaux (nouveau)
+    "Des travaux de rénovation énergétique qui modifient l'aspect extérieur d'une maison peuvent exiger "
+    "une déclaration préalable de travaux en mairie, y compris hors copropriété : isolation thermique "
+    "par l'extérieur, ravalement de façade, panneau solaire sur le toit, remplacement de fenêtres ou de "
+    "fenêtres de toit qui change l'aspect extérieur. Une fois le dossier complet, le délai d'instruction "
+    "est en général d'un mois, et de deux mois en secteur protégé (abords d'un monument historique, site "
+    "patrimonial remarquable, site classé ou inscrit). Les règles locales d'urbanisme se vérifient auprès "
+    "de la mairie. En copropriété, le vote de l'assemblée générale s'ajoute pour les parties communes.\n"
+    + _source(DECLARATION_PREALABLE, COPRO),
+
+    # 22. TVA des travaux de rénovation énergétique (nouveau)
+    "La TVA à 5,5 % ne concerne pas tous les travaux. En métropole, elle s'applique aux travaux "
+    "d'amélioration de la qualité énergétique d'un logement achevé depuis au moins 2 ans : isolation "
+    "thermique (parois, fenêtres, portes d'entrée, volets isolants), équipements de chauffage et d'eau "
+    "chaude utilisant une énergie renouvelable, ventilation mécanique contrôlée, régulation du chauffage, "
+    "et panneaux solaires jusqu'à 9 kW sous conditions. D'autres travaux d'amélioration ou d'entretien "
+    "relèvent du taux de 10 %. Les systèmes de climatisation, les équipements ménagers et le mobilier ne "
+    "bénéficient pas du taux réduit. Les travaux doivent respecter les exigences techniques du Code général "
+    "des impôts.\n" + _source(TVA_PV),
 ]
+
+# Documents joints d'office par /agent, retrouvés par leur début (et non par leur position)
+DEBUTS = {
+    "mpr": "MaPrimeRénov' est l'aide",
+    "mpr_geste": "Le parcours par geste",
+    "mpr_ampleur": "La rénovation d'ampleur",
+    "location": "La loi Climat",
+    "coefficient": "Dans le DPE, la consommation d'électricité",
+    "accompagnateur": "France Rénov' est le service public",
+    "declaration": "Des travaux de rénovation énergétique qui modifient",
+    "tva": "La TVA à 5,5 %",
+}
+
+
+def indice(sujet):
+    """Position du document d'un sujet de DEBUTS (ValueError si aucun document ne commence ainsi)."""
+    debut = DEBUTS[sujet]
+    for i, doc in enumerate(documents):
+        if doc.startswith(debut):
+            return i
+    raise ValueError(f"Aucun document ne commence par {debut!r}")
