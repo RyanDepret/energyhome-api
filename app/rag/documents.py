@@ -77,11 +77,13 @@ documents = [
 
     # 6. Loi Climat : interdiction de louer les passoires
     "La loi Climat et résilience interdit progressivement de louer les logements les plus énergivores, "
-    "jugés non décents. Depuis le 1er janvier 2023, un logement loué doit consommer moins de 450 kWh "
-    "d'énergie finale par m² et par an. Depuis le 1er janvier 2025, il doit être classé au moins F au DPE : "
-    "les logements G ne peuvent plus être loués. Au 1er janvier 2028, il devra être classé au moins E, "
-    "puis au moins D au 1er janvier 2034. Ces règles s'appliquent aux nouveaux baux et aux baux renouvelés "
-    "ou tacitement reconduits à partir de ces dates.\n" + _source(LOCATION),
+    "jugés non décents. Calendrier par classe DPE : "
+    "logement consommant plus de 450 kWh d'énergie finale par m² et par an : interdit depuis le 1er janvier 2023 ; "
+    "classe G : interdit depuis le 1er janvier 2025 ; "
+    "classe F : autorisé aujourd'hui, interdit à partir du 1er janvier 2028 ; "
+    "classe E : autorisé aujourd'hui, interdit à partir du 1er janvier 2034. "
+    "Ces interdictions s'appliquent aux nouveaux baux et aux baux renouvelés ou tacitement reconduits "
+    "à partir de ces dates.\n" + _source(LOCATION),
 
     # 7. Gel des loyers (nouveau document)
     "Depuis le 24 août 2022, le loyer d'un logement du parc privé classé F ou G au DPE ne peut plus "
