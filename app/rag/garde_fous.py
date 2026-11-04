@@ -83,7 +83,10 @@ def nettoyer_reponse(texte, contexte, locale="fr", ajouter_renvoi=True):
         phrases = []
         for phrase in _FIN_DE_PHRASE.split(ligne):
             # « Source : … » sans URL des passages (« Source : contexte fourni ») : fausse source
-            fausse_source = _SOURCE.match(phrase) and not (_urls(phrase) & urls_contexte)
+            # Un en-tête « **Sources :** » seul (URL sur les lignes suivantes) est conservé
+            en_tete = _SOURCE.match(phrase) and not re.search(r"\w", phrase[_SOURCE.match(phrase).end():])
+            fausse_source = (_SOURCE.match(phrase) and not en_tete
+                             and not (_urls(phrase) & urls_contexte))
             if fausse_source or montants_non_sources(phrase, contexte):
                 retires.append(phrase.strip())
             else:

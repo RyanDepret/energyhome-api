@@ -46,6 +46,15 @@ def test_source_avec_url_des_passages_conservee():
     assert "F35083" in propre
 
 
+def test_en_tete_sources_seul_conserve():
+    """Vu en vérification réelle : Claude met « **Sources :** » puis les URL en liste."""
+    texte = ("Les CEE sont possibles.\n\n**Sources :**\n"
+             "- https://www.service-public.gouv.fr/particuliers/vosdroits/F35083")
+    propre, retires = garde_fous.nettoyer_reponse(texte, CONTEXTE)
+    assert retires == []
+    assert "**Sources :**" in propre
+
+
 def test_puce_avec_montant_invente_supprimee_entierement():
     texte = "Aides possibles :\n- MaPrimeRénov' : 4 000 €\n- CEE : selon les travaux"
     propre, _ = garde_fous.nettoyer_reponse(texte, CONTEXTE)
