@@ -1,4 +1,5 @@
 import json
+import logging
 import re
 import time
 
@@ -9,6 +10,8 @@ from app.agent import eligibilite
 from app.rag import documents as base
 from app.rag import embeddings, garde_fous, generation
 from app.rag.documents import documents
+
+logger = logging.getLogger(__name__)
 
 # Nombre de passages ajoutés par la recherche, en plus des documents joints d'office
 PASSAGES_RECHERCHES = 3
@@ -82,8 +85,12 @@ def _imposer_regles(data, elig, type_chauffage, locale):
     # L'éligibilité à MaPrimeRénov' n'est jamais rédigée par le modèle : la ligne calculée la remplace.
     # Aides : l'item entier part. Ailleurs : seule la mention part, le travail proposé reste.
     def nettoyer(texte, cle):
+        avant = texte
         texte = _retirer_phrases(texte, *motifs)
-        return _retirer_phrases(texte, _MPR) if cle == "aides" else _retirer_mentions_mpr(texte)
+        texte = _retirer_phrases(texte, _MPR) if cle == "aides" else _retirer_mentions_mpr(texte)
+        if texte != avant:
+            logger.warning("Agent : règle imposée (%s) : %r -> %r", cle, avant, texte)
+        return texte
 
     for cle, section in data.items():
         if not isinstance(section, dict):

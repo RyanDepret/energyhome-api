@@ -108,3 +108,99 @@ Défauts restants, sans erreur de fond :
 - Mistral ajoute parfois le renvoi au simulateur à des réponses qui ne parlent pas d'aides (questions 2 et 4).
 - Claude commence la question 1 par « Je n'ai pas cette information. », puis donne quand même le tarif de
   rachat, qui figure bien dans les passages.
+
+---
+
+# Agent (`/agent`) : correction du 2026-11-04
+
+Cas réel signalé : maison de 100 m², construite en 2013, chauffée à l'électricité, classée A, à Hyères (83600).
+L'agent avait commis sept erreurs : MaPrimeRénov' annoncée, travaux « sans accord préalable », Accompagnateur
+Rénov' présenté comme gratuit, TVA à 5,5 % sur « tous les travaux », « chaudière électrique » supposée,
+PAC air-air proposée sans réserve, fenêtres et combles présentés comme « prioritaires ».
+
+## Cause : l'agent s'appuyait mal sur les documents
+
+- **Requête fixe.** La même requête servait pour tous les logements et renvoyait toujours les documents 2, 3,
+  8, 6, 12 et 18. Le document sur MaPrimeRénov' qui contient la règle des 15 ans n'arrivait jamais, pas plus
+  que ceux sur l'Accompagnateur, la TVA ou le coefficient de l'électricité.
+- **Prompt qui introduisait des erreurs.** Il affirmait qu'en maison « le propriétaire peut engager librement
+  les travaux extérieurs » : c'est l'origine du « sans accord préalable ». Il demandait aussi d'évaluer
+  l'ensoleillement à partir du code postal, une connaissance qui ne vient pas des documents.
+
+## Règles vérifiées
+
+| Règle | Source (page vérifiée le…) |
+|---|---|
+| MaPrimeRénov' : logement construit depuis au moins 15 ans. **Ramené à 2 ans pour une PAC air-eau, une PAC géothermique ou solarothermique et un raccordement à un réseau de chaleur**, dans le parcours par geste seulement. Rénovation d'ampleur : 15 ans sans exception. | [F35083](https://www.service-public.gouv.fr/particuliers/vosdroits/F35083) (01/09/2026) |
+| PAC air-air : absente de la liste du parcours par geste en métropole. | F35083 |
+| Déclaration préalable : isolation par l'extérieur, ravalement, panneau solaire sur le toit, fenêtres qui modifient l'aspect extérieur. Instruction en 1 mois, 2 mois en secteur protégé. | [F17578](https://www.service-public.gouv.fr/particuliers/vosdroits/F17578) (22/10/2026) |
+| TVA à 5,5 % : réservée aux travaux d'amélioration énergétique énumérés, dans un logement achevé depuis au moins 2 ans. 10 % pour d'autres travaux ; climatisation exclue. | [F23568](https://entreprendre.service-public.gouv.fr/vosdroits/F23568) (21/02/2026) |
+
+**Conséquence pour la maison de 2013, qui a 13 ans :** elle n'est pas « inéligible » à toute aide. Elle peut
+demander le parcours par geste pour une PAC air-eau ou géothermique, ou pour un raccordement à un réseau de
+chaleur, sous condition de revenus. Tous les autres gestes lui sont fermés, ainsi que la rénovation d'ampleur.
+
+## Changements
+
+- **Documents :**
+  - documents 1, 2 et 3 : règle des 15 ans et son exception ;
+  - document 9 : la PAC air-air ne figure pas dans le parcours par geste ;
+  - nouveaux documents 21 (déclaration préalable) et 22 (TVA des travaux).
+
+  Il y a désormais 22 documents, et le cache a été régénéré.
+- **`app/agent/eligibilite.py` :** le code calcule l'éligibilité au parcours par geste (ancienneté de plus de
+  15 ans, entre 2 et 15 ans, ou cas limite à 15 ans et à 2 ans pile, à vérifier selon la date d'achèvement),
+  l'éligibilité à la rénovation d'ampleur (E, F ou G et 15 ans), la situation de location et le gain faible
+  pour les classes A et B. Ces faits sont donnés au modèle **et imposés après génération** :
+  - la ligne MaPrimeRénov' est toujours celle calculée par le code ;
+  - partout ailleurs, les mentions de MaPrimeRénov' sont retirées, mais le travail proposé reste ;
+  - sont aussi retirés : « sans accord » ou « librement », la TVA « sur tous les travaux », l'Accompagnateur
+    « gratuit » et toute chaudière que l'utilisateur n'a pas indiquée ;
+  - pour les classes A et B, la section s'intitule « Pistes d'amélioration » et le résumé est imposé
+    (gain attendu faible).
+- **Recherche :**
+  - la requête est construite à partir du logement ;
+  - sont toujours joints : MaPrimeRénov' (principe et parcours par geste), Accompagnateur, déclaration
+    préalable et TVA, plus la location et la rénovation d'ampleur pour les classes E, F et G, et le coefficient
+    si le chauffage est électrique ;
+  - la recherche ajoute ensuite 3 passages.
+- **Réponse :** nouveau champ `sources`, qui donne les URL officielles des passages transmis au modèle.
+
+## Vérification réelle (port 8010, Claude Haiku 4.5)
+
+**Maison de 2013, classe A, électricité, 83600.** Les sept défauts sont absents de la réponse finale :
+- MaPrimeRénov' : ligne calculée (« logement de moins de 15 ans, seuls une PAC air-eau ou géothermique ou un
+  raccordement… ») ;
+- déclaration préalable mentionnée, aucun « sans accord » ;
+- aucune mention de l'Accompagnateur ; seul le conseiller France Rénov' est qualifié de gratuit ;
+- TVA limitée à la liste officielle ;
+- aucune chaudière ;
+- aucune PAC air-air ;
+- titre « Pistes d'amélioration » et résumé « gain attendu faible ».
+
+**Appartement de 1975, classe F, gaz, 13001 (contraste).** Location autorisée jusqu'au 1er janvier 2028 et gel
+des loyers : correct. MaPrimeRénov' par geste éligible (plus de 15 ans) et rénovation d'ampleur possible :
+correct.
+
+**Ce que montrent les logs :** malgré la consigne « N'écris rien sur MaPrimeRénov' », Claude en a parlé dans
+les deux réponses. Le code a dû corriger 6 passages, dont une contradiction (« MaPrimeRénov' par geste ou en
+rénovation d'ampleur » pour l'appartement, qui était juste ici). **La consigne seule ne suffit pas : c'est la
+correction en code qui garantit le résultat.**
+
+Défauts restants, sans erreur de fond :
+- pour la maison, les « pistes » se contentent de reprendre les gestes éligibles (PAC air-eau ou géothermique,
+  réseau de chaleur) alors que le chauffage est déjà électrique. La pertinence est faible, mais rien n'est faux ;
+- l'agent écrit qu'une PAC « peut nécessiter une déclaration préalable si elle modifie l'aspect extérieur » :
+  la fiche F17578 ne cite pas les PAC. Le conditionnel rend la phrase défendable, mais elle n'est pas sourcée ;
+- certains résumés sont vides, après retrait d'une phrase sur MaPrimeRénov'. Le site n'affiche pas un résumé
+  vide.
+
+## À faire côté site (`energy-home-ai`, hors de ce dépôt)
+
+- `src/components/result/AgentPanel.tsx` affiche son propre titre `t('agent.works')`, c'est-à-dire « Travaux
+  prioritaires » (`messages/fr.json:347`) ou « Priority work » (`en.json:347`), et non
+  `recommandations.travaux.titre`. Le titre « Pistes d'amélioration » envoyé par l'API n'est donc pas affiché.
+- Plusieurs textes ne correspondent plus à ce que fait l'API :
+  - `fr.json:125` et `fr.json:176` : « priorise les travaux, **les chiffre** » ;
+  - `fr.json:330` et `fr.json:335` : « propose des travaux prioritaires ».
+- Le champ `sources` peut servir à afficher les documents de référence annoncés.
