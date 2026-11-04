@@ -1,3 +1,5 @@
+import hashlib
+import json
 import logging
 import os
 import time
@@ -13,6 +15,9 @@ from app.rag.documents import documents
 # ── EMBEDDINGS VIA MISTRAL (fonctionnait sans souci) ───────────────────────────
 
 logger = logging.getLogger(__name__)
+
+# Modèle d'embedding : utilisé pour l'appel ET dans l'empreinte du cache
+EMBEDDING_MODEL = "mistral-embed"
 
 
 def get_api_key():
@@ -30,7 +35,7 @@ def get_embedding(text):
         "Content-Type": "application/json"
     }
     payload = {
-        "model": "mistral-embed",
+        "model": EMBEDDING_MODEL,
         "input": [text]
     }
     try:
@@ -53,8 +58,43 @@ def get_embedding(text):
 
 
 # ── INDEX DES EMBEDDINGS (calculé une fois, mis en cache sur disque) ──────────
+# Le cache enregistre une empreinte des documents et du modèle : si l'un des deux change,
+# les vecteurs ne correspondent plus aux textes et sont recalculés (sinon la recherche
+# renverrait de mauvais passages sans aucune erreur).
 
 _embeddings = None
+
+
+def empreinte_documents(docs=None, modele=None):
+    """SHA-256 de la liste des documents et du nom du modèle d'embedding."""
+    docs = documents if docs is None else docs
+    modele = EMBEDDING_MODEL if modele is None else modele
+    contenu = json.dumps({"modele": modele, "documents": list(docs)}, ensure_ascii=False)
+    return hashlib.sha256(contenu.encode("utf-8")).hexdigest()
+
+
+def _lire_cache(chemin_cache, empreinte):
+    """Vecteurs du cache s'il correspond aux documents actuels, sinon None."""
+    if not os.path.exists(chemin_cache):
+        return None
+    # pickle : fichier produit par l'API elle-même et commité dans le dépôt (même confiance que les modèles joblib)
+    with open(chemin_cache, "rb") as f:
+        cache = pickle.load(f)
+    # Ancien format (tableau seul, sans empreinte) : impossible de savoir à quels textes il correspond
+    if not isinstance(cache, dict) or cache.get("empreinte") != empreinte:
+        logger.warning("Cache des embeddings périmé (documents ou modèle modifiés) : recalcul.")
+        return None
+    return cache["vecteurs"]
+
+
+def calculer_embeddings(docs=None):
+    """Calcule les embeddings de tous les documents (1 appel Mistral par document)."""
+    docs = documents if docs is None else docs
+    resultats = []
+    for doc in docs:
+        resultats.append(get_embedding(doc))
+        time.sleep(1.1)  # limite d'1 requête par seconde de l'API Mistral
+    return np.array(resultats)
 
 
 def get_embeddings():
@@ -63,21 +103,18 @@ def get_embeddings():
         return _embeddings
 
     chemin_cache = settings.embeddings_cache_path
-    if os.path.exists(chemin_cache):
-        with open(chemin_cache, "rb") as f:
-            _embeddings = pickle.load(f)
+    empreinte = empreinte_documents()
+    vecteurs = _lire_cache(chemin_cache, empreinte)
+    if vecteurs is not None:
+        _embeddings = vecteurs
         print(f"{len(documents)} documents chargés depuis le cache.")
         return _embeddings
 
     print("Calcul des embeddings de la base de connaissances...")
-    resultats = []
-    for doc in documents:
-        resultats.append(get_embedding(doc))
-        time.sleep(1.1)
-    _embeddings = np.array(resultats)
-
+    vecteurs = calculer_embeddings()
     with open(chemin_cache, "wb") as f:
-        pickle.dump(_embeddings, f)
+        pickle.dump({"empreinte": empreinte, "modele": EMBEDDING_MODEL, "vecteurs": vecteurs}, f)
+    _embeddings = vecteurs
 
     print(f"{len(documents)} documents indexés et sauvegardés dans le cache.")
     return _embeddings
