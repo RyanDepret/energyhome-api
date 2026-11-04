@@ -114,7 +114,7 @@ def test_agent_retire_les_items_a_montant_invente(client, mock_embedding, monkey
     faux_json = """{
       "situation": {"titre": "Situation", "icone": "🏠", "resume": "Classe F.", "detail": "Location interdite en 2028."},
       "travaux": {"titre": "Travaux", "icone": "🔨", "resume": "r", "items": ["Isolation des combles : 4 321 €", "VMC"]},
-      "aides": {"titre": "Aides", "icone": "💶", "resume": "r", "items": ["MaPrimeRénov' : 9 876 €", "CEE"]}
+      "aides": {"titre": "Aides", "icone": "💶", "resume": "r", "items": ["Prime CEE : 9 876 €", "Éco-PTZ"]}
     }"""
     prompts = []
     monkeypatch.setattr("app.rag.generation.generate_text", lambda p: prompts.append(p) or faux_json)
@@ -125,6 +125,8 @@ def test_agent_retire_les_items_a_montant_invente(client, mock_embedding, monkey
     })
     reco = reponse.json()["recommandations"]
     assert reco["travaux"]["items"] == ["VMC"]
-    assert reco["aides"]["items"] == ["CEE", garde_fous.RENVOI["fr"]]
+    # Lignes MaPrimeRénov' calculées en tête, puis l'aide sans montant inventé, puis le renvoi
+    assert reco["aides"]["items"][-2:] == ["Éco-PTZ", garde_fous.RENVOI["fr"]]
+    assert not any("9 876" in a for a in reco["aides"]["items"])
     assert "avec montant" not in prompts[0]
     assert "Ne donne jamais un montant" in prompts[0]
