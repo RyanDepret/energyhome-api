@@ -89,6 +89,17 @@ Sortie (modèle v3) :
 Assistant documentaire : la question est comparée à la base de connaissances (embeddings `mistral-embed`),
 les 3 passages les plus proches servent de contexte, puis un modèle rédige la réponse.
 
+Base de connaissances : 20 textes datés et sourcés (`app/rag/documents.py`, règles au 4 novembre 2026,
+détail dans `reports/documents_rag_2026-11.md`). Le cache `artifacts/embeddings_documents.pkl` enregistre
+une empreinte SHA-256 des textes et du modèle d'embedding : si un texte change, il est recalculé au démarrage
+(une requête Mistral par texte). Après toute modification des textes, régénérez-le et commitez-le, sinon
+Cloud Run le recalcule au premier démarrage.
+
+Garde-fou (identique pour Claude et Mistral) : le prompt interdit tout montant absent des passages, puis
+`app/rag/garde_fous.py` retire de la réponse les phrases citant un montant (€) ou un taux (%) absent des
+passages, ainsi que les mentions « Source : » sans URL des passages, et ajoute le renvoi vers le simulateur
+officiel Mes Aides Réno et France Rénov'.
+
 Entrée (422 si invalide) :
 
 | Champ | Valeurs |

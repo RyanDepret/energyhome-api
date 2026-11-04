@@ -1,101 +1,202 @@
-# ── BASE DE CONNAISSANCES ─────────────────────────────────────────────────────
+# ── BASE DE CONNAISSANCES DE L'ASSISTANT (/chat et /agent) ───────────────────
+# Règles en vigueur au 4 novembre 2026, vérifiées sur des sources officielles (détail et
+# points non confirmés : reports/documents_rag_2026-11.md).
+# Principes : un document = un sujet ; chaque chiffre provient de la source citée à la fin ;
+# les montants d'aide qui changent souvent ne sont pas recopiés (renvoi au simulateur).
+# Toute modification de cette liste invalide le cache des embeddings (recalcul automatique) :
+# régénérer artifacts/embeddings_documents.pkl et le commiter.
+
+from app.rag.garde_fous import RENVOI as _RENVOIS
+
+VERIFIE_LE = "2026-11-04"
+
+# Même phrase que celle imposée aux modèles et ajoutée par le garde-fou
+RENVOI = _RENVOIS["fr"]
+
+SP = "https://www.service-public.gouv.fr/particuliers/vosdroits/"
+MPR = SP + "F35083"
+CEE = SP + "F35584"
+ECO_PTZ = SP + "F19905"
+DPE = SP + "F16096"
+AUDIT = SP + "F37110"
+COPRO = SP + "F37827"
+LOCATION = "https://www.ecologie.gouv.fr/politiques-publiques/interdiction-location-gel-loyers-passoires-energetiques"
+ARRETE_SEUILS_DPE = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043353335"
+ARRETE_COEF_2027 = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000054747079"
+ARRETE_S21 = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000054190669"
+TVA_PV = "https://entreprendre.service-public.gouv.fr/vosdroits/F23568"
+
+
+def _source(*urls):
+    return f"Source : {' ; '.join(urls)} (vérifié le {VERIFIE_LE})."
+
 
 documents = [
-    """MaPrimeRénov' est une aide de l'État français pour financer les travaux 
-    de rénovation énergétique. Elle est accessible à tous les propriétaires, 
-    occupants ou bailleurs. Le montant varie selon les revenus du foyer et le 
-    type de travaux. Pour un logement classé F ou G, les aides peuvent atteindre 
-    jusqu'à 70 000 euros pour une rénovation globale.""",
+    # 1. MaPrimeRénov' : principe général
+    "MaPrimeRénov' est l'aide de l'État à la rénovation énergétique, gérée par l'Anah. "
+    "Elle s'adresse aux propriétaires occupants et bailleurs d'une résidence principale construite "
+    "depuis au moins 15 ans, sauf exceptions. Elle comporte deux parcours : le parcours par geste, "
+    "pour un équipement précis, et la rénovation d'ampleur, pour un ensemble de travaux. "
+    "Le montant dépend des revenus du foyer, répartis en quatre catégories (bleu, jaune, violet, rose), "
+    f"et des travaux réalisés. {RENVOI}\n" + _source(MPR),
 
-    """Les Certificats d'Économies d'Énergie (CEE) obligent les fournisseurs 
-    d'énergie à financer des travaux de rénovation chez les particuliers. 
-    Cette aide est cumulable avec MaPrimeRénov'. Le montant dépend des économies 
-    d'énergie générées par les travaux réalisés.""",
+    # 2. MaPrimeRénov' par geste
+    "Le parcours par geste de MaPrimeRénov' finance un équipement isolé. En 2026, ses montants ne sont "
+    "prévus que pour les catégories de revenus bleu, jaune et violet. En métropole, il couvre les pompes "
+    "à chaleur air-eau et géothermiques, le raccordement à un réseau de chaleur, la dépose d'une cuve "
+    "à fioul et l'audit énergétique hors obligation réglementaire. L'isolation des murs, les fenêtres "
+    "et le chauffage au bois ne figurent pas dans cette liste. Les travaux doivent être réalisés par "
+    f"un professionnel RGE. {RENVOI}\n" + _source(MPR),
 
-    """L'éco-prêt à taux zéro (éco-PTZ) permet d'emprunter jusqu'à 50 000 euros 
-    sans payer d'intérêts pour financer des travaux de rénovation énergétique. 
-    Il est accessible sans condition de ressources et remboursable sur 20 ans maximum.""",
+    # 3. MaPrimeRénov' rénovation d'ampleur (remplace « rénovation globale »)
+    "La rénovation d'ampleur de MaPrimeRénov' finance un ensemble de travaux dans un logement classé "
+    "E, F ou G. La première étape doit faire gagner au moins 2 classes de DPE, avec au moins deux postes "
+    "d'isolation. Un rendez-vous avec un conseiller France Rénov', l'accompagnement par Mon Accompagnateur "
+    "Rénov' et un audit énergétique avant et après travaux sont obligatoires. L'aide est accordée avant "
+    "le début des travaux. Taux selon les revenus : 80 % (bleu), 60 % (jaune), 45 % (violet), 10 % (rose), "
+    "sur des dépenses plafonnées à 30 000 € HT (gain de 2 classes) ou 40 000 € HT (3 classes ou plus). "
+    "Depuis le 1er septembre 2026, conserver un chauffage au gaz dans une maison individuelle exclut l'aide.\n"
+    + _source(MPR),
 
-    """La loi Climat et Résilience interdit progressivement la location des 
-    passoires thermiques. Depuis le 1er janvier 2025, les logements classés G 
-    sont interdits à la location. Les logements F le seront au 1er janvier 2028, 
-    et les logements E au 1er janvier 2034.""",
+    # 4. CEE
+    "Les certificats d'économies d'énergie (CEE) obligent les fournisseurs d'énergie à aider les "
+    "particuliers à réduire leur consommation, sous forme de primes pour des travaux. Il n'y a pas de "
+    "condition de ressources ; la prime peut être plus élevée pour les ménages modestes. L'offre du "
+    "fournisseur doit être acceptée avant toute signature de devis, et les travaux réalisés par un "
+    "professionnel RGE. La prime est cumulable avec MaPrimeRénov' par geste. En rénovation d'ampleur, "
+    f"les CEE sont gérés par l'Anah : il ne faut pas les demander soi-même. {RENVOI}\n" + _source(CEE, MPR),
 
-    """L'isolation des combles est le travail le plus rentable en rénovation 
-    énergétique. Elle permet de réduire jusqu'à 30% des déperditions de chaleur. 
-    Le coût moyen est de 20 à 50 euros par m² et le retour sur investissement 
-    est généralement inférieur à 5 ans.""",
+    # 5. Éco-PTZ
+    "L'éco-prêt à taux zéro (éco-PTZ) finance des travaux de rénovation énergétique sans intérêts et sans "
+    "condition de ressources, pour une résidence principale construite depuis plus de 2 ans. Montant "
+    "maximal : 7 000 € pour une action sur les parois vitrées (fenêtres) seule, 15 000 € pour une autre "
+    "action seule, 25 000 € pour deux travaux, 30 000 € pour trois travaux ou plus, et 50 000 € pour une "
+    "rénovation globale. Durée de remboursement : 15 ans au plus, 20 ans pour la rénovation globale. "
+    "Les travaux doivent être réalisés par une entreprise RGE. L'éco-PTZ est cumulable avec MaPrimeRénov'.\n"
+    + _source(ECO_PTZ),
 
-    """Une pompe à chaleur air-eau permet de réduire la facture de chauffage 
-    de 50 à 70%. Le coût d'installation varie entre 10 000 et 18 000 euros. 
-    Avec MaPrimeRénov' et les CEE, le reste à charge peut descendre à 3 000 euros 
-    pour les ménages modestes.""",
+    # 6. Loi Climat : interdiction de louer les passoires
+    "La loi Climat et résilience interdit progressivement de louer les logements les plus énergivores, "
+    "jugés non décents. Depuis le 1er janvier 2023, un logement loué doit consommer moins de 450 kWh "
+    "d'énergie finale par m² et par an. Depuis le 1er janvier 2025, il doit être classé au moins F au DPE : "
+    "les logements G ne peuvent plus être loués. Au 1er janvier 2028, il devra être classé au moins E, "
+    "puis au moins D au 1er janvier 2034. Ces règles s'appliquent aux nouveaux baux et aux baux renouvelés "
+    "ou tacitement reconduits à partir de ces dates.\n" + _source(LOCATION),
 
-    """Le Diagnostic de Performance Énergétique (DPE) classe les logements 
-    de A à G selon leur consommation d'énergie et leurs émissions de CO2. 
-    La classe A correspond à moins de 70 kWh/m²/an, la classe B entre 70 et 110, 
-    la classe C entre 110 et 180, la classe D entre 180 et 250, la classe E 
-    entre 250 et 330, la classe F entre 330 et 420, et la classe G au-delà 
-    de 420 kWh/m²/an. Un DPE est valable 10 ans et est obligatoire pour toute 
-    vente ou location.""",
+    # 7. Gel des loyers (nouveau document)
+    "Depuis le 24 août 2022, le loyer d'un logement du parc privé classé F ou G au DPE ne peut plus "
+    "augmenter, pour les baux conclus, renouvelés ou tacitement reconduits après cette date. Sont "
+    "interdites : la hausse entre deux locataires, la hausse au renouvellement du bail, la révision "
+    "annuelle prévue par une clause d'indexation et la réévaluation du loyer dans les zones d'encadrement. "
+    "La mesure concerne les locations vides, meublées et les baux mobilité, mais pas les meublés de "
+    "tourisme.\n" + _source(LOCATION),
 
-    """L'isolation des murs par l'extérieur (ITE) est la technique la plus 
-    efficace pour les maisons individuelles. Elle supprime les ponts thermiques 
-    et ne réduit pas la surface habitable. Le coût moyen est de 100 à 200 euros 
-    par m² de façade. Elle permet de gagner 1 à 2 classes DPE et de réduire 
-    la facture de chauffage de 25 à 35%.""",
+    # 8. Isolation des combles et de la toiture
+    "L'isolation des combles ou de la toiture limite les pertes de chaleur par le haut du logement. "
+    "En 2026, elle ne figure pas dans la liste des travaux du parcours par geste de MaPrimeRénov' en "
+    "métropole ; la toiture est en revanche l'un des postes de travaux de la rénovation d'ampleur. "
+    "Elle peut être aidée par une prime CEE, à demander avant la signature du devis, et financée par "
+    "l'éco-PTZ. Pour ouvrir droit à ces aides, les travaux doivent être réalisés par un professionnel "
+    f"RGE. {RENVOI}\n" + _source(MPR, CEE),
 
-    """Le remplacement des fenêtres par du double ou triple vitrage réduit 
-    les déperditions thermiques de 10 à 15%. Le coût moyen est de 300 à 800 euros 
-    par fenêtre selon la taille et le matériau. L'aide CEE peut couvrir jusqu'à 
-    100 euros par fenêtre. C'est un travail recommandé en priorité pour les 
-    logements construits avant 1990 équipés de simple vitrage.""",
+    # 9. Pompe à chaleur air-eau
+    "Une pompe à chaleur (PAC) air-eau prélève la chaleur de l'air extérieur pour chauffer le logement "
+    "et l'eau chaude. Elle fonctionne à l'électricité, ce qui compte dans le calcul du DPE. En 2026, "
+    "elle fait partie des travaux du parcours par geste de MaPrimeRénov' pour les catégories de revenus "
+    "bleu, jaune et violet, et peut aussi recevoir une prime CEE demandée avant la signature du devis. "
+    "Dans une rénovation d'ampleur, les PAC hybrides gaz ou fioul ne sont plus finançables. "
+    f"L'installateur doit être RGE. {RENVOI}\n" + _source(MPR, CEE),
 
-    """La ventilation mécanique contrôlée (VMC) est essentielle dans un logement 
-    bien isolé pour renouveler l'air et éviter les problèmes d'humidité. 
-    Une VMC double flux récupère jusqu'à 90% de la chaleur de l'air extrait. 
-    Le coût d'installation est de 3 000 à 8 000 euros. Elle est éligible 
-    à MaPrimeRénov' et aux CEE, avec une aide pouvant atteindre 2 500 euros.""",
+    # 10. DPE : classes, seuils, validité
+    "Le diagnostic de performance énergétique (DPE) classe un logement de A à G selon deux critères : "
+    "la consommation d'énergie primaire et les émissions de gaz à effet de serre. La classe retenue est "
+    "la plus mauvaise des deux. Seuils supérieurs (kWh/m²/an et kg CO2/m²/an) : A 70 et 6, B 110 et 11, "
+    "C 180 et 30, D 250 et 50, E 330 et 70, F 420 et 100 ; au-delà, classe G. Les seuils sont adaptés pour "
+    "les logements de 40 m² ou moins et, pour E et F, au-dessus de 800 m d'altitude. Le DPE est obligatoire "
+    "pour vendre ou louer et valable 10 ans ; ceux réalisés avant le 1er juillet 2021 ne sont plus "
+    "valables.\n" + _source(ARRETE_SEUILS_DPE, DPE),
 
-    """Le chauffe-eau thermodynamique (CET) utilise les calories de l'air ambiant 
-    pour produire de l'eau chaude sanitaire. Il consomme 3 fois moins d'électricité 
-    qu'un chauffe-eau électrique classique. Le coût est de 1 500 à 3 000 euros 
-    installé. MaPrimeRénov' offre jusqu'à 1 200 euros d'aide. Le retour sur 
-    investissement est de 4 à 6 ans.""",
+    # 11. DPE : coefficient de l'électricité (nouveau document)
+    "Dans le DPE, la consommation d'électricité est convertie en énergie primaire par un coefficient. "
+    "Il est passé de 2,3 à 1,9 le 1er janvier 2026 et passera à 1,7 le 1er janvier 2027 (arrêté du "
+    "19 août 2026). L'étiquette des logements chauffés à l'électricité, pompe à chaleur comprise, peut "
+    "donc s'améliorer sans travaux. Un DPE réalisé en 2025 ou avant reste valable ; si son étiquette "
+    "s'améliore, il peut être mis à jour gratuitement, sans nouvelle visite du diagnostiqueur, en "
+    "téléchargeant une attestation sur le service officiel « Vérifier son DPE ou audit énergétique ».\n"
+    + _source(DPE, ARRETE_COEF_2027),
 
-    """Les panneaux solaires photovoltaïques permettent de produire sa propre 
-    électricité et de réduire sa facture énergétique. Une installation de 3 kWc 
-    coûte entre 7 000 et 9 000 euros. La prime à l'autoconsommation versée par 
-    l'État atteint 380 euros par kWc installé. L'excédent d'électricité peut 
-    être revendu à EDF à un tarif garanti sur 20 ans.""",
+    # 12. Isolation des murs par l'extérieur
+    "L'isolation des murs par l'extérieur (ITE) consiste à poser un isolant sur les façades. Elle limite "
+    "les ponts thermiques et ne réduit pas la surface habitable. En 2026, l'isolation des murs ne figure "
+    "pas dans le parcours par geste de MaPrimeRénov' en métropole. Elle reste finançable dans une "
+    "rénovation d'ampleur, dont les murs sont l'un des postes de travaux, par une prime CEE demandée avant "
+    "la signature du devis, et par l'éco-PTZ. Le gain de classe DPE dépend du logement et des autres "
+    f"travaux réalisés. {RENVOI}\n" + _source(MPR, CEE, ECO_PTZ),
 
-    """L'audit énergétique est un diagnostic approfondi du logement réalisé 
-    par un professionnel certifié RGE. Il est obligatoire depuis 2023 pour vendre 
-    un logement classé F ou G. Il coûte entre 500 et 1 000 euros mais peut être 
-    financé à 70% par MaPrimeRénov'. Il propose un plan de travaux chiffré 
-    et priorisé pour améliorer la classe DPE.""",
+    # 13. Fenêtres
+    "Remplacer des fenêtres à simple vitrage par du double ou du triple vitrage réduit les pertes de "
+    "chaleur et l'effet de paroi froide. En 2026, les fenêtres ne figurent pas dans le parcours par geste "
+    "de MaPrimeRénov' en métropole ; les menuiseries restent l'un des postes de la rénovation d'ampleur. "
+    "L'éco-PTZ finance jusqu'à 7 000 € pour une action sur les parois vitrées seule. Une prime CEE peut "
+    "aussi être demandée à un fournisseur d'énergie, avant la signature du devis, pour des travaux "
+    f"réalisés par un professionnel RGE. {RENVOI}\n" + _source(MPR, ECO_PTZ, CEE),
 
-    """Le label RGE (Reconnu Garant de l'Environnement) est obligatoire pour 
-    bénéficier des aides publiques à la rénovation énergétique. Il garantit 
-    la compétence du professionnel dans les travaux d'efficacité énergétique. 
-    Pour trouver un artisan RGE, le site France Rénov' propose un annuaire 
-    gratuit par code postal. Il est conseillé de demander au moins 3 devis.""",
+    # 14. VMC
+    "La ventilation mécanique contrôlée (VMC) renouvelle l'air du logement et évite les problèmes "
+    "d'humidité, ce qui devient indispensable après des travaux d'isolation. Une VMC double flux récupère "
+    "une partie de la chaleur de l'air extrait. En 2026, la ventilation est l'un des postes de travaux de "
+    "la rénovation d'ampleur de MaPrimeRénov' ; elle ne figure pas dans la liste du parcours par geste "
+    "en métropole. Une prime CEE peut être demandée avant la signature du devis, pour des travaux réalisés "
+    f"par un professionnel RGE. {RENVOI}\n" + _source(MPR, CEE),
 
-    """France Rénov' est le service public de la rénovation énergétique. 
-    Il propose un accompagnement gratuit par des conseillers indépendants 
-    appelés Mon Accompagnateur Rénov' (MAR). Cet accompagnement est obligatoire 
-    pour les projets de rénovation globale financés par MaPrimeRénov' Ampleur. 
-    Le MAR aide à définir le programme de travaux et choisir les artisans RGE.""",
+    # 15. Chauffe-eau thermodynamique
+    "Le chauffe-eau thermodynamique produit l'eau chaude sanitaire grâce à une pompe à chaleur qui capte "
+    "les calories de l'air ; il fonctionne à l'électricité. En 2026, il ne figure pas dans la liste des "
+    "travaux du parcours par geste de MaPrimeRénov' en métropole ; l'eau chaude est en revanche l'un des "
+    "postes possibles d'une rénovation d'ampleur. Une prime CEE peut être demandée à un fournisseur "
+    "d'énergie avant la signature du devis, et l'installateur doit être RGE. "
+    f"{RENVOI}\n" + _source(MPR, CEE),
 
-    """La rénovation globale consiste à réaliser plusieurs travaux en une seule 
-    fois pour atteindre au minimum la classe C. Elle est fortement encouragée 
-    par l'État via MaPrimeRénov' Ampleur qui finance jusqu'à 70% des travaux 
-    pour les ménages modestes, avec un plafond de 70 000 euros. Elle est plus 
-    efficace et moins coûteuse que des travaux réalisés au fil des années.""",
+    # 16. Photovoltaïque
+    "Des panneaux photovoltaïques produisent de l'électricité consommée sur place (autoconsommation) ; "
+    "le surplus peut être vendu. Pour une installation sur bâtiment de 9 kWc ou moins, seule la vente du "
+    "surplus est possible : la vente totale n'est plus éligible. L'arrêté du 1er juin 2026 fixe le tarif d'achat du surplus "
+    "par l'acheteur obligé (EDF OA) à 1,1 c€/kWh hors TVA, pour un contrat de 20 ans indexé de 2 % par an, "
+    "et ne prévoit plus de prime à l'autoconsommation. Une installation se justifie donc par l'électricité "
+    "consommée sur place, pas par la revente. La TVA est de 5,5 % jusqu'à 9 kW, sous conditions.\n"
+    + _source(ARRETE_S21, TVA_PV),
 
-    """Pour un appartement en copropriété, les travaux de rénovation énergétique 
-    concernent à la fois les parties privatives et les parties communes. 
-    Le syndicat de copropriété doit voter les travaux sur parties communes 
-    à la majorité absolue. MaPrimeRénov' Copropriétés finance jusqu'à 45% 
-    des travaux collectifs.""",
+    # 17. Audit énergétique
+    "L'audit énergétique est obligatoire pour vendre une maison individuelle ou un immeuble de logements "
+    "appartenant à un seul propriétaire, classé E, F ou G au DPE. L'obligation existe depuis le "
+    "1er avril 2023 et sera étendue à la classe D le 1er janvier 2034. Valable 5 ans, l'audit propose des "
+    "scénarios de travaux pour améliorer la classe du logement. Il est réalisé par un professionnel "
+    "qualifié, notamment un architecte ou un professionnel RGE, sans sous-traitance ; son prix est libre. "
+    "Un audit avant et après travaux est aussi exigé pour la rénovation d'ampleur de MaPrimeRénov'.\n"
+    + _source(AUDIT, MPR),
+
+    # 18. Label RGE
+    "Le label RGE (Reconnu garant de l'environnement) atteste la qualification d'une entreprise pour des "
+    "travaux d'économies d'énergie. Il est exigé pour obtenir MaPrimeRénov', les primes CEE et l'éco-PTZ. "
+    "Avant de signer un devis, vérifiez que l'entreprise est RGE pour le type de travaux prévu. "
+    "L'annuaire officiel de France Rénov' permet de trouver un professionnel RGE par code postal. "
+    "Il est conseillé de demander au moins 3 devis pour comparer les offres et les solutions techniques "
+    "proposées.\n" + _source(CEE, ECO_PTZ, MPR),
+
+    # 19. France Rénov' et Mon Accompagnateur Rénov'
+    "France Rénov' est le service public de la rénovation de l'habitat : ses conseillers informent "
+    "gratuitement sur les travaux et les aides, au 0 808 800 700 du lundi au vendredi. Mon Accompagnateur "
+    "Rénov' est un rôle distinct : un professionnel qui accompagne le ménage tout au long d'un projet de "
+    "rénovation. Il est obligatoire pour la rénovation d'ampleur de MaPrimeRénov', après un rendez-vous "
+    "avec un conseiller France Rénov'. Son coût est payant mais pris en charge selon les revenus du foyer, "
+    "de 100 % à 20 %, dans une limite fixée par l'Anah.\n" + _source(MPR),
+
+    # 20. Copropriété
+    "En copropriété, les travaux sur les parties communes sont décidés en assemblée générale. "
+    "MaPrimeRénov' Copropriété est demandée par le syndic au nom du syndicat des copropriétaires. "
+    "Les travaux doivent améliorer la performance énergétique d'au moins 35 %. L'aide couvre 30 % des "
+    "travaux pour un gain d'au moins 35 %, et 45 % pour un gain d'au moins 50 %, dans la limite de "
+    "25 000 € de travaux par logement. Un assistant à maîtrise d'ouvrage est obligatoire. Le recours à "
+    "l'aide et les travaux sont votés à la majorité absolue ; avec au moins un tiers des voix, un second "
+    "vote à la majorité simple est possible.\n" + _source(COPRO),
 ]
